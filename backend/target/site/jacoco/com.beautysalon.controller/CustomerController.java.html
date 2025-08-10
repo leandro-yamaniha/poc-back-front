@@ -28,22 +28,22 @@ import java.util.UUID;
     
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Customer&gt; getCustomerById(@PathVariable UUID id) {
-<span class="nc" id="L31">        Optional&lt;Customer&gt; customer = customerService.getCustomerById(id);</span>
-<span class="nc" id="L32">        return customer.map(ResponseEntity::ok)</span>
-<span class="nc" id="L33">                      .orElse(ResponseEntity.notFound().build());</span>
+<span class="fc" id="L31">        Optional&lt;Customer&gt; customer = customerService.getCustomerById(id);</span>
+<span class="fc" id="L32">        return customer.map(ResponseEntity::ok)</span>
+<span class="fc" id="L33">                      .orElse(ResponseEntity.notFound().build());</span>
     }
     
     @GetMapping(&quot;/email/{email}&quot;)
     public ResponseEntity&lt;Customer&gt; getCustomerByEmail(@PathVariable String email) {
-<span class="nc" id="L38">        Optional&lt;Customer&gt; customer = customerService.getCustomerByEmail(email);</span>
-<span class="nc" id="L39">        return customer.map(ResponseEntity::ok)</span>
-<span class="nc" id="L40">                      .orElse(ResponseEntity.notFound().build());</span>
+<span class="fc" id="L38">        Optional&lt;Customer&gt; customer = customerService.getCustomerByEmail(email);</span>
+<span class="fc" id="L39">        return customer.map(ResponseEntity::ok)</span>
+<span class="fc" id="L40">                      .orElse(ResponseEntity.notFound().build());</span>
     }
     
     @GetMapping(&quot;/search&quot;)
     public ResponseEntity&lt;List&lt;Customer&gt;&gt; searchCustomers(@RequestParam String name) {
-<span class="nc" id="L45">        List&lt;Customer&gt; customers = customerService.searchCustomersByName(name);</span>
-<span class="nc" id="L46">        return ResponseEntity.ok(customers);</span>
+<span class="fc" id="L45">        List&lt;Customer&gt; customers = customerService.searchCustomersByName(name);</span>
+<span class="fc" id="L46">        return ResponseEntity.ok(customers);</span>
     }
     
     @PostMapping
@@ -51,29 +51,29 @@ import java.util.UUID;
         try {
 <span class="fc" id="L52">            Customer createdCustomer = customerService.createCustomer(customer);</span>
 <span class="fc" id="L53">            return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);</span>
-<span class="nc" id="L54">        } catch (Exception e) {</span>
-<span class="nc" id="L55">            System.err.println(&quot;❌ Error creating customer: &quot; + e.getMessage());</span>
-<span class="nc" id="L56">            e.printStackTrace();</span>
-<span class="nc" id="L57">            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</span>
+<span class="fc" id="L54">        } catch (Exception e) {</span>
+<span class="fc" id="L55">            System.err.println(&quot;❌ Error creating customer: &quot; + e.getMessage());</span>
+<span class="fc" id="L56">            e.printStackTrace();</span>
+<span class="fc" id="L57">            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</span>
         }
     }
     
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Customer&gt; updateCustomer(@PathVariable UUID id, @Valid @RequestBody Customer customer) {
-<span class="nc" id="L63">        Customer updatedCustomer = customerService.updateCustomer(id, customer);</span>
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (updatedCustomer != null) {</span>
-<span class="nc" id="L65">            return ResponseEntity.ok(updatedCustomer);</span>
+<span class="fc" id="L63">        Customer updatedCustomer = customerService.updateCustomer(id, customer);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (updatedCustomer != null) {</span>
+<span class="fc" id="L65">            return ResponseEntity.ok(updatedCustomer);</span>
         }
-<span class="nc" id="L67">        return ResponseEntity.notFound().build();</span>
+<span class="fc" id="L67">        return ResponseEntity.notFound().build();</span>
     }
     
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; deleteCustomer(@PathVariable UUID id) {
-<span class="nc" id="L72">        boolean deleted = customerService.deleteCustomer(id);</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (deleted) {</span>
-<span class="nc" id="L74">            return ResponseEntity.noContent().build();</span>
+<span class="fc" id="L72">        boolean deleted = customerService.deleteCustomer(id);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (deleted) {</span>
+<span class="fc" id="L74">            return ResponseEntity.noContent().build();</span>
         }
-<span class="nc" id="L76">        return ResponseEntity.notFound().build();</span>
+<span class="fc" id="L76">        return ResponseEntity.notFound().build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

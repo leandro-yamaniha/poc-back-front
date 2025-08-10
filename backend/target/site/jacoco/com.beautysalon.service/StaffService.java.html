@@ -17,53 +17,53 @@ import java.util.UUID;
     private StaffRepository staffRepository;
     
     public List&lt;Staff&gt; getAllStaff() {
-<span class="nc" id="L20">        return staffRepository.findAll();</span>
+<span class="fc" id="L20">        return staffRepository.findAll();</span>
     }
     
     public List&lt;Staff&gt; getActiveStaff() {
-<span class="nc" id="L24">        return staffRepository.findActiveStaff();</span>
+<span class="fc" id="L24">        return staffRepository.findActiveStaff();</span>
     }
     
     public Optional&lt;Staff&gt; getStaffById(UUID id) {
-<span class="nc" id="L28">        return staffRepository.findById(id);</span>
+<span class="fc" id="L28">        return staffRepository.findById(id);</span>
     }
     
     public List&lt;Staff&gt; getStaffByRole(String role) {
-<span class="nc" id="L32">        return staffRepository.findByRole(role);</span>
+<span class="fc" id="L32">        return staffRepository.findByRole(role);</span>
     }
     
     public List&lt;Staff&gt; getActiveStaffByRole(String role) {
-<span class="nc" id="L36">        return staffRepository.findActiveByRole(role);</span>
+<span class="fc" id="L36">        return staffRepository.findActiveByRole(role);</span>
     }
     
     public Staff createStaff(Staff staff) {
-<span class="nc" id="L40">        staff.setCreatedAt(Instant.now());</span>
-<span class="nc" id="L41">        staff.setUpdatedAt(Instant.now());</span>
-<span class="nc" id="L42">        return staffRepository.save(staff);</span>
+<span class="fc" id="L40">        staff.setCreatedAt(Instant.now());</span>
+<span class="fc" id="L41">        staff.setUpdatedAt(Instant.now());</span>
+<span class="fc" id="L42">        return staffRepository.save(staff);</span>
     }
     
     public Staff updateStaff(UUID id, Staff staffDetails) {
-<span class="nc" id="L46">        Optional&lt;Staff&gt; optionalStaff = staffRepository.findById(id);</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (optionalStaff.isPresent()) {</span>
-<span class="nc" id="L48">            Staff staff = optionalStaff.get();</span>
-<span class="nc" id="L49">            staff.setName(staffDetails.getName());</span>
-<span class="nc" id="L50">            staff.setEmail(staffDetails.getEmail());</span>
-<span class="nc" id="L51">            staff.setPhone(staffDetails.getPhone());</span>
-<span class="nc" id="L52">            staff.setRole(staffDetails.getRole());</span>
-<span class="nc" id="L53">            staff.setSpecialties(staffDetails.getSpecialties());</span>
-<span class="nc" id="L54">            staff.setIsActive(staffDetails.getIsActive());</span>
-<span class="nc" id="L55">            staff.setUpdatedAt(Instant.now());</span>
-<span class="nc" id="L56">            return staffRepository.save(staff);</span>
+<span class="fc" id="L46">        Optional&lt;Staff&gt; optionalStaff = staffRepository.findById(id);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (optionalStaff.isPresent()) {</span>
+<span class="fc" id="L48">            Staff staff = optionalStaff.get();</span>
+<span class="fc" id="L49">            staff.setName(staffDetails.getName());</span>
+<span class="fc" id="L50">            staff.setEmail(staffDetails.getEmail());</span>
+<span class="fc" id="L51">            staff.setPhone(staffDetails.getPhone());</span>
+<span class="fc" id="L52">            staff.setRole(staffDetails.getRole());</span>
+<span class="fc" id="L53">            staff.setSpecialties(staffDetails.getSpecialties());</span>
+<span class="fc" id="L54">            staff.setIsActive(staffDetails.getIsActive());</span>
+<span class="fc" id="L55">            staff.setUpdatedAt(Instant.now());</span>
+<span class="fc" id="L56">            return staffRepository.save(staff);</span>
         }
-<span class="nc" id="L58">        return null;</span>
+<span class="fc" id="L58">        return null;</span>
     }
     
     public boolean deleteStaff(UUID id) {
-<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (staffRepository.existsById(id)) {</span>
-<span class="nc" id="L63">            staffRepository.deleteById(id);</span>
-<span class="nc" id="L64">            return true;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (staffRepository.existsById(id)) {</span>
+<span class="fc" id="L63">            staffRepository.deleteById(id);</span>
+<span class="fc" id="L64">            return true;</span>
         }
-<span class="nc" id="L66">        return false;</span>
+<span class="fc" id="L66">        return false;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

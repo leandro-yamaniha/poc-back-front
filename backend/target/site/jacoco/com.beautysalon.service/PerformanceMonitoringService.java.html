@@ -29,7 +29,7 @@ public class PerformanceMonitoringService {
     // Performance thresholds for alerting
     private static final double CACHE_HIT_RATE_THRESHOLD = 80.0; // 80%
     private static final long RESPONSE_TIME_THRESHOLD_MS = 500; // 500ms
-<span class="fc" id="L32">    private static final long ERROR_RATE_THRESHOLD = 10; // 10 errors per minute</span>
+    private static final long ERROR_RATE_THRESHOLD = 10; // 10 errors per minute
     
     // Tracking variables
 <span class="fc" id="L35">    private final AtomicLong lastAlertTime = new AtomicLong(0);</span>
@@ -49,29 +49,29 @@ public class PerformanceMonitoringService {
 <span class="fc" id="L49">            Map&lt;String, Object&gt; cacheStats = getCacheStatistics();</span>
 <span class="fc" id="L50">            double hitRate = (Double) cacheStats.get(&quot;hitRate&quot;);</span>
             
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            if (hitRate &lt; CACHE_HIT_RATE_THRESHOLD) {</span>
-<span class="nc" id="L53">                triggerAlert(&quot;CACHE_HIT_RATE_LOW&quot;, </span>
-<span class="nc" id="L54">                    String.format(&quot;Cache hit rate is %.2f%%, below threshold of %.2f%%&quot;, </span>
-<span class="nc" id="L55">                        hitRate, CACHE_HIT_RATE_THRESHOLD));</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (hitRate &lt; CACHE_HIT_RATE_THRESHOLD) {</span>
+<span class="fc" id="L53">                triggerAlert(&quot;CACHE_HIT_RATE_LOW&quot;, </span>
+<span class="fc" id="L54">                    String.format(&quot;Cache hit rate is %.2f%%, below threshold of %.2f%%&quot;, </span>
+<span class="fc" id="L55">                        hitRate, CACHE_HIT_RATE_THRESHOLD));</span>
             }
             
 <span class="fc" id="L58">            logger.debug(&quot;Cache performance monitoring - Hit Rate: {:.2f}%&quot;, hitRate);</span>
-<span class="pc" id="L59">        } catch (Exception e) {</span>
-<span class="nc" id="L60">            logger.error(&quot;Error monitoring cache performance&quot;, e);</span>
-<span class="nc" id="L61">            metricsConfig.incrementError(&quot;cache_monitoring&quot;);</span>
-        }
+<span class="fc" id="L59">        } catch (Exception e) {</span>
+<span class="fc" id="L60">            logger.error(&quot;Error monitoring cache performance&quot;, e);</span>
+<span class="fc" id="L61">            metricsConfig.incrementError(&quot;cache_monitoring&quot;);</span>
+<span class="fc" id="L62">        }</span>
 <span class="fc" id="L63">    }</span>
 
     /**
      * Monitor response times and trigger alerts for slow responses
      */
     public void monitorResponseTime(long responseTimeMs) {
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (responseTimeMs &gt; RESPONSE_TIME_THRESHOLD_MS) {</span>
-<span class="nc" id="L70">            triggerAlert(&quot;RESPONSE_TIME_HIGH&quot;, </span>
-<span class="nc" id="L71">                String.format(&quot;Response time is %d ms, above threshold of %d ms&quot;, </span>
-<span class="nc" id="L72">                    responseTimeMs, RESPONSE_TIME_THRESHOLD_MS));</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (responseTimeMs &gt; RESPONSE_TIME_THRESHOLD_MS) {</span>
+<span class="fc" id="L70">            triggerAlert(&quot;RESPONSE_TIME_HIGH&quot;, </span>
+<span class="fc" id="L71">                String.format(&quot;Response time is %d ms, above threshold of %d ms&quot;, </span>
+<span class="fc" id="L72">                    responseTimeMs, RESPONSE_TIME_THRESHOLD_MS));</span>
         }
-<span class="nc" id="L74">    }</span>
+<span class="fc" id="L74">    }</span>
 
     /**
      * Get comprehensive performance statistics
@@ -91,10 +91,10 @@ public class PerformanceMonitoringService {
             // Performance thresholds
 <span class="fc" id="L92">            stats.put(&quot;thresholds&quot;, getPerformanceThresholds());</span>
             
-<span class="pc" id="L94">        } catch (Exception e) {</span>
+<span class="nc" id="L94">        } catch (Exception e) {</span>
 <span class="nc" id="L95">            logger.error(&quot;Error collecting performance statistics&quot;, e);</span>
 <span class="nc" id="L96">            metricsConfig.incrementError(&quot;stats_collection&quot;);</span>
-        }
+<span class="fc" id="L97">        }</span>
         
 <span class="fc" id="L99">        return stats;</span>
     }
@@ -109,23 +109,23 @@ public class PerformanceMonitoringService {
             // Get cache statistics from all caches
 <span class="fc bfc" id="L110" title="All 2 branches covered.">            for (String cacheName : cacheManager.getCacheNames()) {</span>
 <span class="fc" id="L111">                Cache cache = cacheManager.getCache(cacheName);</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">                if (cache != null) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">                if (cache != null) {</span>
 <span class="fc" id="L113">                    Map&lt;String, Object&gt; stats = new HashMap&lt;&gt;();</span>
 <span class="fc" id="L114">                    stats.put(&quot;name&quot;, cacheName);</span>
 <span class="fc" id="L115">                    stats.put(&quot;size&quot;, getCacheSize(cache));</span>
 <span class="fc" id="L116">                    cacheStats.put(cacheName, stats);</span>
                 }
-            }
+<span class="fc" id="L118">            }</span>
             
             // Calculate overall hit rate (simulated for now)
 <span class="fc" id="L121">            double hitRate = calculateOverallCacheHitRate();</span>
 <span class="fc" id="L122">            cacheStats.put(&quot;hitRate&quot;, hitRate);</span>
 <span class="pc bpc" id="L123" title="1 of 2 branches missed.">            cacheStats.put(&quot;hitRateStatus&quot;, hitRate &gt;= CACHE_HIT_RATE_THRESHOLD ? &quot;HEALTHY&quot; : &quot;WARNING&quot;);</span>
             
-<span class="pc" id="L125">        } catch (Exception e) {</span>
-<span class="nc" id="L126">            logger.error(&quot;Error collecting cache statistics&quot;, e);</span>
-<span class="nc" id="L127">            metricsConfig.incrementError(&quot;cache_stats&quot;);</span>
-        }
+<span class="fc" id="L125">        } catch (Exception e) {</span>
+<span class="fc" id="L126">            logger.error(&quot;Error collecting cache statistics&quot;, e);</span>
+<span class="fc" id="L127">            metricsConfig.incrementError(&quot;cache_stats&quot;);</span>
+<span class="fc" id="L128">        }</span>
         
 <span class="fc" id="L130">        return cacheStats;</span>
     }
@@ -154,12 +154,12 @@ public class PerformanceMonitoringService {
 <span class="pc bpc" id="L154" title="1 of 2 branches missed.">            healthCheck.put(&quot;status&quot;, allHealthy ? &quot;UP&quot; : &quot;WARNING&quot;);</span>
 <span class="fc" id="L155">            healthCheck.put(&quot;timestamp&quot;, LocalDateTime.now());</span>
             
-<span class="pc" id="L157">        } catch (Exception e) {</span>
+<span class="nc" id="L157">        } catch (Exception e) {</span>
 <span class="nc" id="L158">            logger.error(&quot;Error performing health check&quot;, e);</span>
 <span class="nc" id="L159">            healthCheck.put(&quot;status&quot;, &quot;DOWN&quot;);</span>
 <span class="nc" id="L160">            healthCheck.put(&quot;error&quot;, e.getMessage());</span>
 <span class="nc" id="L161">            metricsConfig.incrementError(&quot;health_check&quot;);</span>
-        }
+<span class="fc" id="L162">        }</span>
         
 <span class="fc" id="L164">        return healthCheck;</span>
     }
@@ -168,17 +168,17 @@ public class PerformanceMonitoringService {
      * Trigger performance alert with cooldown
      */
     private void triggerAlert(String alertType, String message) {
-<span class="nc" id="L171">        long currentTime = System.currentTimeMillis();</span>
-<span class="nc" id="L172">        long lastAlert = lastAlertTime.get();</span>
+<span class="fc" id="L171">        long currentTime = System.currentTimeMillis();</span>
+<span class="fc" id="L172">        long lastAlert = lastAlertTime.get();</span>
         
-<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (currentTime - lastAlert &gt; alertCooldownMs.get()) {</span>
-<span class="nc" id="L175">            logger.warn(&quot;PERFORMANCE ALERT [{}]: {}&quot;, alertType, message);</span>
-<span class="nc" id="L176">            lastAlertTime.set(currentTime);</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        if (currentTime - lastAlert &gt; alertCooldownMs.get()) {</span>
+<span class="fc" id="L175">            logger.warn(&quot;PERFORMANCE ALERT [{}]: {}&quot;, alertType, message);</span>
+<span class="fc" id="L176">            lastAlertTime.set(currentTime);</span>
             
             // In a real implementation, this would send notifications
             // (email, Slack, PagerDuty, etc.)
         }
-<span class="nc" id="L181">    }</span>
+<span class="fc" id="L181">    }</span>
 
     private double calculateOverallCacheHitRate() {
         // Simulated cache hit rate calculation

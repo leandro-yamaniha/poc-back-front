@@ -1,0 +1,119 @@
+-------------------------------------------------------------------------------
+Test set: com.beautysalon.mutation.VoidMethodCallTargetedTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 9, Errors: 0, Skipped: 0, Time elapsed: 0.183 s <<< FAILURE! -- in com.beautysalon.mutation.VoidMethodCallTargetedTest
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testCustomerService_UpdateCustomer_VoidSetterCalls -- Time elapsed: 0.142 s <<< FAILURE!
+Wanted but not invoked:
+customerRepository.save(
+    <Capturing argument: Customer>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testCustomerService_UpdateCustomer_VoidSetterCalls(VoidMethodCallTargetedTest.java:106)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testCustomerService_UpdateCustomer_VoidSetterCalls(VoidMethodCallTargetedTest.java:106)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testAppointmentService_UpdateAppointment_VoidSetterCalls -- Time elapsed: 0.003 s <<< FAILURE!
+Wanted but not invoked:
+appointmentRepository.save(
+    <Capturing argument: Appointment>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testAppointmentService_UpdateAppointment_VoidSetterCalls(VoidMethodCallTargetedTest.java:243)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testAppointmentService_UpdateAppointment_VoidSetterCalls(VoidMethodCallTargetedTest.java:243)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testStaffService_CreateStaff_VoidSetterCalls -- Time elapsed: 0.003 s <<< FAILURE!
+Wanted but not invoked:
+staffRepository.save(
+    <Capturing argument: Staff>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testStaffService_CreateStaff_VoidSetterCalls(VoidMethodCallTargetedTest.java:180)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testStaffService_CreateStaff_VoidSetterCalls(VoidMethodCallTargetedTest.java:180)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testCustomerService_CreateCustomer_VoidSetterCalls -- Time elapsed: 0.002 s <<< FAILURE!
+Wanted but not invoked:
+customerRepository.save(
+    <Capturing argument: Customer>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testCustomerService_CreateCustomer_VoidSetterCalls(VoidMethodCallTargetedTest.java:77)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testCustomerService_CreateCustomer_VoidSetterCalls(VoidMethodCallTargetedTest.java:77)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testPerformanceMonitoringService_MonitorCachePerformance_VoidCalls -- Time elapsed: 0.002 s <<< FAILURE!
+Wanted but not invoked:
+cacheManager.getCacheNames();
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testPerformanceMonitoringService_MonitorCachePerformance_VoidCalls(VoidMethodCallTargetedTest.java:200)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testPerformanceMonitoringService_MonitorCachePerformance_VoidCalls(VoidMethodCallTargetedTest.java:200)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testServiceService_UpdateService_VoidSetterCalls -- Time elapsed: 0.011 s <<< FAILURE!
+Wanted but not invoked:
+serviceRepository.save(
+    <Capturing argument: Service>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testServiceService_UpdateService_VoidSetterCalls(VoidMethodCallTargetedTest.java:273)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testServiceService_UpdateService_VoidSetterCalls(VoidMethodCallTargetedTest.java:273)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testAppointmentService_CreateAppointment_VoidSetterCalls -- Time elapsed: 0.005 s <<< FAILURE!
+Wanted but not invoked:
+appointmentRepository.save(
+    <Capturing argument: Appointment>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testAppointmentService_CreateAppointment_VoidSetterCalls(VoidMethodCallTargetedTest.java:134)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testAppointmentService_CreateAppointment_VoidSetterCalls(VoidMethodCallTargetedTest.java:134)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testServiceService_CreateService_VoidSetterCalls -- Time elapsed: 0.004 s <<< FAILURE!
+Wanted but not invoked:
+serviceRepository.save(
+    <Capturing argument: Service>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testServiceService_CreateService_VoidSetterCalls(VoidMethodCallTargetedTest.java:157)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testServiceService_CreateService_VoidSetterCalls(VoidMethodCallTargetedTest.java:157)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.VoidMethodCallTargetedTest.testStaffService_UpdateStaff_VoidSetterCalls -- Time elapsed: 0.003 s <<< FAILURE!
+Wanted but not invoked:
+staffRepository.save(
+    <Capturing argument: Staff>
+);
+-> at com.beautysalon.mutation.VoidMethodCallTargetedTest.testStaffService_UpdateStaff_VoidSetterCalls(VoidMethodCallTargetedTest.java:305)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.VoidMethodCallTargetedTest.testStaffService_UpdateStaff_VoidSetterCalls(VoidMethodCallTargetedTest.java:305)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

@@ -21,61 +21,61 @@ import java.util.UUID;
     
     @GetMapping
     public ResponseEntity&lt;List&lt;Staff&gt;&gt; getAllStaff() {
-<span class="nc" id="L24">        List&lt;Staff&gt; staff = staffService.getAllStaff();</span>
-<span class="nc" id="L25">        return ResponseEntity.ok(staff);</span>
+<span class="fc" id="L24">        List&lt;Staff&gt; staff = staffService.getAllStaff();</span>
+<span class="fc" id="L25">        return ResponseEntity.ok(staff);</span>
     }
     
     @GetMapping(&quot;/active&quot;)
     public ResponseEntity&lt;List&lt;Staff&gt;&gt; getActiveStaff() {
-<span class="nc" id="L30">        List&lt;Staff&gt; staff = staffService.getActiveStaff();</span>
-<span class="nc" id="L31">        return ResponseEntity.ok(staff);</span>
+<span class="fc" id="L30">        List&lt;Staff&gt; staff = staffService.getActiveStaff();</span>
+<span class="fc" id="L31">        return ResponseEntity.ok(staff);</span>
     }
     
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Staff&gt; getStaffById(@PathVariable UUID id) {
-<span class="nc" id="L36">        Optional&lt;Staff&gt; staff = staffService.getStaffById(id);</span>
-<span class="nc" id="L37">        return staff.map(ResponseEntity::ok)</span>
-<span class="nc" id="L38">                   .orElse(ResponseEntity.notFound().build());</span>
+<span class="fc" id="L36">        Optional&lt;Staff&gt; staff = staffService.getStaffById(id);</span>
+<span class="fc" id="L37">        return staff.map(ResponseEntity::ok)</span>
+<span class="fc" id="L38">                   .orElse(ResponseEntity.notFound().build());</span>
     }
     
     @GetMapping(&quot;/role/{role}&quot;)
     public ResponseEntity&lt;List&lt;Staff&gt;&gt; getStaffByRole(@PathVariable String role) {
-<span class="nc" id="L43">        List&lt;Staff&gt; staff = staffService.getStaffByRole(role);</span>
-<span class="nc" id="L44">        return ResponseEntity.ok(staff);</span>
+<span class="fc" id="L43">        List&lt;Staff&gt; staff = staffService.getStaffByRole(role);</span>
+<span class="fc" id="L44">        return ResponseEntity.ok(staff);</span>
     }
     
     @GetMapping(&quot;/role/{role}/active&quot;)
     public ResponseEntity&lt;List&lt;Staff&gt;&gt; getActiveStaffByRole(@PathVariable String role) {
-<span class="nc" id="L49">        List&lt;Staff&gt; staff = staffService.getActiveStaffByRole(role);</span>
-<span class="nc" id="L50">        return ResponseEntity.ok(staff);</span>
+<span class="fc" id="L49">        List&lt;Staff&gt; staff = staffService.getActiveStaffByRole(role);</span>
+<span class="fc" id="L50">        return ResponseEntity.ok(staff);</span>
     }
     
     @PostMapping
     public ResponseEntity&lt;Staff&gt; createStaff(@RequestBody Staff staff) {
         try {
-<span class="nc" id="L56">            Staff createdStaff = staffService.createStaff(staff);</span>
-<span class="nc" id="L57">            return ResponseEntity.status(HttpStatus.CREATED).body(createdStaff);</span>
-<span class="nc" id="L58">        } catch (Exception e) {</span>
-<span class="nc" id="L59">            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</span>
+<span class="fc" id="L56">            Staff createdStaff = staffService.createStaff(staff);</span>
+<span class="fc" id="L57">            return ResponseEntity.status(HttpStatus.CREATED).body(createdStaff);</span>
+<span class="fc" id="L58">        } catch (Exception e) {</span>
+<span class="fc" id="L59">            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</span>
         }
     }
     
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Staff&gt; updateStaff(@PathVariable UUID id, @RequestBody Staff staff) {
-<span class="nc" id="L65">        Staff updatedStaff = staffService.updateStaff(id, staff);</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (updatedStaff != null) {</span>
-<span class="nc" id="L67">            return ResponseEntity.ok(updatedStaff);</span>
+<span class="fc" id="L65">        Staff updatedStaff = staffService.updateStaff(id, staff);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (updatedStaff != null) {</span>
+<span class="fc" id="L67">            return ResponseEntity.ok(updatedStaff);</span>
         }
-<span class="nc" id="L69">        return ResponseEntity.notFound().build();</span>
+<span class="fc" id="L69">        return ResponseEntity.notFound().build();</span>
     }
     
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; deleteStaff(@PathVariable UUID id) {
-<span class="nc" id="L74">        boolean deleted = staffService.deleteStaff(id);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (deleted) {</span>
-<span class="nc" id="L76">            return ResponseEntity.noContent().build();</span>
+<span class="fc" id="L74">        boolean deleted = staffService.deleteStaff(id);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (deleted) {</span>
+<span class="fc" id="L76">            return ResponseEntity.noContent().build();</span>
         }
-<span class="nc" id="L78">        return ResponseEntity.notFound().build();</span>
+<span class="fc" id="L78">        return ResponseEntity.notFound().build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

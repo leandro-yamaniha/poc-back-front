@@ -29,8 +29,8 @@ public class MonitoringController {
      */
     @GetMapping(&quot;/performance&quot;)
     public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; getPerformanceStatistics() {
-<span class="nc" id="L32">        Map&lt;String, Object&gt; stats = performanceMonitoringService.getPerformanceStatistics();</span>
-<span class="nc" id="L33">        return ResponseEntity.ok(stats);</span>
+<span class="fc" id="L32">        Map&lt;String, Object&gt; stats = performanceMonitoringService.getPerformanceStatistics();</span>
+<span class="fc" id="L33">        return ResponseEntity.ok(stats);</span>
     }
 
     /**
@@ -38,8 +38,8 @@ public class MonitoringController {
      */
     @GetMapping(&quot;/cache&quot;)
     public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; getCacheStatistics() {
-<span class="nc" id="L41">        Map&lt;String, Object&gt; cacheStats = performanceMonitoringService.getCacheStatistics();</span>
-<span class="nc" id="L42">        return ResponseEntity.ok(cacheStats);</span>
+<span class="fc" id="L41">        Map&lt;String, Object&gt; cacheStats = performanceMonitoringService.getCacheStatistics();</span>
+<span class="fc" id="L42">        return ResponseEntity.ok(cacheStats);</span>
     }
 
     /**
@@ -47,16 +47,16 @@ public class MonitoringController {
      */
     @GetMapping(&quot;/health&quot;)
     public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; performHealthCheck() {
-<span class="nc" id="L50">        Map&lt;String, Object&gt; healthCheck = performanceMonitoringService.performHealthCheck();</span>
+<span class="fc" id="L50">        Map&lt;String, Object&gt; healthCheck = performanceMonitoringService.performHealthCheck();</span>
         
         // Return appropriate HTTP status based on health
-<span class="nc" id="L53">        String status = (String) healthCheck.get(&quot;status&quot;);</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (&quot;UP&quot;.equals(status)) {</span>
-<span class="nc" id="L55">            return ResponseEntity.ok(healthCheck);</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        } else if (&quot;WARNING&quot;.equals(status)) {</span>
-<span class="nc" id="L57">            return ResponseEntity.status(200).body(healthCheck); // Still OK but with warnings</span>
+<span class="fc" id="L53">        String status = (String) healthCheck.get(&quot;status&quot;);</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (&quot;UP&quot;.equals(status)) {</span>
+<span class="fc" id="L55">            return ResponseEntity.ok(healthCheck);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        } else if (&quot;WARNING&quot;.equals(status)) {</span>
+<span class="fc" id="L57">            return ResponseEntity.status(200).body(healthCheck); // Still OK but with warnings</span>
         } else {
-<span class="nc" id="L59">            return ResponseEntity.status(503).body(healthCheck); // Service Unavailable</span>
+<span class="fc" id="L59">            return ResponseEntity.status(503).body(healthCheck); // Service Unavailable</span>
         }
     }
 
@@ -65,8 +65,8 @@ public class MonitoringController {
      */
     @GetMapping(&quot;/monitor/cache&quot;)
     public ResponseEntity&lt;String&gt; monitorCachePerformance() {
-<span class="nc" id="L68">        performanceMonitoringService.monitorCachePerformance();</span>
-<span class="nc" id="L69">        return ResponseEntity.ok(&quot;Cache performance monitoring triggered&quot;);</span>
+<span class="fc" id="L68">        performanceMonitoringService.monitorCachePerformance();</span>
+<span class="fc" id="L69">        return ResponseEntity.ok(&quot;Cache performance monitoring triggered&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

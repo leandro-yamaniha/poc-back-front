@@ -43,100 +43,100 @@ public class Appointment {
     @Column(&quot;updated_at&quot;)
     private Instant updatedAt;
     
-<span class="nc" id="L46">    public Appointment() {</span>
-<span class="nc" id="L47">        this.id = UUID.randomUUID();</span>
-<span class="nc" id="L48">        this.status = &quot;scheduled&quot;;</span>
-<span class="nc" id="L49">        this.createdAt = Instant.now();</span>
-<span class="nc" id="L50">        this.updatedAt = Instant.now();</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L46">    public Appointment() {</span>
+<span class="fc" id="L47">        this.id = UUID.randomUUID();</span>
+<span class="fc" id="L48">        this.status = &quot;scheduled&quot;;</span>
+<span class="fc" id="L49">        this.createdAt = Instant.now();</span>
+<span class="fc" id="L50">        this.updatedAt = Instant.now();</span>
+<span class="fc" id="L51">    }</span>
     
     // Getters and Setters
     public UUID getId() {
-<span class="nc" id="L55">        return id;</span>
+<span class="fc" id="L55">        return id;</span>
     }
     
     public void setId(UUID id) {
-<span class="nc" id="L59">        this.id = id;</span>
-<span class="nc" id="L60">    }</span>
+<span class="fc" id="L59">        this.id = id;</span>
+<span class="fc" id="L60">    }</span>
     
     public UUID getCustomerId() {
-<span class="nc" id="L63">        return customerId;</span>
+<span class="fc" id="L63">        return customerId;</span>
     }
     
     public void setCustomerId(UUID customerId) {
-<span class="nc" id="L67">        this.customerId = customerId;</span>
-<span class="nc" id="L68">    }</span>
+<span class="fc" id="L67">        this.customerId = customerId;</span>
+<span class="fc" id="L68">    }</span>
     
     public UUID getStaffId() {
-<span class="nc" id="L71">        return staffId;</span>
+<span class="fc" id="L71">        return staffId;</span>
     }
     
     public void setStaffId(UUID staffId) {
-<span class="nc" id="L75">        this.staffId = staffId;</span>
-<span class="nc" id="L76">    }</span>
+<span class="fc" id="L75">        this.staffId = staffId;</span>
+<span class="fc" id="L76">    }</span>
     
     public UUID getServiceId() {
-<span class="nc" id="L79">        return serviceId;</span>
+<span class="fc" id="L79">        return serviceId;</span>
     }
     
     public void setServiceId(UUID serviceId) {
-<span class="nc" id="L83">        this.serviceId = serviceId;</span>
-<span class="nc" id="L84">    }</span>
+<span class="fc" id="L83">        this.serviceId = serviceId;</span>
+<span class="fc" id="L84">    }</span>
     
     public LocalDate getAppointmentDate() {
-<span class="nc" id="L87">        return appointmentDate;</span>
+<span class="fc" id="L87">        return appointmentDate;</span>
     }
     
     public void setAppointmentDate(LocalDate appointmentDate) {
-<span class="nc" id="L91">        this.appointmentDate = appointmentDate;</span>
-<span class="nc" id="L92">    }</span>
+<span class="fc" id="L91">        this.appointmentDate = appointmentDate;</span>
+<span class="fc" id="L92">    }</span>
     
     public LocalTime getAppointmentTime() {
-<span class="nc" id="L95">        return appointmentTime;</span>
+<span class="fc" id="L95">        return appointmentTime;</span>
     }
     
     public void setAppointmentTime(LocalTime appointmentTime) {
-<span class="nc" id="L99">        this.appointmentTime = appointmentTime;</span>
-<span class="nc" id="L100">    }</span>
+<span class="fc" id="L99">        this.appointmentTime = appointmentTime;</span>
+<span class="fc" id="L100">    }</span>
     
     public String getStatus() {
-<span class="nc" id="L103">        return status;</span>
+<span class="fc" id="L103">        return status;</span>
     }
     
     public void setStatus(String status) {
-<span class="nc" id="L107">        this.status = status;</span>
-<span class="nc" id="L108">    }</span>
+<span class="fc" id="L107">        this.status = status;</span>
+<span class="fc" id="L108">    }</span>
     
     public String getNotes() {
-<span class="nc" id="L111">        return notes;</span>
+<span class="fc" id="L111">        return notes;</span>
     }
     
     public void setNotes(String notes) {
-<span class="nc" id="L115">        this.notes = notes;</span>
-<span class="nc" id="L116">    }</span>
+<span class="fc" id="L115">        this.notes = notes;</span>
+<span class="fc" id="L116">    }</span>
     
     public BigDecimal getTotalPrice() {
-<span class="nc" id="L119">        return totalPrice;</span>
+<span class="fc" id="L119">        return totalPrice;</span>
     }
     
     public void setTotalPrice(BigDecimal totalPrice) {
-<span class="nc" id="L123">        this.totalPrice = totalPrice;</span>
-<span class="nc" id="L124">    }</span>
+<span class="fc" id="L123">        this.totalPrice = totalPrice;</span>
+<span class="fc" id="L124">    }</span>
     
     public Instant getCreatedAt() {
-<span class="nc" id="L127">        return createdAt;</span>
+<span class="fc" id="L127">        return createdAt;</span>
     }
     
     public void setCreatedAt(Instant createdAt) {
-<span class="nc" id="L131">        this.createdAt = createdAt;</span>
-<span class="nc" id="L132">    }</span>
+<span class="fc" id="L131">        this.createdAt = createdAt;</span>
+<span class="fc" id="L132">    }</span>
     
     public Instant getUpdatedAt() {
-<span class="nc" id="L135">        return updatedAt;</span>
+<span class="fc" id="L135">        return updatedAt;</span>
     }
     
     public void setUpdatedAt(Instant updatedAt) {
-<span class="nc" id="L139">        this.updatedAt = updatedAt;</span>
-<span class="nc" id="L140">    }</span>
+<span class="fc" id="L139">        this.updatedAt = updatedAt;</span>
+<span class="fc" id="L140">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

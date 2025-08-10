@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.0-M1</version>
+        <version>3.5.4</version>
         <relativePath/>
     </parent>
     <groupId>com.beautysalon</groupId>
@@ -15,9 +15,9 @@
     <description>Beauty Salon Management System Backend</description>
     
     <properties>
-        <java.version>24</java.version>
-        <maven.compiler.source>24</maven.compiler.source>
-        <maven.compiler.target>24</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
     
     <dependencies>
@@ -179,28 +179,50 @@
                         </goals>
                         <configuration>
                             <rules>
+                                <!-- Bundle-level rules (overall project) -->
                                 <rule>
                                     <element>BUNDLE</element>
                                     <limits>
                                         <limit>
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.90</minimum>
+                                            <minimum>0.95</minimum>
                                         </limit>
                                         <limit>
                                             <counter>BRANCH</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.85</minimum>
+                                            <minimum>0.90</minimum>
                                         </limit>
                                         <limit>
                                             <counter>CLASS</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.95</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>METHOD</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.95</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                                <!-- Class-level rules (minimum 95% per class) -->
+                                <rule>
+                                    <element>CLASS</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.95</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>0.90</minimum>
                                         </limit>
                                         <limit>
                                             <counter>METHOD</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.90</minimum>
+                                            <minimum>0.95</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -254,4 +276,273 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- Test Profiles for Different Test Categories -->
+    <profiles>
+        <!-- Unit Tests Profile - Fast tests with mocks, no external dependencies -->
+        <profile>
+            <id>unit-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*SimpleTest.java</include>
+                                <include>**/model/*Test.java</include>
+                                <include>**/BeautySalonApplicationTest.java</include>
+                                <include>**/service/PerformanceMonitoringServiceTest.java</include>
+                                <include>**/controller/*ControllerTest.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*IntegrationTest.java</exclude>
+                                <exclude>**/*PerformanceTest.java</exclude>
+                                <exclude>**/*StressTest.java</exclude>
+                                <exclude>**/*MutationTest.java</exclude>
+                                <exclude>**/RunCucumberTest.java</exclude>
+                                <exclude>**/*ValidationTest.java</exclude>
+                                <exclude>**/*ComparisonTest.java</exclude>
+                                <exclude>**/*MonitoringTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Integration Tests Profile - Tests requiring database/containers -->
+        <profile>
+            <id>integration-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*IntegrationTest.java</include>
+                                <include>**/RunCucumberTest.java</include>
+                                <include>**/controller/*Test.java</include>
+                                <include>**/*ValidationTest.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*SimpleTest.java</exclude>
+                                <exclude>**/*PerformanceTest.java</exclude>
+                                <exclude>**/*StressTest.java</exclude>
+                                <exclude>**/*MutationTest.java</exclude>
+                                <exclude>**/*ComparisonTest.java</exclude>
+                                <exclude>**/*MonitoringTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Performance Tests Profile - Stress tests and performance validation -->
+        <profile>
+            <id>performance-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*PerformanceTest.java</include>
+                                <include>**/*StressTest.java</include>
+                                <include>**/*ComparisonTest.java</include>
+                                <include>**/*MonitoringTest.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*SimpleTest.java</exclude>
+                                <exclude>**/*IntegrationTest.java</exclude>
+                                <exclude>**/*MutationTest.java</exclude>
+                                <exclude>**/RunCucumberTest.java</exclude>
+                            </excludes>
+                            <!-- Extended timeout for performance tests -->
+                            <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
+                            <systemPropertyVariables>
+                                <test.timeout>30000</test.timeout>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Mutation Tests Profile - PiTest mutation testing -->
+        <profile>
+            <id>mutation-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>1.20.1</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.pitest</groupId>
+                                <artifactId>pitest-junit5-plugin</artifactId>
+                                <version>1.2.3</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <targetClasses>
+                                <param>com.beautysalon.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>com.beautysalon.*MutationTest</param>
+                            </targetTests>
+                            <excludedClasses>
+                                <param>com.beautysalon.BeautySalonApplication</param>
+                                <param>com.beautysalon.config.*</param>
+                                <param>com.beautysalon.dto.*</param>
+                            </excludedClasses>
+                            <outputFormats>
+                                <outputFormat>HTML</outputFormat>
+                                <outputFormat>XML</outputFormat>
+                            </outputFormats>
+                            <timestampedReports>false</timestampedReports>
+                            <mutators>
+                                <mutator>DEFAULTS</mutator>
+                            </mutators>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Also run regular mutation test classes -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*MutationTest.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*SimpleTest.java</exclude>
+                                <exclude>**/*IntegrationTest.java</exclude>
+                                <exclude>**/*PerformanceTest.java</exclude>
+                                <exclude>**/*StressTest.java</exclude>
+                                <exclude>**/RunCucumberTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Enhanced Mutation Tests Profile - Optimized for 90% coverage -->
+        <profile>
+            <id>mutation-tests-enhanced</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>1.20.1</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.pitest</groupId>
+                                <artifactId>pitest-junit5-plugin</artifactId>
+                                <version>1.2.3</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <targetClasses>
+                                <param>com.beautysalon.controller.*</param>
+                                <param>com.beautysalon.service.*</param>
+                                <param>com.beautysalon.model.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>com.beautysalon.mutation.*</param>
+                                <param>com.beautysalon.controller.*Test</param>
+                                <param>com.beautysalon.service.*SimpleTest</param>
+                                <param>com.beautysalon.service.*Test</param>
+                            </targetTests>
+                            <excludedTestClasses>
+                                <param>com.beautysalon.performance.*</param>
+                                <param>com.beautysalon.**.*IntegrationTest</param>
+                                <param>com.beautysalon.**.*PerformanceTest</param>
+                                <param>com.beautysalon.**.*StressTest</param>
+                                <param>com.beautysalon.**.*ComparisonTest</param>
+                                <param>com.beautysalon.**.*ValidationTest</param>
+                                <param>com.beautysalon.**.*MonitoringTest</param>
+                            </excludedTestClasses>
+                            <excludedClasses>
+                                <param>com.beautysalon.BeautySalonApplication</param>
+                                <param>com.beautysalon.config.*</param>
+                                <param>com.beautysalon.dto.*</param>
+                            </excludedClasses>
+                            <outputFormats>
+                                <outputFormat>HTML</outputFormat>
+                                <outputFormat>XML</outputFormat>
+                            </outputFormats>
+                            <timestampedReports>false</timestampedReports>
+                            <mutators>
+                                <mutator>STRONGER</mutator>
+                            </mutators>
+                            <coverageThreshold>90</coverageThreshold>
+                            <mutationThreshold>90</mutationThreshold>
+                            <threads>4</threads>
+                            <timeoutFactor>2.0</timeoutFactor>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Also run mutation test classes -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*MutationTest.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*SimpleTest.java</exclude>
+                                <exclude>**/*IntegrationTest.java</exclude>
+                                <exclude>**/*PerformanceTest.java</exclude>
+                                <exclude>**/*StressTest.java</exclude>
+                                <exclude>**/RunCucumberTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- All Tests Profile - Run everything -->
+        <profile>
+            <id>all-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <!-- Run all tests -->
+                            <includes>
+                                <include>**/*Test.java</include>
+                            </includes>
+                            <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

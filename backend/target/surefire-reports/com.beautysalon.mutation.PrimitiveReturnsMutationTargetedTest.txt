@@ -1,0 +1,37 @@
+-------------------------------------------------------------------------------
+Test set: com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.919 s <<< FAILURE! -- in com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest
+com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_GetPerformanceStatistics_IntegerValues -- Time elapsed: 0.873 s <<< FAILURE!
+Wanted but not invoked:
+cacheManager.getCacheNames();
+-> at com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_GetPerformanceStatistics_IntegerValues(PrimitiveReturnsMutationTargetedTest.java:102)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_GetPerformanceStatistics_IntegerValues(PrimitiveReturnsMutationTargetedTest.java:102)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_PerformHealthCheck_BooleanValues -- Time elapsed: 0.002 s <<< FAILURE!
+Wanted but not invoked:
+cacheManager.getCacheNames();
+-> at com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_PerformHealthCheck_BooleanValues(PrimitiveReturnsMutationTargetedTest.java:127)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_PerformHealthCheck_BooleanValues(PrimitiveReturnsMutationTargetedTest.java:127)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_CacheStatistics_NumericOperations -- Time elapsed: 0.002 s <<< FAILURE!
+Wanted but not invoked:
+cacheManager.getCacheNames();
+-> at com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_CacheStatistics_NumericOperations(PrimitiveReturnsMutationTargetedTest.java:191)
+Actually, there were zero interactions with this mock.
+
+	at com.beautysalon.mutation.PrimitiveReturnsMutationTargetedTest.testPerformanceMonitoringService_CacheStatistics_NumericOperations(PrimitiveReturnsMutationTargetedTest.java:191)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

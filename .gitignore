@@ -160,3 +160,6 @@ replay_pid*
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,intellij
+
+# Ignore all files in the target directory
+/target

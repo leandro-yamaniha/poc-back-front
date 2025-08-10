@@ -30,17 +30,17 @@ import java.util.UUID;
     
     @Cacheable(value = &quot;customers&quot;, key = &quot;#id&quot;)
     public Optional&lt;Customer&gt; getCustomerById(UUID id) {
-<span class="nc" id="L33">        return customerRepository.findById(id);</span>
+<span class="fc" id="L33">        return customerRepository.findById(id);</span>
     }
     
     @Cacheable(value = &quot;customers&quot;, key = &quot;'email:' + #email&quot;)
     public Optional&lt;Customer&gt; getCustomerByEmail(String email) {
-<span class="nc" id="L38">        return customerRepository.findByEmail(email);</span>
+<span class="fc" id="L38">        return customerRepository.findByEmail(email);</span>
     }
     
     @Cacheable(value = &quot;customers&quot;, key = &quot;'search:' + #name&quot;)
     public List&lt;Customer&gt; searchCustomersByName(String name) {
-<span class="nc" id="L43">        return customerRepository.findByNameContaining(&quot;%&quot; + name + &quot;%&quot;);</span>
+<span class="fc" id="L43">        return customerRepository.findByNameContaining(&quot;%&quot; + name + &quot;%&quot;);</span>
     }
     
     @CacheEvict(value = &quot;customers&quot;, allEntries = true)
@@ -53,26 +53,26 @@ import java.util.UUID;
     @CachePut(value = &quot;customers&quot;, key = &quot;#id&quot;)
     @CacheEvict(value = &quot;customers&quot;, key = &quot;'all'&quot;)
     public Customer updateCustomer(UUID id, Customer customerDetails) {
-<span class="nc" id="L56">        Optional&lt;Customer&gt; optionalCustomer = customerRepository.findById(id);</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (optionalCustomer.isPresent()) {</span>
-<span class="nc" id="L58">            Customer customer = optionalCustomer.get();</span>
-<span class="nc" id="L59">            customer.setName(customerDetails.getName());</span>
-<span class="nc" id="L60">            customer.setEmail(customerDetails.getEmail());</span>
-<span class="nc" id="L61">            customer.setPhone(customerDetails.getPhone());</span>
-<span class="nc" id="L62">            customer.setAddress(customerDetails.getAddress());</span>
-<span class="nc" id="L63">            customer.setUpdatedAt(Instant.now());</span>
-<span class="nc" id="L64">            return customerRepository.save(customer);</span>
+<span class="fc" id="L56">        Optional&lt;Customer&gt; optionalCustomer = customerRepository.findById(id);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (optionalCustomer.isPresent()) {</span>
+<span class="fc" id="L58">            Customer customer = optionalCustomer.get();</span>
+<span class="fc" id="L59">            customer.setName(customerDetails.getName());</span>
+<span class="fc" id="L60">            customer.setEmail(customerDetails.getEmail());</span>
+<span class="fc" id="L61">            customer.setPhone(customerDetails.getPhone());</span>
+<span class="fc" id="L62">            customer.setAddress(customerDetails.getAddress());</span>
+<span class="fc" id="L63">            customer.setUpdatedAt(Instant.now());</span>
+<span class="fc" id="L64">            return customerRepository.save(customer);</span>
         }
-<span class="nc" id="L66">        return null;</span>
+<span class="fc" id="L66">        return null;</span>
     }
     
     @CacheEvict(value = &quot;customers&quot;, allEntries = true)
     public boolean deleteCustomer(UUID id) {
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (customerRepository.existsById(id)) {</span>
-<span class="nc" id="L72">            customerRepository.deleteById(id);</span>
-<span class="nc" id="L73">            return true;</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (customerRepository.existsById(id)) {</span>
+<span class="fc" id="L72">            customerRepository.deleteById(id);</span>
+<span class="fc" id="L73">            return true;</span>
         }
-<span class="nc" id="L75">        return false;</span>
+<span class="fc" id="L75">        return false;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

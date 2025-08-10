@@ -152,4 +152,84 @@ class CustomerServiceSimpleTest {
         verify(customerRepository).existsById(testId);
         verify(customerRepository, never()).deleteById(testId);
     }
+
+    @Test
+    void getCustomerByEmail_WhenCustomerExists_ShouldReturnCustomer() {
+        // Given
+        String email = "maria@email.com";
+        when(customerRepository.findByEmail(email)).thenReturn(Optional.of(testCustomer));
+
+        // When
+        Optional<Customer> result = customerService.getCustomerByEmail(email);
+
+        // Then
+        assertTrue(result.isPresent());
+        assertEquals(testCustomer, result.get());
+        verify(customerRepository).findByEmail(email);
+    }
+
+    @Test
+    void getCustomerByEmail_WhenCustomerDoesNotExist_ShouldReturnEmpty() {
+        // Given
+        String email = "nonexistent@email.com";
+        when(customerRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        // When
+        Optional<Customer> result = customerService.getCustomerByEmail(email);
+
+        // Then
+        assertFalse(result.isPresent());
+        verify(customerRepository).findByEmail(email);
+    }
+
+    @Test
+    void searchCustomersByName_WhenCustomersFound_ShouldReturnCustomers() {
+        // Given
+        String searchName = "Maria";
+        List<Customer> expectedCustomers = Arrays.asList(testCustomer);
+        when(customerRepository.findByNameContaining("%" + searchName + "%")).thenReturn(expectedCustomers);
+
+        // When
+        List<Customer> result = customerService.searchCustomersByName(searchName);
+
+        // Then
+        assertEquals(expectedCustomers, result);
+        assertEquals(1, result.size());
+        assertEquals(testCustomer, result.get(0));
+        verify(customerRepository).findByNameContaining("%" + searchName + "%");
+    }
+
+    @Test
+    void searchCustomersByName_WhenNoCustomersFound_ShouldReturnEmptyList() {
+        // Given
+        String searchName = "NonExistent";
+        List<Customer> emptyList = Arrays.asList();
+        when(customerRepository.findByNameContaining("%" + searchName + "%")).thenReturn(emptyList);
+
+        // When
+        List<Customer> result = customerService.searchCustomersByName(searchName);
+
+        // Then
+        assertTrue(result.isEmpty());
+        verify(customerRepository).findByNameContaining("%" + searchName + "%");
+    }
+
+    @Test
+    void updateCustomer_WhenCustomerDoesNotExist_ShouldReturnNull() {
+        // Given
+        UUID nonExistentId = UUID.randomUUID();
+        Customer updatedDetails = new Customer();
+        updatedDetails.setName("New Name");
+        updatedDetails.setEmail("new@email.com");
+
+        when(customerRepository.findById(nonExistentId)).thenReturn(Optional.empty());
+
+        // When
+        Customer result = customerService.updateCustomer(nonExistentId, updatedDetails);
+
+        // Then
+        assertNull(result);
+        verify(customerRepository).findById(nonExistentId);
+        verify(customerRepository, never()).save(any(Customer.class));
+    }
 }
