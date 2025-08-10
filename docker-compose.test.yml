@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  cassandra-test:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-test
+    ports:
+      - "9043:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonTestCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    volumes:
+      - cassandra_test_data:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-test-network
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    container_name: beauty-salon-backend-test
+    environment:
+      - SPRING_PROFILES_ACTIVE=test
+      - CASSANDRA_CONTACT_POINTS=cassandra-test
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon_test
+    depends_on:
+      cassandra-test:
+        condition: service_healthy
+    networks:
+      - beauty-salon-test-network
+    volumes:
+      - ./backend/target:/app/target
+
+volumes:
+  cassandra_test_data:
+
+networks:
+  beauty-salon-test-network:
+    driver: bridge

@@ -1,0 +1,15 @@
+spring:
+  cassandra:
+    keyspace-name: beauty_salon_test
+    contact-points: localhost
+    port: 9042
+    local-datacenter: datacenter1
+    schema-action: create_if_not_exists
+  
+server:
+  port: 8081
+
+logging:
+  level:
+    com.beautysalon: DEBUG
+    org.springframework.data.cassandra: DEBUG
