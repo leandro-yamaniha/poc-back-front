@@ -142,6 +142,14 @@ The server will start on `http://localhost:3000` (or the port specified in your 
 - `POST /api/monitoring/cache/clear` - Clear all caches
 - `GET /api/monitoring/dashboard` - Dashboard statistics
 
+## 📜 OpenAPI Documentation
+
+The API is documented using the OpenAPI 3.0 standard. You can access the interactive Swagger UI to explore the endpoints, view models, and test the API directly in your browser.
+
+- **Swagger UI URL**: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
+Make sure the application is running before accessing the URL.
+
 ## 🧪 Testing
 
 ```bash
