@@ -2,17 +2,21 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
+
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const cassandraClient = require('./config/cassandra');
+const errorHandler = require('./middleware/errorHandler');
+const MigrationManager = require('./migrations/MigrationManager');
+const { setupSwagger, swaggerCorsMiddleware, validateOpenApiSpec } = require('./config/swagger');
+
 const customerRoutes = require('./routes/customerRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const staffRoutes = require('./routes/staffRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const monitoringRoutes = require('./routes/monitoringRoutes');
-const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,19 +33,39 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// CORS configuration
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+// Security and middleware with Swagger UI exceptions
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "https:", "data:"],
+      connectSrc: ["'self'"],
+      frameSrc: ["'none'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      manifestSrc: ["'self'"],
+      workerSrc: ["'self'"]
+    }
+  }
 }));
 
-// Logging
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
+}));
+app.use(swaggerCorsMiddleware);
+app.use(compression());
 app.use(morgan('combined'));
-
-// Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Setup Swagger documentation
+setupSwagger(app);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -78,9 +102,23 @@ async function startServer() {
     await cassandraClient.connect();
     console.log('✅ Connected to Cassandra');
     
+    // Run database migrations
+    console.log('🔄 Running database migrations...');
+    const migrationManager = new MigrationManager(cassandraClient);
+    await migrationManager.runMigrations();
+    console.log('✅ Database migrations completed');
+    
+    // Connect to the keyspace after migrations
+    const keyspace = process.env.CASSANDRA_KEYSPACE || 'beauty_salon';
+    await cassandraClient.useKeyspace(keyspace);
+    
+    // Validate OpenAPI specification
+    validateOpenApiSpec();
+    
     app.listen(PORT, () => {
       console.log(`🚀 Beauty Salon Backend (Node.js) running on port ${PORT}`);
       console.log(`📊 Health check: http://localhost:${PORT}/health`);
+      console.log(`📚 API Documentation: http://localhost:${PORT}/api-docs`);
       console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
     });
   } catch (error) {
