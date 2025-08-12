@@ -1,0 +1,369 @@
+openapi: 3.0.3
+info:
+  title: Beauty Salon Management API
+  description: |
+    API completa para gerenciamento de salão de beleza, incluindo clientes, serviços, funcionários e agendamentos.
+    
+    ## Funcionalidades
+    - Gerenciamento de clientes
+    - Catálogo de serviços
+    - Gestão de funcionários
+    - Sistema de agendamentos
+    - Monitoramento e métricas
+    
+    ## Autenticação
+    Esta versão da API não implementa autenticação. Em produção, considere implementar JWT ou OAuth2.
+    
+    ## Rate Limiting
+    A API implementa rate limiting de 100 requisições por 15 minutos por IP.
+  version: 1.0.0
+  contact:
+    name: Beauty Salon Team
+    email: dev@beautysalon.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor de desenvolvimento
+  - url: https://api.beautysalon.com
+    description: Servidor de produção
+
+tags:
+  - name: customers
+    description: Operações relacionadas a clientes
+  - name: services
+    description: Operações relacionadas a serviços
+  - name: staff
+    description: Operações relacionadas a funcionários
+  - name: appointments
+    description: Operações relacionadas a agendamentos
+  - name: monitoring
+    description: Monitoramento e métricas do sistema
+
+paths:
+  /health:
+    get:
+      tags: [monitoring]
+      summary: Verificação de saúde da API
+      description: Endpoint para verificar se a API está funcionando corretamente
+      operationId: healthCheck
+      responses:
+        '200':
+          description: API funcionando corretamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /api/customers:
+    get:
+      tags: [customers]
+      summary: Listar todos os clientes
+      description: Retorna uma lista de todos os clientes cadastrados
+      operationId: getCustomers
+      responses:
+        '200':
+          description: Lista de clientes retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      tags: [customers]
+      summary: Criar novo cliente
+      description: Cadastra um novo cliente no sistema
+      operationId: createCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '201':
+          description: Cliente criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/customers/{id}:
+    get:
+      tags: [customers]
+      summary: Buscar cliente por ID
+      description: Retorna os dados de um cliente específico
+      operationId: getCustomerById
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Cliente encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    put:
+      tags: [customers]
+      summary: Atualizar cliente
+      description: Atualiza os dados de um cliente existente
+      operationId: updateCustomer
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '200':
+          description: Cliente atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      tags: [customers]
+      summary: Excluir cliente
+      description: Remove um cliente do sistema
+      operationId: deleteCustomer
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Cliente excluído com sucesso
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/services:
+    get:
+      tags: [services]
+      summary: Listar todos os serviços
+      description: Retorna uma lista de todos os serviços disponíveis
+      operationId: getServices
+      responses:
+        '200':
+          description: Lista de serviços retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      tags: [services]
+      summary: Criar novo serviço
+      description: Cadastra um novo serviço no sistema
+      operationId: createService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceInput'
+      responses:
+        '201':
+          description: Serviço criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: ID único do recurso
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    Customer:
+      type: object
+      required: [id, name, email]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        name:
+          type: string
+          example: "Maria Silva"
+          minLength: 2
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          example: "maria.silva@email.com"
+        phone:
+          type: string
+          example: "11987654321"
+        address:
+          type: string
+          example: "Rua das Flores, 123 - São Paulo, SP"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CustomerInput:
+      type: object
+      required: [name, email]
+      properties:
+        name:
+          type: string
+          example: "Maria Silva"
+          minLength: 2
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          example: "maria.silva@email.com"
+        phone:
+          type: string
+          example: "11987654321"
+        address:
+          type: string
+          example: "Rua das Flores, 123 - São Paulo, SP"
+
+    Service:
+      type: object
+      required: [id, name, price, duration]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: "Corte Feminino"
+        description:
+          type: string
+          example: "Corte de cabelo feminino com lavagem"
+        price:
+          type: number
+          format: double
+          example: 50.00
+        duration:
+          type: integer
+          example: 60
+        category:
+          type: string
+          example: "Cabelo"
+        isActive:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    ServiceInput:
+      type: object
+      required: [name, price, duration]
+      properties:
+        name:
+          type: string
+          example: "Corte Feminino"
+        description:
+          type: string
+          example: "Corte de cabelo feminino com lavagem"
+        price:
+          type: number
+          format: double
+          example: 50.00
+        duration:
+          type: integer
+          example: 60
+        category:
+          type: string
+          example: "Cabelo"
+        isActive:
+          type: boolean
+          example: true
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        timestamp:
+          type: string
+          format: date-time
+        uptime:
+          type: number
+          example: 3600.5
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Validation failed"
+        message:
+          type: string
+          example: "Required field 'name' is missing"
+        timestamp:
+          type: string
+          format: date-time
+
+  responses:
+    BadRequest:
+      description: Requisição inválida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    
+    NotFound:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    
+    InternalServerError:
+      description: Erro interno do servidor
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
