@@ -19,7 +19,7 @@ class CassandraClient {
     const clientOptions = {
       contactPoints: contactPoints,
       localDataCenter: localDataCenter,
-      keyspace: keyspace,
+      // Don't specify keyspace initially - let MigrationManager create it
       pooling: {
         maxRequestsPerConnection: 1024,
         coreConnectionsPerHost: {
@@ -46,11 +46,25 @@ class CassandraClient {
     try {
       await this.client.connect();
       this.isConnected = true;
+      const contactPoints = process.env.CASSANDRA_CONTACT_POINTS?.split(',') || ['127.0.0.1'];
+      const port = parseInt(process.env.CASSANDRA_PORT) || 9042;
       console.log(`✅ Connected to Cassandra cluster at ${contactPoints.join(', ')}:${port}`);
-      console.log(`📊 Using keyspace: ${keyspace}`);
-      return this.client;
+      console.log(`📊 Using keyspace: ${this.client.keyspace || 'system'}`);
     } catch (error) {
       console.error('❌ Failed to connect to Cassandra:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Conecta a um keyspace específico
+   */
+  async useKeyspace(keyspace) {
+    try {
+      await this.client.execute(`USE ${keyspace}`);
+      console.log(`📊 Switched to keyspace: ${keyspace}`);
+    } catch (error) {
+      console.error(`❌ Failed to use keyspace ${keyspace}:`, error);
       throw error;
     }
   }
