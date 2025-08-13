@@ -1,8 +1,14 @@
 spring:
   application:
     name: beauty-salon-backend
+
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration
   
   cassandra:
+    schema-action: NONE
     keyspace-name: beauty_salon
     contact-points: localhost
     port: 9042
