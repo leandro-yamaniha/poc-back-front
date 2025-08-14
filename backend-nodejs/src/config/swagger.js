@@ -46,7 +46,7 @@ const finalSpec = {
   },
   servers: [
     {
-      url: process.env.API_BASE_URL || 'http://localhost:3000',
+      url: process.env.API_BASE_URL || 'http://localhost:8080',
       description: 'Servidor da API'
     }
   ]
@@ -105,9 +105,10 @@ function setupSwagger(app) {
   });
 
   console.log('📚 Swagger UI configurado em:');
-  console.log('   - Interface: http://localhost:3000/api-docs');
-  console.log('   - JSON: http://localhost:3000/api-docs.json');
-  console.log('   - YAML: http://localhost:3000/api-docs.yaml');
+  const port = process.env.PORT || 8080;
+  console.log(`   - Interface: http://localhost:${port}/api-docs`);
+  console.log(`   - JSON: http://localhost:${port}/api-docs.json`);
+  console.log(`   - YAML: http://localhost:${port}/api-docs.yaml`);
 }
 
 /**
