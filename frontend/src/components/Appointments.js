@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table, Button, Modal, Form, Badge } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
-import { appointmentsAPI, customersAPI, servicesAPI, staffAPI } from '../services/api';
+import api, { appointmentsAPI, customersAPI, servicesAPI, staffAPI } from '../services/api';
 import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -70,8 +70,21 @@ function Appointments() {
   const loadAppointmentsByDate = async () => {
     try {
       const dateStr = selectedDate.toISOString().split('T')[0];
-      const response = await appointmentsAPI.getByDate(dateStr);
-      setAppointments(response.data);
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Use today endpoint if selected date is today, otherwise get all and filter
+      if (dateStr === today) {
+        const response = await api.get('/appointments/today');
+        setAppointments(response.data);
+      } else {
+        // For other dates, get all appointments and filter client-side
+        const response = await appointmentsAPI.getAll();
+        const filteredAppointments = response.data.filter(appointment => {
+          const appointmentDate = new Date(appointment.appointment_date).toISOString().split('T')[0];
+          return appointmentDate === dateStr;
+        });
+        setAppointments(filteredAppointments);
+      }
     } catch (error) {
       console.error('Error loading appointments:', error);
       toast.error('Erro ao carregar agendamentos');

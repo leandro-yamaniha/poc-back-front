@@ -56,14 +56,31 @@ class AppointmentService {
   }
 
   async getAppointmentsByStaffId(staffId) {
-    const cacheKey = `appointments:staff:${staffId}`;
-    const cached = this.cache.get(cacheKey);
-    
-    if (cached) {
-      return cached;
+    const cacheKey = `appointments_staff_${staffId}`;
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey);
     }
-
     const appointments = await AppointmentRepository.findByStaffId(staffId);
+    this.cache.set(cacheKey, appointments);
+    return appointments;
+  }
+
+  async getAppointmentsByDate(date) {
+    const cacheKey = `appointments_date_${date}`;
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey);
+    }
+    const appointments = await AppointmentRepository.findByDate(date);
+    this.cache.set(cacheKey, appointments);
+    return appointments;
+  }
+
+  async getAppointmentsByDateAndStaff(date, staffId) {
+    const cacheKey = `appointments_date_${date}_staff_${staffId}`;
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey);
+    }
+    const appointments = await AppointmentRepository.findByDateAndStaff(date, staffId);
     this.cache.set(cacheKey, appointments);
     return appointments;
   }

@@ -50,6 +50,26 @@ class AppointmentController {
     }
   }
 
+  async getAppointmentsByDate(req, res, next) {
+    try {
+      const { date } = req.params;
+      const appointments = await AppointmentService.getAppointmentsByDate(date);
+      res.status(200).json(appointments);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getAppointmentsByDateAndStaff(req, res, next) {
+    try {
+      const { date, staffId } = req.params;
+      const appointments = await AppointmentService.getAppointmentsByDateAndStaff(date, staffId);
+      res.status(200).json(appointments);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getAppointmentsByServiceId(req, res, next) {
     try {
       const { serviceId } = req.params;

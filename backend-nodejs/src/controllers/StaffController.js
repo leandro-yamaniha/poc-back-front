@@ -68,6 +68,16 @@ class StaffController {
     }
   }
 
+  async getActiveStaffByRole(req, res, next) {
+    try {
+      const { role } = req.params;
+      const staff = await StaffService.getActiveStaffByRole(role);
+      res.status(200).json(staff);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getStaffBySpecialty(req, res, next) {
     try {
       const { specialty } = req.params;

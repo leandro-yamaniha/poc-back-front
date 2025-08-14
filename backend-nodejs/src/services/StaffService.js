@@ -80,6 +80,19 @@ class StaffService {
     return staff;
   }
 
+  async getActiveStaffByRole(role) {
+    const cacheKey = `staff:role:${role}:active`;
+    const cached = this.cache.get(cacheKey);
+    
+    if (cached) {
+      return cached;
+    }
+
+    const staff = await StaffRepository.findActiveByRole(role);
+    this.cache.set(cacheKey, staff);
+    return staff;
+  }
+
   async getStaffBySpecialty(specialty) {
     const cacheKey = `staff:specialty:${specialty}`;
     const cached = this.cache.get(cacheKey);

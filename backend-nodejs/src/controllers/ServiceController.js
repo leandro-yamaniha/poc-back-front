@@ -49,6 +49,16 @@ class ServiceController {
     }
   }
 
+  async getActiveServicesByCategory(req, res, next) {
+    try {
+      const { category } = req.params;
+      const services = await ServiceService.getActiveServicesByCategory(category);
+      res.status(200).json(services);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async searchServices(req, res, next) {
     try {
       const { name } = req.query;

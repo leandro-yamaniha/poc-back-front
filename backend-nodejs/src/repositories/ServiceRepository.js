@@ -35,6 +35,12 @@ class ServiceRepository {
     return result.rows.map(row => Service.fromRow(row));
   }
 
+  async findActiveByCategory(category) {
+    const query = `SELECT * FROM ${this.tableName} WHERE category = ? AND is_active = true ALLOW FILTERING`;
+    const result = await cassandraClient.execute(query, [category]);
+    return result.rows.map(row => Service.fromRow(row));
+  }
+
   async searchByName(name) {
     const query = `SELECT * FROM ${this.tableName} ALLOW FILTERING`;
     const result = await cassandraClient.execute(query);

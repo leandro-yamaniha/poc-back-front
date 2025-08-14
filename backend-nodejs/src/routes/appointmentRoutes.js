@@ -25,6 +25,12 @@ router.get('/customer/:customerId', AppointmentController.getAppointmentsByCusto
 // GET /api/appointments/staff/:staffId - Get appointments by staff ID
 router.get('/staff/:staffId', AppointmentController.getAppointmentsByStaffId);
 
+// GET /api/appointments/date/:date - Get appointments by date
+router.get('/date/:date', AppointmentController.getAppointmentsByDate);
+
+// GET /api/appointments/date/:date/staff/:staffId - Get appointments by date and staff
+router.get('/date/:date/staff/:staffId', AppointmentController.getAppointmentsByDateAndStaff);
+
 // GET /api/appointments/service/:serviceId - Get appointments by service ID
 router.get('/service/:serviceId', AppointmentController.getAppointmentsByServiceId);
 

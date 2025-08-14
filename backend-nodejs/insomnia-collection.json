@@ -1,0 +1,327 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-08-13T20:08:05.000Z",
+  "__export_source": "cascade.ai",
+  "resources": [
+    {
+      "_id": "wrk_beautysalon",
+      "parentId": null,
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Beauty Salon API",
+      "description": "API completa para gerenciamento de salão de beleza, incluindo clientes, serviços, funcionários e agendamentos.",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "wrk_beautysalon",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://localhost:3000"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseUrl"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1678886400000,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_prod",
+      "parentId": "env_base",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Production Environment",
+      "data": {
+        "baseUrl": "https://api.beautysalon.com"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseUrl"
+        ]
+      },
+      "color": "#ff0000",
+      "isPrivate": false,
+      "metaSortKey": 1678886400001,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_customers",
+      "parentId": "wrk_beautysalon",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Customers",
+      "description": "Operações relacionadas a clientes",
+      "environment": {},
+      "metaSortKey": 0,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_services",
+      "parentId": "wrk_beautysalon",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Services",
+      "description": "Operações relacionadas a serviços",
+      "environment": {},
+      "metaSortKey": 1,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_monitoring",
+      "parentId": "wrk_beautysalon",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Monitoring",
+      "description": "Monitoramento e métricas do sistema",
+      "environment": {},
+      "metaSortKey": 2,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_get_customers",
+      "parentId": "fld_customers",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/customers",
+      "name": "Listar todos os clientes",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_customer",
+      "parentId": "fld_customers",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/customers",
+      "name": "Criar novo cliente",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Maria Silva\",\n  \"email\": \"maria.silva@email.com\",\n  \"phone\": \"11987654321\",\n  \"address\": \"Rua das Flores, 123 - São Paulo, SP\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_customer_by_id",
+      "parentId": "fld_customers",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/customers/123e4567-e89b-12d3-a456-426614174000",
+      "name": "Buscar cliente por ID",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 2,
+      "_type": "request"
+    },
+    {
+      "_id": "req_update_customer",
+      "parentId": "fld_customers",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/customers/123e4567-e89b-12d3-a456-426614174000",
+      "name": "Atualizar cliente",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Maria Silva Updated\",\n  \"email\": \"maria.silva.updated@email.com\",\n  \"phone\": \"11987654322\",\n  \"address\": \"Rua das Flores, 124 - São Paulo, SP\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 3,
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_customer",
+      "parentId": "fld_customers",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/customers/123e4567-e89b-12d3-a456-426614174000",
+      "name": "Excluir cliente",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 4,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_services",
+      "parentId": "fld_services",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/services",
+      "name": "Listar todos os serviços",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_service",
+      "parentId": "fld_services",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/services",
+      "name": "Criar novo serviço",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Corte Feminino\",\n  \"description\": \"Corte de cabelo feminino com lavagem\",\n  \"price\": 50.00,\n  \"duration\": 60,\n  \"category\": \"Cabelo\",\n  \"isActive\": true\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_staff",
+      "parentId": "wrk_beautysalon",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Staff",
+      "description": "Operações relacionadas a funcionários",
+      "environment": {},
+      "metaSortKey": 3,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_appointments",
+      "parentId": "wrk_beautysalon",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Appointments",
+      "description": "Operações relacionadas a agendamentos",
+      "environment": {},
+      "metaSortKey": 4,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_get_active_services_by_category",
+      "parentId": "fld_services",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/services/category/Hair/active",
+      "name": "Listar serviços ativos por categoria",
+      "description": "Busca serviços ativos filtrados por categoria",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 2,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_staff_by_role",
+      "parentId": "fld_staff",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/staff/role/Stylist",
+      "name": "Listar funcionários por função",
+      "description": "Busca funcionários filtrados por função",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_active_staff_by_role",
+      "parentId": "fld_staff",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/staff/role/Stylist/active",
+      "name": "Listar funcionários ativos por função",
+      "description": "Busca funcionários ativos filtrados por função",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 1,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_appointments_by_date_and_staff",
+      "parentId": "fld_appointments",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/api/appointments/date/2025-01-15/staff/a4e0423e-8243-4ff4-9341-9875f6b4a2d8",
+      "name": "Listar agendamentos por data e funcionário",
+      "description": "Busca agendamentos filtrados por data e funcionário",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "req_health_check",
+      "parentId": "fld_monitoring",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.baseUrl }}/health",
+      "name": "Verificação de saúde da API",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    }
+  ]
+}

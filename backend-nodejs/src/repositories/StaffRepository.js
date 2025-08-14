@@ -40,6 +40,12 @@ class StaffRepository {
     return result.rows.map(row => Staff.fromRow(row));
   }
 
+  async findActiveByRole(role) {
+    const query = `SELECT * FROM ${this.tableName} WHERE role = ? AND is_active = true ALLOW FILTERING`;
+    const result = await cassandraClient.execute(query, [role]);
+    return result.rows.map(row => Staff.fromRow(row));
+  }
+
   async findActiveStaff() {
     const query = `SELECT * FROM ${this.tableName} WHERE is_active = true ALLOW FILTERING`;
     const result = await cassandraClient.execute(query);

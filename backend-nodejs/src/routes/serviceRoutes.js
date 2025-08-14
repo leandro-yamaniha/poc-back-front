@@ -22,6 +22,9 @@ router.get('/search', ServiceController.searchServices);
 // GET /api/services/category/:category - Get services by category
 router.get('/category/:category', ServiceController.getServicesByCategory);
 
+// GET /api/services/category/:category/active - Get active services by category
+router.get('/category/:category/active', ServiceController.getActiveServicesByCategory);
+
 // GET /api/services/:id - Get service by ID
 router.get('/:id', ServiceController.getServiceById);
 

@@ -65,6 +65,19 @@ class ServiceService {
     return services;
   }
 
+  async getActiveServicesByCategory(category) {
+    const cacheKey = `services:category:${category}:active`;
+    const cached = this.cache.get(cacheKey);
+    
+    if (cached) {
+      return cached;
+    }
+
+    const services = await ServiceRepository.findActiveByCategory(category);
+    this.cache.set(cacheKey, services);
+    return services;
+  }
+
   async searchServicesByName(name) {
     if (!name || name.trim().length < 2) {
       throw new Error('Nome deve ter pelo menos 2 caracteres para busca');

@@ -35,6 +35,24 @@ class AppointmentRepository {
     return result.rows.map(row => Appointment.fromRow(row));
   }
 
+  async findByDate(date) {
+    // Parse the date string (YYYY-MM-DD format) and create proper Date objects
+    const dateStr = date.toString();
+    const [year, month, day] = dateStr.split('-').map(num => parseInt(num, 10));
+    
+    // Create start and end of day (month is 0-indexed in JavaScript Date)
+    const startOfDay = new Date(year, month - 1, day, 0, 0, 0, 0);
+    const endOfDay = new Date(year, month - 1, day, 23, 59, 59, 999);
+    
+    return await this.findByDateRange(startOfDay, endOfDay);
+  }
+
+  async findByDateAndStaff(date, staffId) {
+    const query = `SELECT * FROM ${this.tableName} WHERE appointment_date = ? AND staff_id = ? ALLOW FILTERING`;
+    const result = await cassandraClient.execute(query, [date, staffId]);
+    return result.rows.map(row => Appointment.fromRow(row));
+  }
+
   async findByServiceId(serviceId) {
     const query = `SELECT * FROM ${this.tableName} WHERE service_id = ? ALLOW FILTERING`;
     const result = await cassandraClient.execute(query, [serviceId]);
