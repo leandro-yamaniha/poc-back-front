@@ -222,3 +222,38 @@ func (h *CustomerHandler) GetCustomerByEmail(c *gin.Context) {
 
 	c.JSON(http.StatusOK, customer)
 }
+
+// GetCustomerCount gets the total count of customers
+func (h *CustomerHandler) GetCustomerCount(c *gin.Context) {
+	count, err := h.service.GetCustomerCount()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"count": count})
+}
+
+// SearchCustomers searches customers by name, email or phone
+func (h *CustomerHandler) SearchCustomers(c *gin.Context) {
+	query := c.Query("q")
+	if query == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Query parameter 'q' is required"})
+		return
+	}
+
+	limit := 50 // Default limit
+	if limitStr := c.Query("limit"); limitStr != "" {
+		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
+			limit = parsedLimit
+		}
+	}
+
+	customers, err := h.service.SearchCustomers(query, limit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, customers)
+}

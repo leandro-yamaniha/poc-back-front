@@ -203,3 +203,99 @@ func (r *ServiceRepository) Exists(id uuid.UUID) (bool, error) {
 	
 	return count > 0, nil
 }
+
+// FindActive retrieves all active services (assuming all services are active for now)
+func (r *ServiceRepository) FindActive() ([]*models.Service, error) {
+	// For now, we'll return all services as active
+	// In a real implementation, you might have an 'active' field in the database
+	return r.FindAll()
+}
+
+// Count returns the total number of services
+func (r *ServiceRepository) Count() (int, error) {
+	var count int
+	query := `SELECT COUNT(*) FROM services`
+	
+	err := r.db.Session.Query(query).Scan(&count)
+	if err != nil {
+		return 0, fmt.Errorf("failed to count services: %w", err)
+	}
+	
+	return count, nil
+}
+
+// GetCategories returns all unique service categories
+func (r *ServiceRepository) GetCategories() ([]string, error) {
+	query := `SELECT DISTINCT category FROM services ALLOW FILTERING`
+	iter := r.db.Session.Query(query).Iter()
+	
+	var categories []string
+	var category string
+	
+	for iter.Scan(&category) {
+		categories = append(categories, category)
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to retrieve categories: %w", err)
+	}
+	
+	return categories, nil
+}
+
+// Search searches services by name or description with limit
+func (r *ServiceRepository) Search(searchQuery string, limit int) ([]*models.Service, error) {
+	query := `SELECT id, name, description, price, category, created_at, updated_at FROM services ALLOW FILTERING`
+	iter := r.db.Session.Query(query).Iter()
+	
+	var services []*models.Service
+	count := 0
+	
+	for count < limit {
+		var idStr string
+		var name, description, category string
+		var priceStr string
+		var createdAt, updatedAt time.Time
+		
+		if !iter.Scan(&idStr, &name, &description, &priceStr, &category, &createdAt, &updatedAt) {
+			break
+		}
+		
+		// Simple case-insensitive substring match for name or description
+		if containsIgnoreCase(name, searchQuery) || containsIgnoreCase(description, searchQuery) {
+			id, err := uuid.Parse(idStr)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse UUID: %w", err)
+			}
+			
+			price, err := strconv.ParseFloat(priceStr, 64)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse price: %w", err)
+			}
+			
+			services = append(services, &models.Service{
+				ID:          id,
+				Name:        name,
+				Description: description,
+				Price:       price,
+				Category:    category,
+				CreatedAt:   createdAt,
+				UpdatedAt:   updatedAt,
+			})
+			count++
+		}
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to search services: %w", err)
+	}
+	
+	return services, nil
+}
+
+// FindActiveByCategoryName retrieves active services by category name
+func (r *ServiceRepository) FindActiveByCategoryName(category string) ([]*models.Service, error) {
+	// For now, we'll return services by category (assuming all are active)
+	// In a real implementation, you might filter by both category and active status
+	return r.FindByCategory(category)
+}

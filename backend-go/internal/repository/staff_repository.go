@@ -227,3 +227,102 @@ func (r *StaffRepository) Exists(id uuid.UUID) (bool, error) {
 	
 	return count > 0, nil
 }
+
+// FindActive retrieves all active staff members (assuming all staff are active for now)
+func (r *StaffRepository) FindActive() ([]*models.Staff, error) {
+	// For now, we'll return all staff as active
+	// In a real implementation, you might have an 'active' field in the database
+	return r.FindAll()
+}
+
+// Count returns the total number of staff members
+func (r *StaffRepository) Count() (int, error) {
+	var count int
+	query := `SELECT COUNT(*) FROM staff`
+	
+	err := r.db.Session.Query(query).Scan(&count)
+	if err != nil {
+		return 0, fmt.Errorf("failed to count staff: %w", err)
+	}
+	
+	return count, nil
+}
+
+// GetRoles returns all unique staff roles
+func (r *StaffRepository) GetRoles() ([]string, error) {
+	query := `SELECT DISTINCT role FROM staff ALLOW FILTERING`
+	iter := r.db.Session.Query(query).Iter()
+	
+	var roles []string
+	var role string
+	
+	for iter.Scan(&role) {
+		roles = append(roles, role)
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to retrieve roles: %w", err)
+	}
+	
+	return roles, nil
+}
+
+// Search searches staff by name, email or role with limit
+func (r *StaffRepository) Search(searchQuery string, limit int) ([]*models.Staff, error) {
+	query := `SELECT id, name, email, role, phone, created_at, updated_at FROM staff ALLOW FILTERING`
+	iter := r.db.Session.Query(query).Iter()
+	
+	var staffMembers []*models.Staff
+	count := 0
+	
+	for count < limit {
+		var idStr string
+		var name, email, role, phone string
+		var createdAt, updatedAt time.Time
+		
+		if !iter.Scan(&idStr, &name, &email, &role, &phone, &createdAt, &updatedAt) {
+			break
+		}
+		
+		// Simple case-insensitive substring match for name, email, or role
+		if containsIgnoreCase(name, searchQuery) || 
+		   containsIgnoreCase(email, searchQuery) || 
+		   containsIgnoreCase(role, searchQuery) {
+			id, err := uuid.Parse(idStr)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse UUID: %w", err)
+			}
+			
+			staffMembers = append(staffMembers, &models.Staff{
+				ID:        id,
+				Name:      name,
+				Email:     email,
+				Role:      role,
+				Phone:     phone,
+				CreatedAt: createdAt,
+				UpdatedAt: updatedAt,
+			})
+			count++
+		}
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to search staff: %w", err)
+	}
+	
+	return staffMembers, nil
+}
+
+// FindActiveByRole retrieves active staff members by role
+func (r *StaffRepository) FindActiveByRole(role string) ([]*models.Staff, error) {
+	// For now, we'll return staff by role (assuming all are active)
+	// In a real implementation, you might filter by both role and active status
+	return r.FindByRole(role)
+}
+
+// FindBySpecialty retrieves staff members by specialty (using role as specialty for now)
+func (r *StaffRepository) FindBySpecialty(specialty string) ([]*models.Staff, error) {
+	// For now, we'll use role as specialty
+	// In a real implementation, you might have a separate specialty field
+	return r.FindByRole(specialty)
+}

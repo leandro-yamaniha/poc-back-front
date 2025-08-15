@@ -195,3 +195,94 @@ func (h *ServiceHandler) DeleteService(c *gin.Context) {
 
 	c.JSON(http.StatusNoContent, nil)
 }
+
+// GetActiveServices gets all active services
+func (h *ServiceHandler) GetActiveServices(c *gin.Context) {
+	services, err := h.service.GetActiveServices()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get active services"})
+		return
+	}
+
+	c.JSON(http.StatusOK, services)
+}
+
+// GetServiceCount gets the total count of services
+func (h *ServiceHandler) GetServiceCount(c *gin.Context) {
+	count, err := h.service.GetServiceCount()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"count": count})
+}
+
+// GetCategories gets all service categories
+func (h *ServiceHandler) GetCategories(c *gin.Context) {
+	categories, err := h.service.GetCategories()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get categories"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"categories": categories})
+}
+
+// SearchServices searches services by name or description
+func (h *ServiceHandler) SearchServices(c *gin.Context) {
+	query := c.Query("q")
+	if query == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Query parameter 'q' is required"})
+		return
+	}
+
+	limit := 50 // Default limit
+	if limitStr := c.Query("limit"); limitStr != "" {
+		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
+			limit = parsedLimit
+		}
+	}
+
+	services, err := h.service.SearchServices(query, limit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, services)
+}
+
+// GetServicesByCategory gets services by category
+func (h *ServiceHandler) GetServicesByCategory(c *gin.Context) {
+	category := c.Param("category")
+	if category == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Category is required"})
+		return
+	}
+
+	services, err := h.service.GetServicesByCategory(category)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get services by category"})
+		return
+	}
+
+	c.JSON(http.StatusOK, services)
+}
+
+// GetActiveServicesByCategory gets active services by category
+func (h *ServiceHandler) GetActiveServicesByCategory(c *gin.Context) {
+	category := c.Param("category")
+	if category == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Category is required"})
+		return
+	}
+
+	services, err := h.service.GetActiveServicesByCategory(category)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get active services by category"})
+		return
+	}
+
+	c.JSON(http.StatusOK, services)
+}

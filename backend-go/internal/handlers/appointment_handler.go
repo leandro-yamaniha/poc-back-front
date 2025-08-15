@@ -119,6 +119,7 @@ func (h *AppointmentHandler) CreateAppointment(c *gin.Context) {
 		return
 	}
 
+	log.Printf("Successfully created appointment: %+v", appointment)
 	c.JSON(http.StatusCreated, appointment)
 }
 
@@ -146,8 +147,21 @@ func (h *AppointmentHandler) GetAppointment(c *gin.Context) {
 
 // GetAllAppointments handles GET /appointments
 func (h *AppointmentHandler) GetAllAppointments(c *gin.Context) {
+	// Check for status filter
+	status := c.Query("status")
+	if status != "" {
+		appointments, err := h.service.GetAppointmentsByStatus(models.AppointmentStatus(status))
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by status"})
+			return
+		}
+		c.JSON(http.StatusOK, appointments)
+		return
+	}
+
 	// Check for customer filter
-	if customerIDStr := c.Query("customer_id"); customerIDStr != "" {
+	customerIDStr := c.Query("customer_id")
+	if customerIDStr != "" {
 		customerID, err := uuid.Parse(customerIDStr)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid customer ID"})
@@ -163,7 +177,8 @@ func (h *AppointmentHandler) GetAllAppointments(c *gin.Context) {
 	}
 
 	// Check for staff filter
-	if staffIDStr := c.Query("staff_id"); staffIDStr != "" {
+	staffIDStr := c.Query("staff_id")
+	if staffIDStr != "" {
 		staffID, err := uuid.Parse(staffIDStr)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid staff ID"})
@@ -172,22 +187,6 @@ func (h *AppointmentHandler) GetAllAppointments(c *gin.Context) {
 		appointments, err := h.service.GetAppointmentsByStaffID(staffID)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by staff"})
-			return
-		}
-		c.JSON(http.StatusOK, appointments)
-		return
-	}
-
-	// Check for date filter
-	if dateStr := c.Query("date"); dateStr != "" {
-		date, err := time.Parse("2006-01-02", dateStr)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid date format (YYYY-MM-DD)"})
-			return
-		}
-		appointments, err := h.service.GetAppointmentsByDate(date)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by date"})
 			return
 		}
 		c.JSON(http.StatusOK, appointments)
@@ -379,4 +378,194 @@ func (h *AppointmentHandler) DeleteAppointment(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusNoContent, nil)
+}
+
+// GetAppointmentCount gets the total count of appointments
+func (h *AppointmentHandler) GetAppointmentCount(c *gin.Context) {
+	count, err := h.service.GetAppointmentCount()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"count": count})
+}
+
+// GetUpcomingAppointments retrieves upcoming appointments
+func (h *AppointmentHandler) GetUpcomingAppointments(c *gin.Context) {
+	appointments, err := h.service.GetUpcomingAppointments()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get upcoming appointments"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetTodayAppointments gets today's appointments
+func (h *AppointmentHandler) GetTodayAppointments(c *gin.Context) {
+	appointments, err := h.service.GetTodayAppointments()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get today's appointments"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentsByDateRange gets appointments by date range
+func (h *AppointmentHandler) GetAppointmentsByDateRange(c *gin.Context) {
+	startDateStr := c.Query("start_date")
+	endDateStr := c.Query("end_date")
+
+	if startDateStr == "" || endDateStr == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "start_date and end_date query parameters are required"})
+		return
+	}
+
+	startDate, err := time.Parse("2006-01-02", startDateStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid start_date format (YYYY-MM-DD)"})
+		return
+	}
+
+	endDate, err := time.Parse("2006-01-02", endDateStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid end_date format (YYYY-MM-DD)"})
+		return
+	}
+
+	appointments, err := h.service.GetAppointmentsByDateRange(startDate, endDate)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by date range"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentsByCustomer gets appointments by customer ID
+func (h *AppointmentHandler) GetAppointmentsByCustomer(c *gin.Context) {
+	customerIDStr := c.Param("customerId")
+	customerID, err := uuid.Parse(customerIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid customer ID"})
+		return
+	}
+
+	appointments, err := h.service.GetAppointmentsByCustomerID(customerID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by customer"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentsByStaff gets appointments by staff ID
+func (h *AppointmentHandler) GetAppointmentsByStaff(c *gin.Context) {
+	staffIDStr := c.Param("staffId")
+	staffID, err := uuid.Parse(staffIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid staff ID"})
+		return
+	}
+
+	appointments, err := h.service.GetAppointmentsByStaffID(staffID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by staff"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentsByDate gets appointments by date
+func (h *AppointmentHandler) GetAppointmentsByDate(c *gin.Context) {
+	dateStr := c.Param("date")
+	date, err := time.Parse("2006-01-02", dateStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid date format (YYYY-MM-DD)"})
+		return
+	}
+
+	appointments, err := h.service.GetAppointmentsByDate(date)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by date"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentsByDateAndStaff gets appointments by date and staff
+func (h *AppointmentHandler) GetAppointmentsByDateAndStaff(c *gin.Context) {
+	dateStr := c.Param("date")
+	staffIDStr := c.Param("staffId")
+
+	date, err := time.Parse("2006-01-02", dateStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid date format (YYYY-MM-DD)"})
+		return
+	}
+
+	staffID, err := uuid.Parse(staffIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid staff ID"})
+		return
+	}
+
+	appointments, err := h.service.GetAppointmentsByDateAndStaff(date, staffID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by date and staff"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentsByService gets appointments by service ID
+func (h *AppointmentHandler) GetAppointmentsByService(c *gin.Context) {
+	serviceIDStr := c.Param("serviceId")
+	serviceID, err := uuid.Parse(serviceIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid service ID"})
+		return
+	}
+
+	appointments, err := h.service.GetAppointmentsByServiceID(serviceID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by service"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentsByStatus gets appointments by status
+func (h *AppointmentHandler) GetAppointmentsByStatus(c *gin.Context) {
+	statusStr := c.Param("status")
+	status := models.AppointmentStatus(statusStr)
+
+	appointments, err := h.service.GetAppointmentsByStatus(status)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointments by status"})
+		return
+	}
+
+	c.JSON(http.StatusOK, appointments)
+}
+
+// GetAppointmentCountByStatus gets appointment count by status
+func (h *AppointmentHandler) GetAppointmentCountByStatus(c *gin.Context) {
+	statusStr := c.Param("status")
+	status := models.AppointmentStatus(statusStr)
+
+	count, err := h.service.GetAppointmentCountByStatus(status)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get appointment count by status"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"count": count})
 }

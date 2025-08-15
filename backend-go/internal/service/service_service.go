@@ -136,3 +136,56 @@ func (s *ServiceService) ServiceExists(id uuid.UUID) (bool, error) {
 	}
 	return exists, nil
 }
+
+// GetActiveServices retrieves all active services
+func (s *ServiceService) GetActiveServices() ([]*models.Service, error) {
+	services, err := s.repo.FindActive()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get active services: %w", err)
+	}
+	return services, nil
+}
+
+// GetServiceCount gets the total count of services
+func (s *ServiceService) GetServiceCount() (int, error) {
+	count, err := s.repo.Count()
+	if err != nil {
+		return 0, fmt.Errorf("failed to get service count: %w", err)
+	}
+	return count, nil
+}
+
+// GetCategories gets all unique service categories
+func (s *ServiceService) GetCategories() ([]string, error) {
+	categories, err := s.repo.GetCategories()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get categories: %w", err)
+	}
+	return categories, nil
+}
+
+// SearchServices searches services by name or description
+func (s *ServiceService) SearchServices(query string, limit int) ([]*models.Service, error) {
+	if query == "" {
+		return []*models.Service{}, nil
+	}
+
+	services, err := s.repo.Search(query, limit)
+	if err != nil {
+		return nil, fmt.Errorf("failed to search services: %w", err)
+	}
+	return services, nil
+}
+
+// GetActiveServicesByCategory retrieves active services by category
+func (s *ServiceService) GetActiveServicesByCategory(category string) ([]*models.Service, error) {
+	if category == "" {
+		return s.GetActiveServices()
+	}
+
+	services, err := s.repo.FindActiveByCategoryName(category)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get active services by category: %w", err)
+	}
+	return services, nil
+}

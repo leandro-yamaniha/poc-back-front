@@ -171,3 +171,25 @@ func (s *CustomerService) CustomerExists(id uuid.UUID) (bool, error) {
 	}
 	return exists, nil
 }
+
+// GetCustomerCount gets the total count of customers
+func (s *CustomerService) GetCustomerCount() (int, error) {
+	count, err := s.repo.Count()
+	if err != nil {
+		return 0, fmt.Errorf("failed to get customer count: %w", err)
+	}
+	return count, nil
+}
+
+// SearchCustomers searches customers by name, email or phone
+func (s *CustomerService) SearchCustomers(query string, limit int) ([]*models.Customer, error) {
+	if query == "" {
+		return []*models.Customer{}, nil
+	}
+
+	customers, err := s.repo.Search(query, limit)
+	if err != nil {
+		return nil, fmt.Errorf("failed to search customers: %w", err)
+	}
+	return customers, nil
+}
