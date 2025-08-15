@@ -23,18 +23,20 @@ func NewStaffHandler(service *service.StaffService) *StaffHandler {
 
 // CreateStaffRequest represents the request body for creating a staff member
 type CreateStaffRequest struct {
-	Name  string `json:"name" binding:"required"`
-	Email string `json:"email" binding:"required,email"`
-	Role  string `json:"role" binding:"required"`
-	Phone string `json:"phone"`
+	Name      string `json:"name" binding:"required"`
+	Email     string `json:"email" binding:"required,email"`
+	Role      string `json:"role" binding:"required"`
+	Phone     string `json:"phone"`
+	Specialty string `json:"specialty"`
 }
 
 // UpdateStaffRequest represents the request body for updating a staff member
 type UpdateStaffRequest struct {
-	Name  string `json:"name" binding:"required"`
-	Email string `json:"email" binding:"required,email"`
-	Role  string `json:"role" binding:"required"`
-	Phone string `json:"phone"`
+	Name      string `json:"name" binding:"required"`
+	Email     string `json:"email" binding:"required,email"`
+	Role      string `json:"role" binding:"required"`
+	Phone     string `json:"phone"`
+	Specialty string `json:"specialty"`
 }
 
 // CreateStaff handles POST /staff
@@ -219,6 +221,114 @@ func (h *StaffHandler) GetStaffByEmail(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get staff"})
+		return
+	}
+
+	c.JSON(http.StatusOK, staff)
+}
+
+// GetActiveStaff gets all active staff members
+func (h *StaffHandler) GetActiveStaff(c *gin.Context) {
+	staff, err := h.service.GetActiveStaff()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get active staff"})
+		return
+	}
+
+	c.JSON(http.StatusOK, staff)
+}
+
+// GetStaffCount gets the total count of staff members
+func (h *StaffHandler) GetStaffCount(c *gin.Context) {
+	count, err := h.service.GetStaffCount()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"count": count})
+}
+
+// GetRoles gets all staff roles
+func (h *StaffHandler) GetRoles(c *gin.Context) {
+	roles, err := h.service.GetRoles()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get roles"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"roles": roles})
+}
+
+// SearchStaff searches staff by name or email
+func (h *StaffHandler) SearchStaff(c *gin.Context) {
+	query := c.Query("q")
+	if query == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Query parameter 'q' is required"})
+		return
+	}
+
+	limit := 50 // Default limit
+	if limitStr := c.Query("limit"); limitStr != "" {
+		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
+			limit = parsedLimit
+		}
+	}
+
+	staff, err := h.service.SearchStaff(query, limit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, staff)
+}
+
+// GetStaffByRole gets staff by role
+func (h *StaffHandler) GetStaffByRole(c *gin.Context) {
+	role := c.Param("role")
+	if role == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role is required"})
+		return
+	}
+
+	staff, err := h.service.GetStaffByRole(role)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get staff by role"})
+		return
+	}
+
+	c.JSON(http.StatusOK, staff)
+}
+
+// GetActiveStaffByRole gets active staff by role
+func (h *StaffHandler) GetActiveStaffByRole(c *gin.Context) {
+	role := c.Param("role")
+	if role == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role is required"})
+		return
+	}
+
+	staff, err := h.service.GetActiveStaffByRole(role)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get active staff by role"})
+		return
+	}
+
+	c.JSON(http.StatusOK, staff)
+}
+
+// GetStaffBySpecialty gets staff by specialty
+func (h *StaffHandler) GetStaffBySpecialty(c *gin.Context) {
+	specialty := c.Param("specialty")
+	if specialty == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Specialty is required"})
+		return
+	}
+
+	staff, err := h.service.GetStaffBySpecialty(specialty)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get staff by specialty"})
 		return
 	}
 

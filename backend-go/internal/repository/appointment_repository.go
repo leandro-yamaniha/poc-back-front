@@ -483,3 +483,331 @@ func (r *AppointmentRepository) Exists(id uuid.UUID) (bool, error) {
 	
 	return count > 0, nil
 }
+
+// FindByStatus retrieves appointments by status
+func (r *AppointmentRepository) FindByStatus(status models.AppointmentStatus) ([]*models.Appointment, error) {
+	query := `SELECT id, customer_id, staff_id, service_id, appointment_date, appointment_time, 
+			  status, notes, total_price, created_at, updated_at 
+			  FROM appointments WHERE status = ? ALLOW FILTERING`
+	iter := r.db.Session.Query(query, string(status)).Iter()
+	
+	var appointments []*models.Appointment
+	var idStr, customerIDStr, staffIDStr, serviceIDStr string
+	var appointmentDateStr, appointmentTimeStr string
+	var statusStr string
+	var notes string
+	var totalPriceStr string
+	var createdAt, updatedAt time.Time
+	
+	for iter.Scan(
+		&idStr,
+		&customerIDStr,
+		&staffIDStr,
+		&serviceIDStr,
+		&appointmentDateStr,
+		&appointmentTimeStr,
+		&statusStr,
+		&notes,
+		&totalPriceStr,
+		&createdAt,
+		&updatedAt,
+	) {
+		// Parse UUIDs from strings
+		parsedID, err := uuid.Parse(idStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedCustomerID, err := uuid.Parse(customerIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedStaffID, err := uuid.Parse(staffIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedServiceID, err := uuid.Parse(serviceIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		
+		// Parse date and time from strings
+		appointmentDate, err := time.Parse("2006-01-02", appointmentDateStr)
+		if err != nil {
+			continue // Skip invalid dates
+		}
+		
+		appointmentTime, err := time.Parse("15:04:05", appointmentTimeStr)
+		if err != nil {
+			continue // Skip invalid times
+		}
+		
+		totalPrice, err := strconv.ParseFloat(totalPriceStr, 64)
+		if err != nil {
+			continue // Skip invalid prices
+		}
+		
+		appointments = append(appointments, &models.Appointment{
+			ID:              parsedID,
+			CustomerID:      parsedCustomerID,
+			StaffID:         parsedStaffID,
+			ServiceID:       parsedServiceID,
+			AppointmentDate: appointmentDate,
+			AppointmentTime: appointmentTime,
+			Status:          models.AppointmentStatus(statusStr),
+			Notes:           notes,
+			TotalPrice:      totalPrice,
+			CreatedAt:       createdAt,
+			UpdatedAt:       updatedAt,
+		})
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to retrieve appointments by status: %w", err)
+	}
+	
+	return appointments, nil
+}
+
+// Count returns the total number of appointments
+func (r *AppointmentRepository) Count() (int, error) {
+	var count int
+	query := `SELECT COUNT(*) FROM appointments`
+	
+	err := r.db.Session.Query(query).Scan(&count)
+	if err != nil {
+		return 0, fmt.Errorf("failed to count appointments: %w", err)
+	}
+	
+	return count, nil
+}
+
+// FindUpcoming retrieves appointments scheduled after the given time
+func (r *AppointmentRepository) FindUpcoming(fromTime time.Time) ([]*models.Appointment, error) {
+	// For simplicity, we'll get all appointments and filter in memory
+	// In a production system, you'd want to optimize this with proper indexing
+	appointments, err := r.FindAll()
+	if err != nil {
+		return nil, err
+	}
+	
+	var upcoming []*models.Appointment
+	for _, appointment := range appointments {
+		appointmentDateTime := time.Date(
+			appointment.AppointmentDate.Year(),
+			appointment.AppointmentDate.Month(),
+			appointment.AppointmentDate.Day(),
+			appointment.AppointmentTime.Hour(),
+			appointment.AppointmentTime.Minute(),
+			appointment.AppointmentTime.Second(),
+			0,
+			time.Local,
+		)
+		
+		if appointmentDateTime.After(fromTime) {
+			upcoming = append(upcoming, appointment)
+		}
+	}
+	
+	return upcoming, nil
+}
+
+// FindByDateRange retrieves appointments within a date range
+func (r *AppointmentRepository) FindByDateRange(startDate, endDate time.Time) ([]*models.Appointment, error) {
+	// For simplicity, we'll get all appointments and filter in memory
+	// In a production system, you'd want to optimize this with proper indexing
+	appointments, err := r.FindAll()
+	if err != nil {
+		return nil, err
+	}
+	
+	var filtered []*models.Appointment
+	for _, appointment := range appointments {
+		if (appointment.AppointmentDate.Equal(startDate) || appointment.AppointmentDate.After(startDate)) &&
+		   (appointment.AppointmentDate.Equal(endDate) || appointment.AppointmentDate.Before(endDate)) {
+			filtered = append(filtered, appointment)
+		}
+	}
+	
+	return filtered, nil
+}
+
+// FindByDateAndStaff retrieves appointments by date and staff
+func (r *AppointmentRepository) FindByDateAndStaff(date time.Time, staffID uuid.UUID) ([]*models.Appointment, error) {
+	query := `SELECT id, customer_id, staff_id, service_id, appointment_date, appointment_time, 
+			  status, notes, total_price, created_at, updated_at 
+			  FROM appointments WHERE appointment_date = ? AND staff_id = ? ALLOW FILTERING`
+	iter := r.db.Session.Query(query, date.Format("2006-01-02"), staffID.String()).Iter()
+	
+	var appointments []*models.Appointment
+	var idStr, customerIDStr, staffIDStr, serviceIDStr string
+	var appointmentDateStr, appointmentTimeStr string
+	var status string
+	var notes string
+	var totalPriceStr string
+	var createdAt, updatedAt time.Time
+	
+	for iter.Scan(
+		&idStr,
+		&customerIDStr,
+		&staffIDStr,
+		&serviceIDStr,
+		&appointmentDateStr,
+		&appointmentTimeStr,
+		&status,
+		&notes,
+		&totalPriceStr,
+		&createdAt,
+		&updatedAt,
+	) {
+		// Parse UUIDs from strings
+		parsedID, err := uuid.Parse(idStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedCustomerID, err := uuid.Parse(customerIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedStaffID, err := uuid.Parse(staffIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedServiceID, err := uuid.Parse(serviceIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		
+		// Parse date and time from strings
+		appointmentDate, err := time.Parse("2006-01-02", appointmentDateStr)
+		if err != nil {
+			continue // Skip invalid dates
+		}
+		
+		appointmentTime, err := time.Parse("15:04:05", appointmentTimeStr)
+		if err != nil {
+			continue // Skip invalid times
+		}
+		
+		totalPrice, err := strconv.ParseFloat(totalPriceStr, 64)
+		if err != nil {
+			continue // Skip invalid prices
+		}
+		
+		appointments = append(appointments, &models.Appointment{
+			ID:              parsedID,
+			CustomerID:      parsedCustomerID,
+			StaffID:         parsedStaffID,
+			ServiceID:       parsedServiceID,
+			AppointmentDate: appointmentDate,
+			AppointmentTime: appointmentTime,
+			Status:          models.AppointmentStatus(status),
+			Notes:           notes,
+			TotalPrice:      totalPrice,
+			CreatedAt:       createdAt,
+			UpdatedAt:       updatedAt,
+		})
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to retrieve appointments by date and staff: %w", err)
+	}
+	
+	return appointments, nil
+}
+
+// FindByServiceID retrieves appointments by service ID
+func (r *AppointmentRepository) FindByServiceID(serviceID uuid.UUID) ([]*models.Appointment, error) {
+	query := `SELECT id, customer_id, staff_id, service_id, appointment_date, appointment_time, 
+			  status, notes, total_price, created_at, updated_at 
+			  FROM appointments WHERE service_id = ? ALLOW FILTERING`
+	iter := r.db.Session.Query(query, serviceID.String()).Iter()
+	
+	var appointments []*models.Appointment
+	var idStr, customerIDStr, staffIDStr, serviceIDStr string
+	var appointmentDateStr, appointmentTimeStr string
+	var status string
+	var notes string
+	var totalPriceStr string
+	var createdAt, updatedAt time.Time
+	
+	for iter.Scan(
+		&idStr,
+		&customerIDStr,
+		&staffIDStr,
+		&serviceIDStr,
+		&appointmentDateStr,
+		&appointmentTimeStr,
+		&status,
+		&notes,
+		&totalPriceStr,
+		&createdAt,
+		&updatedAt,
+	) {
+		// Parse UUIDs from strings
+		parsedID, err := uuid.Parse(idStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedCustomerID, err := uuid.Parse(customerIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedStaffID, err := uuid.Parse(staffIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		parsedServiceID, err := uuid.Parse(serviceIDStr)
+		if err != nil {
+			continue // Skip invalid UUIDs
+		}
+		
+		// Parse date and time from strings
+		appointmentDate, err := time.Parse("2006-01-02", appointmentDateStr)
+		if err != nil {
+			continue // Skip invalid dates
+		}
+		
+		appointmentTime, err := time.Parse("15:04:05", appointmentTimeStr)
+		if err != nil {
+			continue // Skip invalid times
+		}
+		
+		totalPrice, err := strconv.ParseFloat(totalPriceStr, 64)
+		if err != nil {
+			continue // Skip invalid prices
+		}
+		
+		appointments = append(appointments, &models.Appointment{
+			ID:              parsedID,
+			CustomerID:      parsedCustomerID,
+			StaffID:         parsedStaffID,
+			ServiceID:       parsedServiceID,
+			AppointmentDate: appointmentDate,
+			AppointmentTime: appointmentTime,
+			Status:          models.AppointmentStatus(status),
+			Notes:           notes,
+			TotalPrice:      totalPrice,
+			CreatedAt:       createdAt,
+			UpdatedAt:       updatedAt,
+		})
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to retrieve appointments by service: %w", err)
+	}
+	
+	return appointments, nil
+}
+
+// CountByStatus returns the count of appointments by status
+func (r *AppointmentRepository) CountByStatus(status models.AppointmentStatus) (int, error) {
+	var count int
+	query := `SELECT COUNT(*) FROM appointments WHERE status = ? ALLOW FILTERING`
+	
+	err := r.db.Session.Query(query, string(status)).Scan(&count)
+	if err != nil {
+		return 0, fmt.Errorf("failed to count appointments by status: %w", err)
+	}
+	
+	return count, nil
+}

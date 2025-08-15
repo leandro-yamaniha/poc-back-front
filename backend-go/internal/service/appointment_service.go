@@ -282,3 +282,77 @@ func (s *AppointmentService) checkForConflicts(staffID uuid.UUID, appointmentDat
 
 	return nil
 }
+
+// GetAppointmentsByStatus retrieves appointments by status
+func (s *AppointmentService) GetAppointmentsByStatus(status models.AppointmentStatus) ([]*models.Appointment, error) {
+	appointments, err := s.repo.FindByStatus(status)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get appointments by status: %w", err)
+	}
+	return appointments, nil
+}
+
+// GetAppointmentCount gets the total count of appointments
+func (s *AppointmentService) GetAppointmentCount() (int, error) {
+	count, err := s.repo.Count()
+	if err != nil {
+		return 0, fmt.Errorf("failed to get appointment count: %w", err)
+	}
+	return count, nil
+}
+
+// GetUpcomingAppointments retrieves upcoming appointments
+func (s *AppointmentService) GetUpcomingAppointments() ([]*models.Appointment, error) {
+	now := time.Now()
+	appointments, err := s.repo.FindUpcoming(now)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get upcoming appointments: %w", err)
+	}
+	return appointments, nil
+}
+
+// GetTodayAppointments retrieves appointments for today
+func (s *AppointmentService) GetTodayAppointments() ([]*models.Appointment, error) {
+	today := time.Now().Truncate(24 * time.Hour)
+	appointments, err := s.repo.FindByDate(today)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get today's appointments: %w", err)
+	}
+	return appointments, nil
+}
+
+// GetAppointmentsByDateRange retrieves appointments within a date range
+func (s *AppointmentService) GetAppointmentsByDateRange(startDate, endDate time.Time) ([]*models.Appointment, error) {
+	appointments, err := s.repo.FindByDateRange(startDate, endDate)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get appointments by date range: %w", err)
+	}
+	return appointments, nil
+}
+
+// GetAppointmentsByDateAndStaff retrieves appointments by date and staff
+func (s *AppointmentService) GetAppointmentsByDateAndStaff(date time.Time, staffID uuid.UUID) ([]*models.Appointment, error) {
+	appointments, err := s.repo.FindByDateAndStaff(date, staffID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get appointments by date and staff: %w", err)
+	}
+	return appointments, nil
+}
+
+// GetAppointmentsByServiceID retrieves appointments by service ID
+func (s *AppointmentService) GetAppointmentsByServiceID(serviceID uuid.UUID) ([]*models.Appointment, error) {
+	appointments, err := s.repo.FindByServiceID(serviceID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get appointments by service: %w", err)
+	}
+	return appointments, nil
+}
+
+// GetAppointmentCountByStatus gets the count of appointments by status
+func (s *AppointmentService) GetAppointmentCountByStatus(status models.AppointmentStatus) (int, error) {
+	count, err := s.repo.CountByStatus(status)
+	if err != nil {
+		return 0, fmt.Errorf("failed to get appointment count by status: %w", err)
+	}
+	return count, nil
+}

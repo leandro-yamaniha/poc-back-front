@@ -119,34 +119,59 @@ HEALTH_ENDPOINT=/health
 
 ### Customers
 - `POST /api/v1/customers` - Create a new customer
-- `GET /api/v1/customers` - Get all customers (with pagination and search)
+- `GET /api/v1/customers` - Get all customers
 - `GET /api/v1/customers/:id` - Get customer by ID
 - `PUT /api/v1/customers/:id` - Update customer
 - `DELETE /api/v1/customers/:id` - Delete customer
 - `GET /api/v1/customers/email/:email` - Get customer by email
+- `GET /api/v1/customers/count` - Get total customer count
+- `GET /api/v1/customers/search?q=query&limit=10` - Search customers
 
 ### Services
 - `POST /api/v1/services` - Create a new service
-- `GET /api/v1/services` - Get all services (with pagination and category filter)
+- `GET /api/v1/services` - Get all services
 - `GET /api/v1/services/:id` - Get service by ID
 - `PUT /api/v1/services/:id` - Update service
 - `DELETE /api/v1/services/:id` - Delete service
+- `GET /api/v1/services/active` - Get active services only
+- `GET /api/v1/services/count` - Get total service count
+- `GET /api/v1/services/categories` - Get all service categories
+- `GET /api/v1/services/search?q=query&limit=10` - Search services
+- `GET /api/v1/services/category/:category/active` - Get active services by category
 
 ### Staff
 - `POST /api/v1/staff` - Create a new staff member
-- `GET /api/v1/staff` - Get all staff (with pagination and role filter)
+- `GET /api/v1/staff` - Get all staff
 - `GET /api/v1/staff/:id` - Get staff by ID
 - `PUT /api/v1/staff/:id` - Update staff
 - `DELETE /api/v1/staff/:id` - Delete staff
 - `GET /api/v1/staff/email/:email` - Get staff by email
+- `GET /api/v1/staff/active` - Get active staff only
+- `GET /api/v1/staff/count` - Get total staff count
+- `GET /api/v1/staff/roles` - Get all staff roles
+- `GET /api/v1/staff/search?q=query&limit=10` - Search staff
+- `GET /api/v1/staff/role/:role` - Get staff by role
+- `GET /api/v1/staff/role/:role/active` - Get active staff by role
+- `GET /api/v1/staff/specialty/:specialty` - Get staff by specialty
 
 ### Appointments
 - `POST /api/v1/appointments` - Create a new appointment
-- `GET /api/v1/appointments` - Get all appointments (with filters and pagination)
+- `GET /api/v1/appointments` - Get all appointments
 - `GET /api/v1/appointments/:id` - Get appointment by ID
 - `PUT /api/v1/appointments/:id` - Update appointment
 - `DELETE /api/v1/appointments/:id` - Delete appointment
 - `PATCH /api/v1/appointments/:id/status` - Update appointment status
+- `GET /api/v1/appointments/customer/:customerId` - Get appointments by customer
+- `GET /api/v1/appointments/staff/:staffId` - Get appointments by staff
+- `GET /api/v1/appointments/service/:serviceId` - Get appointments by service
+- `GET /api/v1/appointments/date/:date` - Get appointments by date (YYYY-MM-DD)
+- `GET /api/v1/appointments/date/:date/staff/:staffId` - Get appointments by date and staff
+- `GET /api/v1/appointments/status/:status` - Get appointments by status
+- `GET /api/v1/appointments/count` - Get total appointment count
+- `GET /api/v1/appointments/count/status/:status` - Get appointment count by status
+- `GET /api/v1/appointments/upcoming` - Get upcoming appointments
+- `GET /api/v1/appointments/today` - Get today's appointments
+- `GET /api/v1/appointments/range?start=YYYY-MM-DD&end=YYYY-MM-DD` - Get appointments by date range
 
 ## Development
 

@@ -235,3 +235,64 @@ func (r *CustomerRepository) Exists(id uuid.UUID) (bool, error) {
 	
 	return count > 0, nil
 }
+
+// Count returns the total number of customers
+func (r *CustomerRepository) Count() (int, error) {
+	var count int
+	query := `SELECT COUNT(*) FROM customers`
+	
+	err := r.db.Session.Query(query).Scan(&count)
+	if err != nil {
+		return 0, fmt.Errorf("failed to count customers: %w", err)
+	}
+	
+	return count, nil
+}
+
+// Search searches customers by name, email or phone with limit
+func (r *CustomerRepository) Search(searchQuery string, limit int) ([]*models.Customer, error) {
+	// Note: This is a simple implementation. In production, consider using
+	// a search engine like Elasticsearch for better text search capabilities
+	query := `SELECT id, name, email, phone, created_at, updated_at 
+			  FROM customers ALLOW FILTERING`
+	iter := r.db.Session.Query(query).Iter()
+	
+	var customers []*models.Customer
+	count := 0
+	
+	for count < limit {
+		var idStr string
+		var customerName, email, phone string
+		var createdAt, updatedAt time.Time
+		
+		if !iter.Scan(&idStr, &customerName, &email, &phone, &createdAt, &updatedAt) {
+			break
+		}
+		
+		// Simple case-insensitive substring match for name, email, or phone
+		if containsIgnoreCase(customerName, searchQuery) || 
+		   containsIgnoreCase(email, searchQuery) || 
+		   containsIgnoreCase(phone, searchQuery) {
+			id, err := uuid.Parse(idStr)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse UUID: %w", err)
+			}
+			
+			customers = append(customers, &models.Customer{
+				ID:        id,
+				Name:      customerName,
+				Email:     email,
+				Phone:     phone,
+				CreatedAt: createdAt,
+				UpdatedAt: updatedAt,
+			})
+			count++
+		}
+	}
+	
+	if err := iter.Close(); err != nil {
+		return nil, fmt.Errorf("failed to search customers: %w", err)
+	}
+	
+	return customers, nil
+}

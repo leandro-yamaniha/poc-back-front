@@ -178,3 +178,69 @@ func (s *StaffService) StaffExists(id uuid.UUID) (bool, error) {
 	}
 	return exists, nil
 }
+
+// GetActiveStaff retrieves all active staff members
+func (s *StaffService) GetActiveStaff() ([]*models.Staff, error) {
+	staff, err := s.repo.FindActive()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get active staff: %w", err)
+	}
+	return staff, nil
+}
+
+// GetStaffCount gets the total count of staff members
+func (s *StaffService) GetStaffCount() (int, error) {
+	count, err := s.repo.Count()
+	if err != nil {
+		return 0, fmt.Errorf("failed to get staff count: %w", err)
+	}
+	return count, nil
+}
+
+// GetRoles gets all unique staff roles
+func (s *StaffService) GetRoles() ([]string, error) {
+	roles, err := s.repo.GetRoles()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get roles: %w", err)
+	}
+	return roles, nil
+}
+
+// SearchStaff searches staff by name, email or role
+func (s *StaffService) SearchStaff(query string, limit int) ([]*models.Staff, error) {
+	if query == "" {
+		return []*models.Staff{}, nil
+	}
+
+	staff, err := s.repo.Search(query, limit)
+	if err != nil {
+		return nil, fmt.Errorf("failed to search staff: %w", err)
+	}
+	return staff, nil
+}
+
+// GetActiveStaffByRole retrieves active staff members by role
+func (s *StaffService) GetActiveStaffByRole(role string) ([]*models.Staff, error) {
+	if role == "" {
+		return s.GetActiveStaff()
+	}
+
+	staff, err := s.repo.FindActiveByRole(role)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get active staff by role: %w", err)
+	}
+	return staff, nil
+}
+
+// GetStaffBySpecialty retrieves staff members by specialty
+func (s *StaffService) GetStaffBySpecialty(specialty string) ([]*models.Staff, error) {
+	if specialty == "" {
+		return []*models.Staff{}, nil
+	}
+
+	staff, err := s.repo.FindBySpecialty(specialty)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get staff by specialty: %w", err)
+	}
+	return staff, nil
+}

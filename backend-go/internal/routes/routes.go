@@ -63,10 +63,12 @@ func SetupRoutes(
 		{
 			customers.POST("", customerHandler.CreateCustomer)
 			customers.GET("", customerHandler.GetAllCustomers)
+			customers.GET("/count", customerHandler.GetCustomerCount)
+			customers.GET("/search", customerHandler.SearchCustomers)
+			customers.GET("/email/:email", customerHandler.GetCustomerByEmail)
 			customers.GET("/:id", customerHandler.GetCustomer)
 			customers.PUT("/:id", customerHandler.UpdateCustomer)
 			customers.DELETE("/:id", customerHandler.DeleteCustomer)
-			customers.GET("/email/:email", customerHandler.GetCustomerByEmail)
 		}
 
 		// Service routes
@@ -74,6 +76,12 @@ func SetupRoutes(
 		{
 			services.POST("", serviceHandler.CreateService)
 			services.GET("", serviceHandler.GetAllServices)
+			services.GET("/active", serviceHandler.GetActiveServices)
+			services.GET("/count", serviceHandler.GetServiceCount)
+			services.GET("/categories", serviceHandler.GetCategories)
+			services.GET("/search", serviceHandler.SearchServices)
+			services.GET("/category/:category", serviceHandler.GetServicesByCategory)
+			services.GET("/category/:category/active", serviceHandler.GetActiveServicesByCategory)
 			services.GET("/:id", serviceHandler.GetService)
 			services.PUT("/:id", serviceHandler.UpdateService)
 			services.DELETE("/:id", serviceHandler.DeleteService)
@@ -84,10 +92,17 @@ func SetupRoutes(
 		{
 			staff.POST("", staffHandler.CreateStaff)
 			staff.GET("", staffHandler.GetAllStaff)
+			staff.GET("/active", staffHandler.GetActiveStaff)
+			staff.GET("/count", staffHandler.GetStaffCount)
+			staff.GET("/roles", staffHandler.GetRoles)
+			staff.GET("/search", staffHandler.SearchStaff)
+			staff.GET("/email/:email", staffHandler.GetStaffByEmail)
+			staff.GET("/role/:role", staffHandler.GetStaffByRole)
+			staff.GET("/role/:role/active", staffHandler.GetActiveStaffByRole)
+			staff.GET("/specialty/:specialty", staffHandler.GetStaffBySpecialty)
 			staff.GET("/:id", staffHandler.GetStaff)
 			staff.PUT("/:id", staffHandler.UpdateStaff)
 			staff.DELETE("/:id", staffHandler.DeleteStaff)
-			staff.GET("/email/:email", staffHandler.GetStaffByEmail)
 		}
 
 		// Appointment routes
@@ -95,6 +110,17 @@ func SetupRoutes(
 		{
 			appointments.POST("", appointmentHandler.CreateAppointment)
 			appointments.GET("", appointmentHandler.GetAllAppointments)
+			appointments.GET("/count", appointmentHandler.GetAppointmentCount)
+			appointments.GET("/upcoming", appointmentHandler.GetUpcomingAppointments)
+			appointments.GET("/today", appointmentHandler.GetTodayAppointments)
+			appointments.GET("/date-range", appointmentHandler.GetAppointmentsByDateRange)
+			appointments.GET("/customer/:customerId", appointmentHandler.GetAppointmentsByCustomer)
+			appointments.GET("/staff/:staffId", appointmentHandler.GetAppointmentsByStaff)
+			appointments.GET("/date/:date", appointmentHandler.GetAppointmentsByDate)
+			appointments.GET("/date/:date/staff/:staffId", appointmentHandler.GetAppointmentsByDateAndStaff)
+			appointments.GET("/service/:serviceId", appointmentHandler.GetAppointmentsByService)
+			appointments.GET("/status/:status", appointmentHandler.GetAppointmentsByStatus)
+			appointments.GET("/status/:status/count", appointmentHandler.GetAppointmentCountByStatus)
 			appointments.GET("/:id", appointmentHandler.GetAppointment)
 			appointments.PUT("/:id", appointmentHandler.UpdateAppointment)
 			appointments.DELETE("/:id", appointmentHandler.DeleteAppointment)
