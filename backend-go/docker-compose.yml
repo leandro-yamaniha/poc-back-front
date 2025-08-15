@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # Cassandra Database
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-go
+    ports:
+      - "9043:9042"  # Different port to avoid conflict with Java backend
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+      - ./scripts/init-cassandra.cql:/docker-entrypoint-initdb.d/init-cassandra.cql
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Go Backend API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: beauty-salon-api-go
+    ports:
+      - "8081:8080"  # Different port to avoid conflict with Java backend
+    environment:
+      - SERVER_PORT=8080
+      - SERVER_HOST=0.0.0.0
+      - CASSANDRA_HOSTS=cassandra:9042
+      - CASSANDRA_KEYSPACE=beauty_salon_go
+      - CASSANDRA_DATACENTER=datacenter1
+      - LOG_LEVEL=info
+      - LOG_FORMAT=json
+      - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+      - HEALTH_ENABLED=true
+      - HEALTH_ENDPOINT=/health
+      - CACHE_ENABLED=true
+      - CACHE_TTL=300
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  cassandra_data:
+    driver: local
+
+networks:
+  beauty-salon-network:
+    driver: bridge
