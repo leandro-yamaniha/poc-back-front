@@ -1,0 +1,35 @@
+[
+  {
+    "id": "s1ae162b-1290-4b9d-a213-4b5e207e6176",
+    "name": "Corte de Cabelo Masculino",
+    "category": "CABELO",
+    "price": 45.00,
+    "duration": 45,
+    "description": "Corte de cabelo masculino tradicional",
+    "is_active": true,
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  },
+  {
+    "id": "s2ae162b-1290-4b9d-a213-4b5e207e6176",
+    "name": "Corte de Cabelo Feminino",
+    "category": "CABELO",
+    "price": 65.00,
+    "duration": 60,
+    "description": "Corte de cabelo feminino com escova",
+    "is_active": true,
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  },
+  {
+    "id": "s3ae162b-1290-4b9d-a213-4b5e207e6176",
+    "name": "Manicure",
+    "category": "UNHAS",
+    "price": 25.00,
+    "duration": 30,
+    "description": "Manicure completa com esmaltação",
+    "is_active": true,
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  }
+]

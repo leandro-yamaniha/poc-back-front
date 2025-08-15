@@ -1,0 +1,840 @@
+openapi: 3.0.3
+info:
+  title: Beauty Salon Management API
+  description: |
+    API completa para gerenciamento de salão de beleza, incluindo clientes, serviços, funcionários e agendamentos.
+    
+    ## Funcionalidades
+    - Gerenciamento de clientes
+    - Catálogo de serviços
+    - Gestão de funcionários
+    - Sistema de agendamentos
+    - Monitoramento e métricas
+    
+    ## Autenticação
+    Esta versão da API não implementa autenticação. Em produção, considere implementar JWT ou OAuth2.
+    
+    ## Rate Limiting
+    A API implementa rate limiting de 100 requisições por 15 minutos por IP.
+  version: 1.0.0
+  contact:
+    name: Beauty Salon Team
+    email: dev@beautysalon.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor de desenvolvimento
+  - url: https://api.beautysalon.com
+    description: Servidor de produção
+
+tags:
+  - name: customers
+    description: Operações relacionadas a clientes
+  - name: services
+    description: Operações relacionadas a serviços
+  - name: staff
+    description: Operações relacionadas a funcionários
+  - name: appointments
+    description: Operações relacionadas a agendamentos
+  - name: monitoring
+    description: Monitoramento e métricas do sistema
+
+paths:
+  /health:
+    get:
+      tags: [monitoring]
+      summary: Verificação de saúde da API
+      description: Endpoint para verificar se a API está funcionando corretamente
+      operationId: healthCheck
+      responses:
+        '200':
+          description: API funcionando corretamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /api/customers:
+    get:
+      tags: [customers]
+      summary: Listar todos os clientes
+      description: Retorna uma lista de todos os clientes cadastrados
+      operationId: getCustomers
+      responses:
+        '200':
+          description: Lista de clientes retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      tags: [customers]
+      summary: Criar novo cliente
+      description: Cadastra um novo cliente no sistema
+      operationId: createCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '201':
+          description: Cliente criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/customers/{id}:
+    get:
+      tags: [customers]
+      summary: Buscar cliente por ID
+      description: Retorna os dados de um cliente específico
+      operationId: getCustomerById
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Cliente encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    put:
+      tags: [customers]
+      summary: Atualizar cliente
+      description: Atualiza os dados de um cliente existente
+      operationId: updateCustomer
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '200':
+          description: Cliente atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      tags: [customers]
+      summary: Excluir cliente
+      description: Remove um cliente do sistema
+      operationId: deleteCustomer
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Cliente excluído com sucesso
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/staff:
+    get:
+      tags: [staff]
+      summary: Listar todos os funcionários
+      description: Retorna uma lista de todos os funcionários cadastrados
+      operationId: getStaff
+      responses:
+        '200':
+          description: Lista de funcionários retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Staff'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags: [staff]
+      summary: Criar novo funcionário
+      description: Cadastra um novo funcionário no sistema
+      operationId: createStaff
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffInput'
+      responses:
+        '201':
+          description: Funcionário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staff'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/appointments:
+    get:
+      tags: [appointments]
+      summary: Listar todos os agendamentos
+      operationId: getAppointments
+      responses:
+        '200':
+          description: Lista de agendamentos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags: [appointments]
+      summary: Criar novo agendamento
+      operationId: createAppointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentInput'
+      responses:
+        '201':
+          description: Agendamento criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/appointments/date/{date}/staff/{staffId}:
+    get:
+      tags: [appointments]
+      summary: Listar agendamentos por data e funcionário
+      description: Retorna uma lista de agendamentos filtrados por data e funcionário
+      operationId: getAppointmentsByDateAndStaff
+      parameters:
+        - name: date
+          in: path
+          required: true
+          description: Data dos agendamentos (formato YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+            example: "2025-01-15"
+        - name: staffId
+          in: path
+          required: true
+          description: ID do funcionário
+          schema:
+            type: string
+            format: uuid
+            example: "a4e0423e-8243-4ff4-9341-9875f6b4a2d8"
+      responses:
+        '200':
+          description: Lista de agendamentos da data e funcionário retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/appointments/{id}:
+    get:
+      tags: [appointments]
+      summary: Buscar agendamento por ID
+      operationId: getAppointmentById
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Agendamento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    put:
+      tags: [appointments]
+      summary: Atualizar agendamento
+      operationId: updateAppointment
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentInput'
+      responses:
+        '200':
+          description: Agendamento atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      tags: [appointments]
+      summary: Excluir agendamento
+      operationId: deleteAppointment
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Agendamento excluído com sucesso
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/staff/role/{role}:
+    get:
+      tags: [staff]
+      summary: Listar funcionários por função
+      description: Retorna uma lista de funcionários filtrados por função
+      operationId: getStaffByRole
+      parameters:
+        - name: role
+          in: path
+          required: true
+          description: Função dos funcionários
+          schema:
+            type: string
+            example: "Stylist"
+      responses:
+        '200':
+          description: Lista de funcionários da função retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Staff'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/staff/role/{role}/active:
+    get:
+      tags: [staff]
+      summary: Listar funcionários ativos por função
+      description: Retorna uma lista de funcionários ativos filtrados por função
+      operationId: getActiveStaffByRole
+      parameters:
+        - name: role
+          in: path
+          required: true
+          description: Função dos funcionários
+          schema:
+            type: string
+            example: "Stylist"
+      responses:
+        '200':
+          description: Lista de funcionários ativos da função retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Staff'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/staff/{id}:
+    get:
+      tags: [staff]
+      summary: Buscar funcionário por ID
+      description: Retorna os dados de um funcionário específico
+      operationId: getStaffById
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Funcionário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staff'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    put:
+      tags: [staff]
+      summary: Atualizar funcionário
+      description: Atualiza os dados de um funcionário existente
+      operationId: updateStaff
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffInput'
+      responses:
+        '200':
+          description: Funcionário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staff'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      tags: [staff]
+      summary: Excluir funcionário
+      description: Remove um funcionário do sistema
+      operationId: deleteStaff
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Funcionário excluído com sucesso
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/services/category/{category}/active:
+    get:
+      tags: [services]
+      summary: Listar serviços ativos por categoria
+      description: Retorna uma lista de serviços ativos filtrados por categoria
+      operationId: getActiveServicesByCategory
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: Categoria dos serviços
+          schema:
+            type: string
+            example: "Hair"
+      responses:
+        '200':
+          description: Lista de serviços ativos da categoria retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/services/{id}:
+    put:
+      tags: [services]
+      summary: Atualizar serviço
+      description: Atualiza os dados de um serviço existente
+      operationId: updateService
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceInput'
+      responses:
+        '200':
+          description: Serviço atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      tags: [services]
+      summary: Excluir serviço
+      description: Remove um serviço do sistema
+      operationId: deleteService
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Serviço excluído com sucesso
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/services:
+    get:
+      tags: [services]
+      summary: Listar todos os serviços
+      description: Retorna uma lista de todos os serviços disponíveis
+      operationId: getServices
+      responses:
+        '200':
+          description: Lista de serviços retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      tags: [services]
+      summary: Criar novo serviço
+      description: Cadastra um novo serviço no sistema
+      operationId: createService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceInput'
+      responses:
+        '201':
+          description: Serviço criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: ID único do recurso
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    Customer:
+      type: object
+      required: [id, name, email]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        name:
+          type: string
+          example: "Maria Silva"
+          minLength: 2
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          example: "maria.silva@email.com"
+        phone:
+          type: string
+          example: "11987654321"
+        address:
+          type: string
+          example: "Rua das Flores, 123 - São Paulo, SP"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CustomerInput:
+      type: object
+      required: [name, email]
+      properties:
+        name:
+          type: string
+          example: "Maria Silva"
+          minLength: 2
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          example: "maria.silva@email.com"
+        phone:
+          type: string
+          example: "11987654321"
+        address:
+          type: string
+          example: "Rua das Flores, 123 - São Paulo, SP"
+
+    Service:
+      type: object
+      required: [id, name, price, duration]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: "Corte Feminino"
+        description:
+          type: string
+          example: "Corte de cabelo feminino com lavagem"
+        price:
+          type: number
+          format: double
+          example: 50.00
+        duration:
+          type: integer
+          example: 60
+        category:
+          type: string
+          example: "Cabelo"
+        isActive:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Staff:
+      type: object
+      required: [id, name, role]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: "Ana Souza"
+        role:
+          type: string
+          example: "Hairstylist"
+        specialties:
+          type: array
+          items:
+            type: string
+          example: ["Coloração", "Corte a seco"]
+        phone:
+          type: string
+          example: "11999998888"
+        email:
+          type: string
+          format: email
+          example: "ana.souza@beautysalon.com"
+        isActive:
+          type: boolean
+          default: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Appointment:
+      type: object
+      required: [id, customerId, serviceId, staffId, appointmentTime]
+      properties:
+        id:
+          type: string
+          format: uuid
+        customerId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        staffId:
+          type: string
+          format: uuid
+        appointmentTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [scheduled, completed, cancelled]
+          default: scheduled
+        notes:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AppointmentInput:
+      type: object
+      required: [customerId, serviceId, staffId, appointmentTime]
+      properties:
+        customerId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        staffId:
+          type: string
+          format: uuid
+        appointmentTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [scheduled, completed, cancelled]
+          default: scheduled
+        notes:
+          type: string
+
+    StaffInput:
+      type: object
+      required: [name, role]
+      properties:
+        name:
+          type: string
+          example: "Ana Souza"
+        role:
+          type: string
+          example: "Hairstylist"
+        specialties:
+          type: array
+          items:
+            type: string
+          example: ["Coloração", "Corte a seco"]
+        phone:
+          type: string
+          example: "11999998888"
+        email:
+          type: string
+          format: email
+          example: "ana.souza@beautysalon.com"
+        isActive:
+          type: boolean
+          default: true
+
+    ServiceInput:
+      type: object
+      required: [name, price, duration]
+      properties:
+        name:
+          type: string
+          example: "Corte Feminino"
+        description:
+          type: string
+          example: "Corte de cabelo feminino com lavagem"
+        price:
+          type: number
+          format: double
+          example: 50.00
+        duration:
+          type: integer
+          example: 60
+        category:
+          type: string
+          example: "Cabelo"
+        isActive:
+          type: boolean
+          example: true
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        timestamp:
+          type: string
+          format: date-time
+        uptime:
+          type: number
+          example: 3600.5
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Validation failed"
+        message:
+          type: string
+          example: "Required field 'name' is missing"
+        timestamp:
+          type: string
+          format: date-time
+
+  responses:
+    BadRequest:
+      description: Requisição inválida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    
+    NotFound:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    
+    InternalServerError:
+      description: Erro interno do servidor
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

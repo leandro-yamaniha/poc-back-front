@@ -1,0 +1,24 @@
+[
+  {
+    "id": "ap1e162b-1290-4b9d-a213-4b5e207e6176",
+    "customer_id": "c4ae162b-1290-4b9d-a213-4b5e207e6176",
+    "service_id": "s1ae162b-1290-4b9d-a213-4b5e207e6176",
+    "staff_id": "st1e162b-1290-4b9d-a213-4b5e207e6176",
+    "appointment_date": "2025-08-15T10:00:00.000Z",
+    "status": "AGENDADO",
+    "notes": "Cliente preferencial",
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  },
+  {
+    "id": "ap2e162b-1290-4b9d-a213-4b5e207e6176",
+    "customer_id": "230708b0-b258-43b9-8a1e-902ff256dafc",
+    "service_id": "s3ae162b-1290-4b9d-a213-4b5e207e6176",
+    "staff_id": "st2e162b-1290-4b9d-a213-4b5e207e6176",
+    "appointment_date": "2025-08-15T14:30:00.000Z",
+    "status": "CONFIRMADO",
+    "notes": "Primeira vez no salão",
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  }
+]

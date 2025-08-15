@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { customersAPI, servicesAPI, staffAPI, appointmentsAPI } from '../services/api';
+import api, { customersAPI, servicesAPI, staffAPI, appointmentsAPI } from '../services/api';
 import { toast } from 'react-toastify';
 
 function Dashboard() {
@@ -21,14 +21,13 @@ function Dashboard() {
   const loadStats = async () => {
     try {
       setLoading(true);
-      const today = new Date().toISOString().split('T')[0];
       
       const [customersRes, servicesRes, staffRes, appointmentsRes, todayAppointmentsRes] = await Promise.all([
         customersAPI.getAll(),
         servicesAPI.getActive(),
         staffAPI.getActive(),
         appointmentsAPI.getAll(),
-        appointmentsAPI.getByDate(today)
+        api.get('/appointments/today')
       ]);
 
       setStats({
