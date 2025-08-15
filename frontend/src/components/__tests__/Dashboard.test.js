@@ -18,7 +18,8 @@ jest.mock('../../services/api', () => ({
   },
   appointmentsAPI: {
     getAll: jest.fn(),
-    getByDate: jest.fn()
+    getByDate: jest.fn(),
+    getToday: jest.fn()
   }
 }));
 
@@ -65,6 +66,7 @@ describe('Dashboard Component', () => {
     staffAPI.getActive.mockResolvedValue({ data: mockStaff });
     appointmentsAPI.getAll.mockResolvedValue({ data: mockAppointments });
     appointmentsAPI.getByDate.mockResolvedValue({ data: mockTodayAppointments });
+    appointmentsAPI.getToday.mockResolvedValue({ data: mockTodayAppointments });
   });
 
   const renderDashboard = () => {
@@ -196,12 +198,11 @@ describe('Dashboard Component', () => {
     });
   });
 
-  test('calls getByDate with correct date format', async () => {
+  test('calls getToday for dashboard statistics', async () => {
     renderDashboard();
 
     await waitFor(() => {
-      const today = new Date().toISOString().split('T')[0];
-      expect(appointmentsAPI.getByDate).toHaveBeenCalledWith(today);
+      expect(appointmentsAPI.getToday).toHaveBeenCalled();
     });
   });
 

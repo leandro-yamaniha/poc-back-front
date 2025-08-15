@@ -1,0 +1,32 @@
+[
+  {
+    "id": "st1e162b-1290-4b9d-a213-4b5e207e6176",
+    "name": "Carlos Mendes",
+    "email": "carlos.mendes@salon.com",
+    "phone": "11987654321",
+    "role": "CABELEIREIRO",
+    "is_active": true,
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  },
+  {
+    "id": "st2e162b-1290-4b9d-a213-4b5e207e6176",
+    "name": "Fernanda Costa",
+    "email": "fernanda.costa@salon.com",
+    "phone": "11876543210",
+    "role": "MANICURE",
+    "is_active": true,
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  },
+  {
+    "id": "st3e162b-1290-4b9d-a213-4b5e207e6176",
+    "name": "Roberto Silva",
+    "email": "roberto.silva@salon.com",
+    "phone": "11765432109",
+    "role": "BARBEIRO",
+    "is_active": true,
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  }
+]

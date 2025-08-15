@@ -1,0 +1,29 @@
+[
+  {
+    "id": "c4ae162b-1290-4b9d-a213-4b5e207e6176",
+    "name": "Maria Silva",
+    "email": "maria.silva@email.com",
+    "phone": "11987654321",
+    "address": "Rua das Flores, 123 - São Paulo, SP",
+    "created_at": "2025-08-12T12:17:59.414Z",
+    "updated_at": "2025-08-12T12:17:59.414Z"
+  },
+  {
+    "id": "230708b0-b258-43b9-8a1e-902ff256dafc",
+    "name": "Ana Santos",
+    "email": "ana.santos@email.com",
+    "phone": "11876543210",
+    "address": "Av. Paulista, 456 - São Paulo, SP",
+    "created_at": "2025-08-12T12:17:59.417Z",
+    "updated_at": "2025-08-12T12:17:59.417Z"
+  },
+  {
+    "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "name": "João Oliveira",
+    "email": "joao.oliveira@email.com",
+    "phone": "11765432109",
+    "address": "Rua Augusta, 789 - São Paulo, SP",
+    "created_at": "2025-08-12T12:17:59.420Z",
+    "updated_at": "2025-08-12T12:17:59.420Z"
+  }
+]
