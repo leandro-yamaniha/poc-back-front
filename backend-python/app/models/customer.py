@@ -14,7 +14,7 @@ class Customer(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     name: str = Field(..., min_length=1, max_length=100, description="Customer name")
     email: EmailStr = Field(..., description="Customer email address")
-    phone: Optional[str] = Field(None, regex=r"^\d{10,11}$", description="Phone number (10-11 digits)")
+    phone: Optional[str] = Field(None, pattern=r"^\d{10,11}$", description="Phone number (10-11 digits)")
     address: Optional[str] = Field(None, max_length=255, description="Customer address")
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
@@ -57,7 +57,7 @@ class CustomerCreate(BaseModel):
     """Schema for creating a customer"""
     name: str = Field(..., min_length=1, max_length=100)
     email: EmailStr
-    phone: Optional[str] = Field(None, regex=r"^\d{10,11}$")
+    phone: Optional[str] = Field(None, pattern=r"^\d{10,11}$")
     address: Optional[str] = Field(None, max_length=255)
 
 
@@ -65,7 +65,7 @@ class CustomerUpdate(BaseModel):
     """Schema for updating a customer"""
     name: Optional[str] = Field(None, min_length=1, max_length=100)
     email: Optional[EmailStr] = None
-    phone: Optional[str] = Field(None, regex=r"^\d{10,11}$")
+    phone: Optional[str] = Field(None, pattern=r"^\d{10,11}$")
     address: Optional[str] = Field(None, max_length=255)
 
 

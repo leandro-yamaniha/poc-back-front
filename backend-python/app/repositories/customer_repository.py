@@ -98,8 +98,8 @@ class CustomerRepository:
     async def get_all(self, limit: int = 100) -> List[Customer]:
         """Get all customers with optional limit"""
         try:
-            query = f"SELECT * FROM {self.table_name} LIMIT ?"
-            result = self.session.execute(query, [limit])
+            query = f"SELECT * FROM {self.table_name} LIMIT {limit}"
+            result = self.session.execute(query)
             
             customers = []
             for row in result:

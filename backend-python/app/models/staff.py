@@ -14,7 +14,7 @@ class Staff(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     name: str = Field(..., min_length=1, max_length=100, description="Staff member name")
     email: EmailStr = Field(..., description="Staff member email address")
-    phone: Optional[str] = Field(None, regex=r"^\d{10,11}$", description="Phone number (10-11 digits)")
+    phone: Optional[str] = Field(None, pattern=r"^\d{10,11}$", description="Phone number (10-11 digits)")
     role: str = Field(..., min_length=1, max_length=50, description="Staff role")
     specialties: Optional[List[str]] = Field(default=[], description="Staff specialties")
     is_active: bool = Field(default=True, description="Whether staff member is active")
@@ -76,7 +76,7 @@ class StaffCreate(BaseModel):
     """Schema for creating a staff member"""
     name: str = Field(..., min_length=1, max_length=100)
     email: EmailStr
-    phone: Optional[str] = Field(None, regex=r"^\d{10,11}$")
+    phone: Optional[str] = Field(None, pattern=r"^\d{10,11}$")
     role: str = Field(..., min_length=1, max_length=50)
     specialties: Optional[List[str]] = Field(default=[])
     is_active: bool = Field(default=True)
@@ -87,7 +87,7 @@ class StaffUpdate(BaseModel):
     """Schema for updating a staff member"""
     name: Optional[str] = Field(None, min_length=1, max_length=100)
     email: Optional[EmailStr] = None
-    phone: Optional[str] = Field(None, regex=r"^\d{10,11}$")
+    phone: Optional[str] = Field(None, pattern=r"^\d{10,11}$")
     role: Optional[str] = Field(None, min_length=1, max_length=50)
     specialties: Optional[List[str]] = None
     is_active: Optional[bool] = None
