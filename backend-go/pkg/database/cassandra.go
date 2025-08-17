@@ -25,10 +25,11 @@ type CassandraDB struct {
 	Config  *CassandraConfig
 }
 
-// NewCassandraDB creates a new Cassandra database connection
+// NewCassandraDB creates a new Cassandra database connection without keyspace.
+// Use this for bootstrapping and running migrations.
 func NewCassandraDB(config *CassandraConfig) (*CassandraDB, error) {
 	cluster := gocql.NewCluster(config.Hosts...)
-	cluster.Keyspace = config.Keyspace
+	// Don't set keyspace initially for migrations
 	cluster.Consistency = gocql.Quorum
 	cluster.Timeout = 10 * time.Second
 	cluster.ConnectTimeout = 10 * time.Second
@@ -66,6 +67,7 @@ func NewCassandraDB(config *CassandraConfig) (*CassandraDB, error) {
 }
 
 // NewCassandraDBFromEnv creates a new Cassandra connection from environment variables
+// without setting the keyspace (for migrations/bootstrap phase).
 func NewCassandraDBFromEnv() (*CassandraDB, error) {
 	hostsStr := os.Getenv("CASSANDRA_HOSTS")
 	if hostsStr == "" {
@@ -75,13 +77,80 @@ func NewCassandraDBFromEnv() (*CassandraDB, error) {
 
 	config := &CassandraConfig{
 		Hosts:      hosts,
-		Keyspace:   getEnvOrDefault("CASSANDRA_KEYSPACE", "beauty_salon"),
+		Keyspace:   "", // Don't set keyspace initially for migrations
 		Username:   os.Getenv("CASSANDRA_USERNAME"),
 		Password:   os.Getenv("CASSANDRA_PASSWORD"),
 		Datacenter: getEnvOrDefault("CASSANDRA_DATACENTER", "datacenter1"),
 	}
 
 	return NewCassandraDB(config)
+}
+
+// NewCassandraDBWithKeyspace creates a new Cassandra connection using the provided keyspace.
+func NewCassandraDBWithKeyspace(config *CassandraConfig, keyspace string) (*CassandraDB, error) {
+	cluster := gocql.NewCluster(config.Hosts...)
+	cluster.Keyspace = keyspace
+	cluster.Consistency = gocql.Quorum
+	cluster.Timeout = 10 * time.Second
+	cluster.ConnectTimeout = 10 * time.Second
+	cluster.RetryPolicy = &gocql.SimpleRetryPolicy{NumRetries: 3}
+
+	if config.Username != "" && config.Password != "" {
+		cluster.Authenticator = gocql.PasswordAuthenticator{
+			Username: config.Username,
+			Password: config.Password,
+		}
+	}
+
+	if config.Datacenter != "" {
+		cluster.PoolConfig.HostSelectionPolicy = gocql.DCAwareRoundRobinPolicy(config.Datacenter)
+	}
+
+	session, err := cluster.CreateSession()
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to Cassandra (with keyspace): %w", err)
+	}
+
+	db := &CassandraDB{
+		Session: session,
+		Config: &CassandraConfig{
+			Hosts:      config.Hosts,
+			Keyspace:   keyspace,
+			Username:   config.Username,
+			Password:   config.Password,
+			Datacenter: config.Datacenter,
+		},
+	}
+
+	// Test connection
+	if err := db.Ping(); err != nil {
+		session.Close()
+		return nil, fmt.Errorf("failed to ping Cassandra (with keyspace): %w", err)
+	}
+
+	log.Printf("Connected to Cassandra keyspace: %s", keyspace)
+	return db, nil
+}
+
+// NewCassandraDBWithKeyspaceFromEnv connects using env vars and sets the keyspace from CASSANDRA_KEYSPACE.
+func NewCassandraDBWithKeyspaceFromEnv() (*CassandraDB, error) {
+	hostsStr := os.Getenv("CASSANDRA_HOSTS")
+	if hostsStr == "" {
+		hostsStr = "localhost:9042"
+	}
+	hosts := strings.Split(hostsStr, ",")
+
+	keyspace := getEnvOrDefault("CASSANDRA_KEYSPACE", "beauty_salon")
+
+	config := &CassandraConfig{
+		Hosts:      hosts,
+		Keyspace:   keyspace,
+		Username:   os.Getenv("CASSANDRA_USERNAME"),
+		Password:   os.Getenv("CASSANDRA_PASSWORD"),
+		Datacenter: getEnvOrDefault("CASSANDRA_DATACENTER", "datacenter1"),
+	}
+
+	return NewCassandraDBWithKeyspace(config, keyspace)
 }
 
 // Ping tests the database connection

@@ -63,6 +63,12 @@ db-stop: ## Stop Cassandra database
 	docker stop cassandra
 	docker rm cassandra
 
+migrate-up: ## Run database migrations
+	go run cmd/migrate/main.go -up
+
+migrate-build: ## Build migration tool
+	go build -o bin/migrate cmd/migrate/main.go
+
 # Environment setup
 env-copy: ## Copy environment example file
 	cp .env.example .env

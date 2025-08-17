@@ -18,8 +18,7 @@ jest.mock('../../services/api', () => ({
   },
   appointmentsAPI: {
     getAll: jest.fn(),
-    getByDate: jest.fn(),
-    getToday: jest.fn()
+    getByDate: jest.fn()
   }
 }));
 
@@ -66,7 +65,6 @@ describe('Dashboard Component', () => {
     staffAPI.getActive.mockResolvedValue({ data: mockStaff });
     appointmentsAPI.getAll.mockResolvedValue({ data: mockAppointments });
     appointmentsAPI.getByDate.mockResolvedValue({ data: mockTodayAppointments });
-    appointmentsAPI.getToday.mockResolvedValue({ data: mockTodayAppointments });
   });
 
   const renderDashboard = () => {
@@ -198,13 +196,7 @@ describe('Dashboard Component', () => {
     });
   });
 
-  test('calls getToday for dashboard statistics', async () => {
-    renderDashboard();
-
-    await waitFor(() => {
-      expect(appointmentsAPI.getToday).toHaveBeenCalled();
-    });
-  });
+  // Removed getToday test; Dashboard now uses getByDate with today's date
 
   test('displays dashboard cards with correct icons', async () => {
     renderDashboard();

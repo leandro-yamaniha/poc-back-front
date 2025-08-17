@@ -1,9 +1,12 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+// REACT_APP_API_URL should point to the full API prefix (e.g., http://localhost:8082/api/v1)
+// Default to Go backend local port with v1 prefix
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/v1';
 
 const api = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
+  // Do NOT append extra segments; REACT_APP_API_URL already contains the prefix
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

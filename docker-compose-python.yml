@@ -1,0 +1,73 @@
+version: '3.8'
+
+name: beauty-salon-python-react
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-python
+    ports:
+      - "9045:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    volumes:
+      - cassandra_data_python:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-python
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-python:
+    build:
+      context: ./backend-python
+      dockerfile: Dockerfile
+    container_name: beauty-salon-backend-python
+    ports:
+      - "8081:8081"
+    environment:
+      - CASSANDRA_HOSTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - PYTHONPATH=/app
+      - UVICORN_HOST=0.0.0.0
+      - UVICORN_PORT=8081
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-python
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8081/api/customers/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: beauty-salon-frontend-python
+    ports:
+      - "3003:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8081/api
+      - REACT_APP_BACKEND_TYPE=python
+    depends_on:
+      backend-python:
+        condition: service_healthy
+    networks:
+      - beauty-salon-python
+
+volumes:
+  cassandra_data_python:
+
+networks:
+  beauty-salon-python:
+    driver: bridge

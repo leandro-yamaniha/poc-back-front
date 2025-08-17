@@ -14,6 +14,14 @@ function Dashboard() {
   });
   const [loading, setLoading] = useState(true);
 
+  // Format date as YYYY-MM-DD for backend endpoint /appointments/date/{date}
+  const formatDate = (date) => {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
   useEffect(() => {
     loadStats();
   }, []);
@@ -27,7 +35,7 @@ function Dashboard() {
         servicesAPI.getActive(),
         staffAPI.getActive(),
         appointmentsAPI.getAll(),
-        api.get('/appointments/today')
+        appointmentsAPI.getByDate(formatDate(new Date()))
       ]);
 
       setStats({

@@ -19,13 +19,13 @@ VALUES (uuid(), 'Limpeza de Pele', 'Limpeza facial profunda', 90, 80.00, 'Estét
 
 -- Sample staff
 INSERT INTO staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Maria Silva', 'maria@salao.com', '(11) 99999-1111', 'Cabeleireira', ['Corte', 'Escova', 'Coloração'], true, toTimestamp(now()), toTimestamp(now()));
+VALUES (uuid(), 'Maria Silva', 'maria@salao.com', '11999991111', 'Cabeleireira', ['Corte', 'Escova', 'Coloração'], true, toTimestamp(now()), toTimestamp(now()));
 
 INSERT INTO staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Ana Santos', 'ana@salao.com', '(11) 99999-2222', 'Manicure', ['Manicure', 'Pedicure', 'Nail Art'], true, toTimestamp(now()), toTimestamp(now()));
+VALUES (uuid(), 'Ana Santos', 'ana@salao.com', '11999992222', 'Manicure', ['Manicure', 'Pedicure', 'Nail Art'], true, toTimestamp(now()), toTimestamp(now()));
 
 INSERT INTO staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Carla Oliveira', 'carla@salao.com', '(11) 99999-3333', 'Esteticista', ['Limpeza de Pele', 'Massagem', 'Depilação'], true, toTimestamp(now()), toTimestamp(now()));
+VALUES (uuid(), 'Carla Oliveira', 'carla@salao.com', '11999993333', 'Esteticista', ['Limpeza de Pele', 'Massagem', 'Depilação'], true, toTimestamp(now()), toTimestamp(now()));
 
 -- Sample customers (phone numbers in digits-only format for Python FastAPI compatibility)
 INSERT INTO customers (id, name, email, phone, address, created_at, updated_at)

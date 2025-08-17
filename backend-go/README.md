@@ -27,10 +27,13 @@ A RESTful API backend for a beauty salon management system built with Go, Gin fr
 
 ```
 backend-go/
-├── cmd/server/          # Application entry point
+├── cmd/
+│   ├── server/          # Application entry point
+│   └── migrate/         # Database migration tool
 ├── internal/
 │   ├── config/          # Configuration management
 │   ├── handlers/        # HTTP request handlers
+│   ├── migrations/      # Database migrations
 │   ├── models/          # Data models and validation
 │   ├── repository/      # Database access layer
 │   ├── routes/          # Route definitions
@@ -55,32 +58,45 @@ backend-go/
 1. **Clone the repository**:
    ```bash
    cd backend-go
-   ```
+```
 
-2. **Install dependencies**:
+## Running the Application
+
+### Using Make (Recommended)
+
+```bash
+# Initial setup
+make setup
+
+# Run database migrations
+make migrate-up
+
+# Run the application
+make run
+
+# Run with hot reload (requires air)
+make dev
+```
+
+### Manual Setup
+
+1. **Install dependencies**:
    ```bash
-   make deps
-   # or
    go mod download
    ```
 
-3. **Setup environment**:
+2. **Start Cassandra** (using Docker):
    ```bash
-   make env-copy
-   # Edit .env file with your configuration
-   ```
-
-4. **Start Cassandra** (if using Docker):
-   ```bash
-   make db-setup
-   # or
    docker run -d --name cassandra -p 9042:9042 cassandra:4.1
    ```
 
-5. **Run the application**:
+3. **Run database migrations**:
    ```bash
-   make run
-   # or
+   go run cmd/migrate/main.go -up
+   ```
+
+4. **Run the application**:
+   ```bash
    go run cmd/server/main.go
    ```
 
