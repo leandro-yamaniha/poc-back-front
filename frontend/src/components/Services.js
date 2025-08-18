@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table, Button, Modal, Form, Badge } from 'react-bootstrap';
 import { servicesAPI } from '../services/api';
 import { toast } from 'react-toastify';
+import LoadingSpinner, { TableLoading } from './LoadingSpinner';
+import { useLoading } from '../contexts/LoadingContext';
 
 function Services() {
   const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingService, setEditingService] = useState(null);
+  
+  // Hook de loading global
+  const { withLoading, isLoading } = useLoading();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -24,49 +28,50 @@ function Services() {
   }, []);
 
   const loadServices = async () => {
-    try {
-      setLoading(true);
-      const response = await servicesAPI.getAll();
-      setServices(response.data);
-    } catch (error) {
-      console.error('Error loading services:', error);
-      toast.error('Erro ao carregar serviços');
-    } finally {
-      setLoading(false);
-    }
+    await withLoading('services-list', async () => {
+      try {
+        const response = await servicesAPI.getAll();
+        setServices(response.data);
+      } catch (error) {
+        console.error('Error loading services:', error);
+        toast.error('Erro ao carregar serviços');
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const serviceData = {
-        ...formData,
-        duration: parseInt(formData.duration),
-        price: parseFloat(formData.price)
-      };
+    await withLoading('services-submit', async () => {
+      try {
+        const serviceData = {
+          ...formData,
+          duration: parseInt(formData.duration),
+          price: parseFloat(formData.price)
+        };
 
-      if (editingService) {
-        await servicesAPI.update(editingService.id, serviceData);
-        toast.success('Serviço atualizado com sucesso!');
-      } else {
-        await servicesAPI.create(serviceData);
-        toast.success('Serviço criado com sucesso!');
+        if (editingService) {
+          await servicesAPI.update(editingService.id, serviceData);
+          toast.success('Serviço atualizado com sucesso!');
+        } else {
+          await servicesAPI.create(serviceData);
+          toast.success('Serviço criado com sucesso!');
+        }
+        setShowModal(false);
+        setEditingService(null);
+        setFormData({
+          name: '',
+          description: '',
+          duration: '',
+          price: '',
+          category: '',
+          isActive: true
+        });
+        loadServices();
+      } catch (error) {
+        console.error('Error saving service:', error);
+        toast.error('Erro ao salvar serviço');
       }
-      setShowModal(false);
-      setEditingService(null);
-      setFormData({
-        name: '',
-        description: '',
-        duration: '',
-        price: '',
-        category: '',
-        isActive: true
-      });
-      loadServices();
-    } catch (error) {
-      console.error('Error saving service:', error);
-      toast.error('Erro ao salvar serviço');
-    }
+    });
   };
 
   const handleEdit = (service) => {
@@ -84,14 +89,16 @@ function Services() {
 
   const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir este serviço?')) {
-      try {
-        await servicesAPI.delete(id);
-        toast.success('Serviço excluído com sucesso!');
-        loadServices();
-      } catch (error) {
-        console.error('Error deleting service:', error);
-        toast.error('Erro ao excluir serviço');
-      }
+      await withLoading('services-delete', async () => {
+        try {
+          await servicesAPI.delete(id);
+          toast.success('Serviço excluído com sucesso!');
+          loadServices();
+        } catch (error) {
+          console.error('Error deleting service:', error);
+          toast.error('Erro ao excluir serviço');
+        }
+      });
     }
   };
 
@@ -115,17 +122,9 @@ function Services() {
     }).format(price);
   };
 
-  if (loading) {
-    return (
-      <Container>
-        <div className="loading-spinner">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Carregando...</span>
-          </div>
-        </div>
-      </Container>
-    );
-  }
+  const isLoadingList = isLoading('services-list');
+  const isSubmitting = isLoading('services-submit');
+  const isDeleting = isLoading('services-delete');
 
   return (
     <Container>
@@ -144,7 +143,23 @@ function Services() {
 
       <Card>
         <Card.Body>
-          {services.length === 0 ? (
+          {isLoadingList ? (
+            <div className="table-responsive">
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Duração</th>
+                    <th>Preço</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <TableLoading rows={5} columns={6} />
+              </Table>
+            </div>
+          ) : services.length === 0 ? (
             <div className="empty-state">
               <div className="display-1">✨</div>
               <h3>Nenhum serviço encontrado</h3>
@@ -187,6 +202,7 @@ function Services() {
                           size="sm"
                           className="me-2"
                           onClick={() => handleEdit(service)}
+                          disabled={isDeleting}
                         >
                           Editar
                         </Button>
@@ -194,8 +210,16 @@ function Services() {
                           variant="outline-danger"
                           size="sm"
                           onClick={() => handleDelete(service.id)}
+                          disabled={isDeleting}
                         >
-                          Excluir
+                          {isDeleting ? (
+                            <>
+                              <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                              Excluindo...
+                            </>
+                          ) : (
+                            'Excluir'
+                          )}
                         </Button>
                       </td>
                     </tr>
@@ -300,8 +324,19 @@ function Services() {
             <Button variant="secondary" onClick={handleCloseModal}>
               Cancelar
             </Button>
-            <Button variant="primary" type="submit">
-              {editingService ? 'Atualizar' : 'Criar'}
+            <Button 
+              variant="primary" 
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  {editingService ? 'Atualizando...' : 'Criando...'}
+                </>
+              ) : (
+                editingService ? 'Atualizar' : 'Criar'
+              )}
             </Button>
           </Modal.Footer>
         </Form>

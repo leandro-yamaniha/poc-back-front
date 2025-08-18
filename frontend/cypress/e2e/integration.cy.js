@@ -5,7 +5,7 @@ describe('Integration Tests', () => {
     cy.intercept('GET', '/api/services/active', { fixture: 'services.json' }).as('getServices');
     cy.intercept('GET', '/api/staff/active', { fixture: 'staff.json' }).as('getStaff');
     cy.intercept('GET', '/api/appointments', { fixture: 'appointments.json' }).as('getAppointments');
-    cy.intercept('GET', '/api/appointments/today', { fixture: 'todayAppointments.json' }).as('getTodayAppointments');
+    cy.intercept('GET', /\/api\/appointments\/date\/[0-9]{4}-[0-9]{2}-[0-9]{2}$/, { fixture: 'todayAppointments.json' }).as('getTodayAppointments');
   });
 
   it('complete dashboard workflow', () => {

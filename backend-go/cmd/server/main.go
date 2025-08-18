@@ -12,6 +12,7 @@ import (
 
 	"beauty-salon-backend-go/internal/config"
 	"beauty-salon-backend-go/internal/handlers"
+	"beauty-salon-backend-go/internal/migrations"
 	"beauty-salon-backend-go/internal/repository"
 	"beauty-salon-backend-go/internal/routes"
 	"beauty-salon-backend-go/internal/service"
@@ -22,21 +23,26 @@ func main() {
 	// Load configuration
 	cfg := config.LoadConfig()
 
-	// Initialize database
-	db, err := database.NewCassandraDBFromEnv()
+	// Phase 1: connect WITHOUT keyspace for migrations
+	dbNoKeyspace, err := database.NewCassandraDBFromEnv()
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+		log.Fatalf("Failed to connect to Cassandra (no keyspace): %v", err)
+	}
+	// Close the no-keyspace session after migrations
+	defer dbNoKeyspace.Close()
+
+	// Run database migrations
+	migrator := migrations.NewMigrator(dbNoKeyspace.Session)
+	if err := migrator.RunMigrations(); err != nil {
+		log.Fatalf("Failed to run migrations: %v", err)
+	}
+
+	// Phase 2: reconnect WITH keyspace for normal application use
+	db, err := database.NewCassandraDBWithKeyspaceFromEnv()
+	if err != nil {
+		log.Fatalf("Failed to connect to Cassandra with keyspace: %v", err)
 	}
 	defer db.Close()
-
-	// Create keyspace and tables
-	if err := db.CreateKeyspaceIfNotExists(); err != nil {
-		log.Fatalf("Failed to create keyspace: %v", err)
-	}
-
-	if err := db.CreateTables(); err != nil {
-		log.Fatalf("Failed to create tables: %v", err)
-	}
 
 	// Initialize repositories
 	customerRepo := repository.NewCustomerRepository(db)

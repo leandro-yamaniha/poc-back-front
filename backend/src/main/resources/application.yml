@@ -1,9 +1,11 @@
 spring:
   application:
     name: beauty-salon-backend
+  flyway:
+    enabled: false  # Disabled because we use Cassandra (no JDBC DataSource). We'll run Flyway migrations explicitly.
   
   cassandra:
-    keyspace-name: beauty_salon
+    keyspace-name: ~  # Don't specify keyspace initially - let migration runner create it
     contact-points: localhost
     port: 9042
     local-datacenter: datacenter1
@@ -73,6 +75,10 @@ spring:
   cassandra:
     contact-points: cassandra
     port: 9042
+    local-datacenter: datacenter1
+    keyspace-name: ~
+  flyway:
+    enabled: false
 
 ---
 spring:
@@ -109,6 +115,8 @@ spring:
       - services
       - staff
       - appointments
+  flyway:
+    enabled: false
 
 ---
 spring:

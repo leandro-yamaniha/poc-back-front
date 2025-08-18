@@ -56,7 +56,7 @@
   },
   "proxy": "http://localhost:8080",
   "devDependencies": {
-    "cypress": "^13.0.0",
+    "cypress": "^13.17.0",
     "identity-obj-proxy": "^3.0.0"
   }
 }

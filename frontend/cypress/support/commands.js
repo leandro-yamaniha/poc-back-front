@@ -16,7 +16,7 @@ Cypress.Commands.add('setupApiMocks', () => {
   cy.intercept('GET', '/api/staff', { fixture: 'staff.json' }).as('getStaff');
   cy.intercept('GET', '/api/staff/active', { fixture: 'staff.json' }).as('getActiveStaff');
   cy.intercept('GET', '/api/appointments', { fixture: 'appointments.json' }).as('getAppointments');
-  cy.intercept('GET', '/api/appointments/today', { fixture: 'todayAppointments.json' }).as('getTodayAppointments');
+  cy.intercept('GET', /\/api\/appointments\/date\/[0-9]{4}-[0-9]{2}-[0-9]{2}$/, { fixture: 'todayAppointments.json' }).as('getTodayAppointments');
 });
 
 // Custom command to create a customer through the UI

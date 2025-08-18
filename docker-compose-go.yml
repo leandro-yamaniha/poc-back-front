@@ -1,0 +1,72 @@
+version: '3.8'
+
+name: beauty-salon-go-react
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-go
+    ports:
+      - "9044:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    volumes:
+      - cassandra_data_go:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-go
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-go:
+    build:
+      context: ./backend-go
+      dockerfile: Dockerfile
+    container_name: beauty-salon-backend-go
+    ports:
+      - "8082:8080"
+    environment:
+      - PORT=8080
+      - CASSANDRA_HOSTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - GIN_MODE=release
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-go
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: beauty-salon-frontend-go
+    ports:
+      - "3002:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8082/api/v1
+      - REACT_APP_BACKEND_TYPE=go
+    depends_on:
+      backend-go:
+        condition: service_healthy
+    networks:
+      - beauty-salon-go
+
+volumes:
+  cassandra_data_go:
+
+networks:
+  beauty-salon-go:
+    driver: bridge

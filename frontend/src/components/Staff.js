@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table, Button, Modal, Form, Badge } from 'react-bootstrap';
 import { staffAPI } from '../services/api';
 import { toast } from 'react-toastify';
+import LoadingSpinner, { TableLoading } from './LoadingSpinner';
+import { useLoading } from '../contexts/LoadingContext';
 
 function Staff() {
   const [staff, setStaff] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingStaff, setEditingStaff] = useState(null);
+  
+  // Hook de loading global
+  const { withLoading, isLoading } = useLoading();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,43 +32,44 @@ function Staff() {
   }, []);
 
   const loadStaff = async () => {
-    try {
-      setLoading(true);
-      const response = await staffAPI.getAll();
-      setStaff(response.data);
-    } catch (error) {
-      console.error('Error loading staff:', error);
-      toast.error('Erro ao carregar funcionários');
-    } finally {
-      setLoading(false);
-    }
+    await withLoading('staff-list', async () => {
+      try {
+        const response = await staffAPI.getAll();
+        setStaff(response.data);
+      } catch (error) {
+        console.error('Error loading staff:', error);
+        toast.error('Erro ao carregar funcionários');
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      if (editingStaff) {
-        await staffAPI.update(editingStaff.id, formData);
-        toast.success('Funcionário atualizado com sucesso!');
-      } else {
-        await staffAPI.create(formData);
-        toast.success('Funcionário criado com sucesso!');
+    await withLoading('staff-submit', async () => {
+      try {
+        if (editingStaff) {
+          await staffAPI.update(editingStaff.id, formData);
+          toast.success('Funcionário atualizado com sucesso!');
+        } else {
+          await staffAPI.create(formData);
+          toast.success('Funcionário criado com sucesso!');
+        }
+        setShowModal(false);
+        setEditingStaff(null);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          role: '',
+          specialties: [],
+          isActive: true
+        });
+        loadStaff();
+      } catch (error) {
+        console.error('Error saving staff:', error);
+        toast.error('Erro ao salvar funcionário');
       }
-      setShowModal(false);
-      setEditingStaff(null);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        role: '',
-        specialties: [],
-        isActive: true
-      });
-      loadStaff();
-    } catch (error) {
-      console.error('Error saving staff:', error);
-      toast.error('Erro ao salvar funcionário');
-    }
+    });
   };
 
   const handleEdit = (staffMember) => {
@@ -82,14 +87,16 @@ function Staff() {
 
   const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir este funcionário?')) {
-      try {
-        await staffAPI.delete(id);
-        toast.success('Funcionário excluído com sucesso!');
-        loadStaff();
-      } catch (error) {
-        console.error('Error deleting staff:', error);
-        toast.error('Erro ao excluir funcionário');
-      }
+      await withLoading('staff-delete', async () => {
+        try {
+          await staffAPI.delete(id);
+          toast.success('Funcionário excluído com sucesso!');
+          loadStaff();
+        } catch (error) {
+          console.error('Error deleting staff:', error);
+          toast.error('Erro ao excluir funcionário');
+        }
+      });
     }
   };
 
@@ -120,17 +127,9 @@ function Staff() {
     }
   };
 
-  if (loading) {
-    return (
-      <Container>
-        <div className="loading-spinner">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Carregando...</span>
-          </div>
-        </div>
-      </Container>
-    );
-  }
+  const isLoadingList = isLoading('staff-list');
+  const isSubmitting = isLoading('staff-submit');
+  const isDeleting = isLoading('staff-delete');
 
   return (
     <Container>
@@ -149,7 +148,24 @@ function Staff() {
 
       <Card>
         <Card.Body>
-          {staff.length === 0 ? (
+          {isLoadingList ? (
+            <div className="table-responsive">
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Função</th>
+                    <th>Especialidades</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <TableLoading rows={5} columns={7} />
+              </Table>
+            </div>
+          ) : staff.length === 0 ? (
             <div className="empty-state">
               <div className="display-1">👩‍💼</div>
               <h3>Nenhum funcionário encontrado</h3>
@@ -200,6 +216,7 @@ function Staff() {
                           size="sm"
                           className="me-2"
                           onClick={() => handleEdit(staffMember)}
+                          disabled={isDeleting}
                         >
                           Editar
                         </Button>
@@ -207,8 +224,16 @@ function Staff() {
                           variant="outline-danger"
                           size="sm"
                           onClick={() => handleDelete(staffMember.id)}
+                          disabled={isDeleting}
                         >
-                          Excluir
+                          {isDeleting ? (
+                            <>
+                              <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                              Excluindo...
+                            </>
+                          ) : (
+                            'Excluir'
+                          )}
                         </Button>
                       </td>
                     </tr>
@@ -320,8 +345,19 @@ function Staff() {
             <Button variant="secondary" onClick={handleCloseModal}>
               Cancelar
             </Button>
-            <Button variant="primary" type="submit">
-              {editingStaff ? 'Atualizar' : 'Criar'}
+            <Button 
+              variant="primary" 
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  {editingStaff ? 'Atualizando...' : 'Criando...'}
+                </>
+              ) : (
+                editingStaff ? 'Atualizar' : 'Criar'
+              )}
             </Button>
           </Modal.Footer>
         </Form>

@@ -1,4 +1,5 @@
 -- Create tables for beauty salon application
+USE beauty_salon;
 
 -- Customers table
 CREATE TABLE IF NOT EXISTS customers (
