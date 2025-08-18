@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import Appointments from '../Appointments';
 import { appointmentsAPI, customersAPI, servicesAPI, staffAPI } from '../../services/api';
 import { toast } from 'react-toastify';
+import { LoadingProvider } from '../../contexts/LoadingContext';
 
 // Mock the entire API module
 jest.mock('../../services/api', () => ({
@@ -29,8 +30,10 @@ jest.mock('react-toastify', () => ({
   toast: {
     success: jest.fn(),
     error: jest.fn(),
+    info: jest.fn(),
   },
 }));
+
 
 // Mock window.confirm
 global.confirm = jest.fn(() => true);
@@ -64,19 +67,27 @@ const mockAppointments = [
 ];
 
 describe('Appointments Component', () => {
-  beforeEach(() => {
-    // Reset mocks before each test
-    jest.clearAllMocks();
+  // Helper para renderizar com providers
+  const renderWithProviders = (component) => {
+    return render(
+      <LoadingProvider>
+        {component}
+      </LoadingProvider>
+    );
+  };
 
-    // Setup default successful mock responses
+  beforeEach(() => {
+    jest.clearAllMocks();
+    
+    // Setup default mock responses
     customersAPI.getAll.mockResolvedValue({ data: mockCustomers });
     servicesAPI.getActive.mockResolvedValue({ data: mockServices });
     staffAPI.getActive.mockResolvedValue({ data: mockStaff });
     appointmentsAPI.getByDate.mockResolvedValue({ data: mockAppointments });
   });
 
-  test('should render and load initial data correctly', async () => {
-    render(<Appointments />);
+  test('renders appointments calendar correctly', async () => {
+    renderWithProviders(<Appointments />);
 
     // Check for loading state if any, or wait for data to be loaded
     expect(await screen.findByText('John Doe')).toBeInTheDocument();
@@ -97,7 +108,7 @@ describe('Appointments Component', () => {
     // Mock the create API to resolve successfully
     appointmentsAPI.create.mockResolvedValue({ data: {} });
 
-    render(<Appointments />);
+    renderWithProviders(<Appointments />);
 
     // Wait for initial data to load to prevent state update issues
     await screen.findByText('John Doe');

@@ -4,6 +4,36 @@ import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from '../App';
 
+// Mock dos componentes lazy loading
+jest.mock('../components/LazyComponents', () => ({
+  LazyDashboard: React.lazy(() => Promise.resolve({
+    default: function MockDashboard() {
+      return <div data-testid="dashboard">Dashboard</div>;
+    }
+  })),
+  LazyCustomers: React.lazy(() => Promise.resolve({
+    default: function MockCustomers() {
+      return <div data-testid="customers">Customers</div>;
+    }
+  })),
+  LazyServices: React.lazy(() => Promise.resolve({
+    default: function MockServices() {
+      return <div data-testid="services">Services</div>;
+    }
+  })),
+  LazyStaff: React.lazy(() => Promise.resolve({
+    default: function MockStaff() {
+      return <div data-testid="staff">Staff</div>;
+    }
+  })),
+  LazyAppointments: React.lazy(() => Promise.resolve({
+    default: function MockAppointments() {
+      return <div data-testid="appointments">Appointments</div>;
+    }
+  })),
+  usePreloadComponents: jest.fn()
+}));
+
 // Mock dos componentes filhos para focar no teste do App
 jest.mock('../components/Navbar', () => {
   return function MockNavbar() {
@@ -11,33 +41,17 @@ jest.mock('../components/Navbar', () => {
   };
 });
 
-jest.mock('../components/Dashboard', () => {
-  return function MockDashboard() {
-    return <div data-testid="dashboard">Dashboard</div>;
+// Mock do ErrorBoundary
+jest.mock('../components/ErrorBoundary', () => {
+  return function MockErrorBoundary({ children }) {
+    return <div data-testid="error-boundary">{children}</div>;
   };
 });
 
-jest.mock('../components/Customers', () => {
-  return function MockCustomers() {
-    return <div data-testid="customers">Customers</div>;
-  };
-});
-
-jest.mock('../components/Services', () => {
-  return function MockServices() {
-    return <div data-testid="services">Services</div>;
-  };
-});
-
-jest.mock('../components/Staff', () => {
-  return function MockStaff() {
-    return <div data-testid="staff">Staff</div>;
-  };
-});
-
-jest.mock('../components/Appointments', () => {
-  return function MockAppointments() {
-    return <div data-testid="appointments">Appointments</div>;
+// Mock do SkipLinks
+jest.mock('../components/SkipLinks', () => {
+  return function MockSkipLinks() {
+    return <div data-testid="skip-links">Skip Links</div>;
   };
 });
 

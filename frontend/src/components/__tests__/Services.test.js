@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Services from '../Services';
 import { servicesAPI } from '../../services/api';
+import { LoadingProvider } from '../../contexts/LoadingContext';
 
 // Mock do módulo API correto
 jest.mock('../../services/api', () => ({
@@ -19,8 +20,10 @@ jest.mock('react-toastify', () => ({
   toast: {
     success: jest.fn(),
     error: jest.fn(),
+    info: jest.fn(),
   },
 }));
+
 
 describe('Services Component', () => {
   const mockServices = [
@@ -48,13 +51,23 @@ describe('Services Component', () => {
     }
   ];
 
+  // Helper para renderizar com providers
+  const renderWithProviders = (component) => {
+    return render(
+      <LoadingProvider>
+        {component}
+      </LoadingProvider>
+    );
+  };
+
   beforeEach(() => {
+    // Reset dos mocks antes de cada teste
     jest.clearAllMocks();
     servicesAPI.getAll.mockResolvedValue({ data: mockServices });
   });
 
   test('renders services list correctly', async () => {
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for services to load
     await screen.findByText('Corte de Cabelo');
@@ -81,7 +94,7 @@ describe('Services Component', () => {
   test('shows empty state when no services', async () => {
     servicesAPI.getAll.mockResolvedValue({ data: [] });
 
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     await waitFor(() => {
       expect(screen.getByText('Nenhum serviço encontrado')).toBeInTheDocument();
@@ -90,7 +103,7 @@ describe('Services Component', () => {
   });
 
   test('opens add service modal when button is clicked', async () => {
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for loading to complete
     await screen.findByText('Corte de Cabelo');
@@ -118,7 +131,7 @@ describe('Services Component', () => {
 
     servicesAPI.create.mockResolvedValue({ data: newService });
 
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     await waitFor(() => {
       expect(screen.getByText('Corte de Cabelo')).toBeInTheDocument();
@@ -150,7 +163,7 @@ describe('Services Component', () => {
   });
 
   test('opens edit service modal when edit button is clicked', async () => {
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for loading to complete
     await screen.findByText('Corte de Cabelo');
@@ -173,7 +186,7 @@ describe('Services Component', () => {
 
     servicesAPI.update.mockResolvedValue({ data: updatedService });
 
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for loading to complete
     await screen.findByText('Corte de Cabelo');
@@ -213,7 +226,7 @@ describe('Services Component', () => {
     // Mock do window.confirm
     window.confirm = jest.fn(() => true);
 
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     await waitFor(() => {
       expect(screen.getByText('Corte de Cabelo')).toBeInTheDocument();
@@ -239,7 +252,7 @@ describe('Services Component', () => {
   test('handles API errors gracefully', async () => {
     servicesAPI.getAll.mockRejectedValue(new Error('API Error'));
 
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for loading to complete and error to be handled
     await waitFor(() => {
@@ -252,7 +265,7 @@ describe('Services Component', () => {
   });
 
   test('closes modal when cancel button is clicked', async () => {
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for loading to complete
     await screen.findByText('Corte de Cabelo');
@@ -276,7 +289,7 @@ describe('Services Component', () => {
     // Mock que demora para resolver
     servicesAPI.getAll.mockImplementation(() => new Promise(() => {}));
 
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Verifica se o loading está sendo mostrado
     expect(screen.getByText('Carregando...')).toBeInTheDocument();
@@ -284,7 +297,7 @@ describe('Services Component', () => {
   });
 
   test('formats price correctly', async () => {
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for services to load
     await screen.findByText('Corte de Cabelo');
@@ -294,7 +307,7 @@ describe('Services Component', () => {
   });
 
   test('shows service categories as badges', async () => {
-    render(<Services />);
+    renderWithProviders(<Services />);
 
     // Wait for services to load
     await screen.findByText('Cabelo');

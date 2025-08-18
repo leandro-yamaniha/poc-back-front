@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import '@testing-library/jest-dom';
 import Staff from '../Staff';
 import * as api from '../../services/api';
+import { LoadingProvider } from '../../contexts/LoadingContext';
 
 // Mock the API and toast
 jest.mock('../../services/api', () => ({
@@ -21,8 +22,10 @@ jest.mock('react-toastify', () => ({
   toast: {
     success: jest.fn(),
     error: jest.fn(),
+    info: jest.fn(),
   },
 }));
+
 
 // Sample staff data for testing
 const mockStaff = [
@@ -47,23 +50,28 @@ const mockStaff = [
 ];
 
 describe('Staff Component', () => {
-  beforeEach(() => {
-    // Reset all mocks before each test
-    jest.clearAllMocks();
-    
-    // Mock the API responses
-    api.staffAPI.getAll.mockResolvedValue({ data: mockStaff });
-    api.staffAPI.create.mockResolvedValue({ data: { id: 3, ...mockStaff[0] } });
-    api.staffAPI.update.mockResolvedValue({ data: { ...mockStaff[0], name: 'João Silva Atualizado' } });
-    api.staffAPI.delete.mockResolvedValue({});
-  });
-
-  test('renders staff list with correct data', async () => {
-    render(
+  // Helper para renderizar com providers
+  const renderWithProviders = (component) => {
+    return render(
       <Router>
-        <Staff />
+        <LoadingProvider>
+          {component}
+        </LoadingProvider>
       </Router>
     );
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    api.staffAPI.getAll.mockResolvedValue({ data: mockStaff });
+  });
+
+  const renderStaffComponent = () => {
+    return renderWithProviders(<Staff />);
+  };
+
+  test('renders staff list with correct data', async () => {
+    renderStaffComponent();
 
     // Check if loading spinner is shown initially
     expect(screen.getByRole('status')).toBeInTheDocument();

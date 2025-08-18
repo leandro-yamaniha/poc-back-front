@@ -3,12 +3,23 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Navbar from '../Navbar';
+import { LoadingProvider } from '../../contexts/LoadingContext';
+
+// Mock dos hooks personalizados
+jest.mock('../../hooks/useAccessibility', () => ({
+  useAccessibility: jest.fn(() => ({
+    useFocusTrap: jest.fn(() => ({ current: null })),
+    announceToScreenReader: jest.fn()
+  }))
+}));
 
 describe('Navbar Component', () => {
   const renderNavbar = () => {
     return render(
       <MemoryRouter>
-        <Navbar />
+        <LoadingProvider>
+          <Navbar />
+        </LoadingProvider>
       </MemoryRouter>
     );
   };
