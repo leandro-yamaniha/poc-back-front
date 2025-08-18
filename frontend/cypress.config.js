@@ -2,7 +2,7 @@ const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:3001',
     viewportWidth: 1280,
     viewportHeight: 720,
     video: true,
@@ -16,7 +16,7 @@ module.exports = defineConfig({
       openMode: 0
     },
     env: {
-      apiUrl: 'http://localhost:8080/api'
+      apiUrl: 'http://localhost:8084/api'
     },
     setupNodeEvents(on, config) {
       // Task para logs customizados
