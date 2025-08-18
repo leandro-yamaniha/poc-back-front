@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { Container, Row, Col, Card, Table, Button, Modal, Form } from 'react-bootstrap';
 import { customersAPI } from '../services/api';
 import { toast } from 'react-toastify';
@@ -7,20 +7,30 @@ import FormField from './FormField';
 import LoadingSpinner, { TableLoading } from './LoadingSpinner';
 import { useLoading } from '../contexts/LoadingContext';
 import { useAccessibility } from '../hooks/useAccessibility';
+import { useErrorHandling } from '../hooks/useErrorHandling';
+import { NetworkErrorFallback, EmptyStateWithError } from './ErrorFallbacks';
+import { useDebouncedSearch } from '../hooks/useDebounce';
+import { useOptimizedFilter, usePerformanceMonitor, useCleanup } from '../hooks/usePerformance';
 
-function Customers() {
+const Customers = React.memo(() => {
   const [customers, setCustomers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
   const searchInputRef = useRef(null);
-  const modalRef = useRef(null);
 
   // Hook de loading global
   const { withLoading, isLoading } = useLoading();
   
   // Hook de acessibilidade
   const { useFocusTrap, announceToScreenReader } = useAccessibility();
+  const modalRef = useFocusTrap(showModal);
+  
+  // Hook de tratamento de erros
+  const { handleApiCall, showErrorWithActions, isRetrying } = useErrorHandling();
+  
+  // Hooks de performance
+  const { addCleanup } = useCleanup();
+  usePerformanceMonitor('Customers', [customers.length, showModal]);
 
   // Regras de validação para o formulário
   const validationRules = {
@@ -76,65 +86,143 @@ function Customers() {
 
   const loadCustomers = async () => {
     await withLoading('customers-list', async () => {
-      try {
-        const response = await customersAPI.getAll();
+      await handleApiCall(
+        () => customersAPI.getAll(),
+        {
+          onRetry: (error, attempt) => {
+            announceToScreenReader(`Tentativa ${attempt} de carregar clientes`);
+          },
+          fallback: async () => {
+            // Fallback: tentar carregar dados do cache local se disponível
+            const cachedData = localStorage.getItem('customers-cache');
+            if (cachedData) {
+              const parsed = JSON.parse(cachedData);
+              toast.info('Carregando dados do cache local');
+              return { data: parsed };
+            }
+            throw new Error('Nenhum dado em cache disponível');
+          }
+        }
+      ).then(response => {
         setCustomers(response.data);
         announceToScreenReader(`${response.data.length} clientes carregados`);
-      } catch (error) {
-        console.error('Error loading customers:', error);
-        toast.error('Erro ao carregar clientes');
+        
+        // Cache dos dados para fallback futuro
+        localStorage.setItem('customers-cache', JSON.stringify(response.data));
+      }).catch(error => {
         announceToScreenReader('Erro ao carregar clientes');
-      }
+        
+        // Mostrar erro com ações de recuperação
+        showErrorWithActions(error, [
+          {
+            label: 'Tentar Novamente',
+            handler: loadCustomers
+          },
+          {
+            label: 'Trabalhar Offline',
+            handler: () => {
+              const cachedData = localStorage.getItem('customers-cache');
+              if (cachedData) {
+                setCustomers(JSON.parse(cachedData));
+                toast.info('Modo offline ativado');
+              }
+            }
+          }
+        ]);
+      });
     });
   };
 
-  const handleSearch = async () => {
-    if (searchTerm.trim()) {
+  // Busca otimizada com debounce
+  const performSearch = useCallback(async (term) => {
+    if (term.trim()) {
       await withLoading('customers-search', async () => {
-        try {
-          const response = await customersAPI.search(searchTerm);
+        await handleApiCall(
+          () => customersAPI.search(term),
+          {
+            maxRetries: 2,
+            fallback: async () => {
+              // Fallback: filtrar dados locais
+              const filtered = customers.filter(customer => 
+                customer.name.toLowerCase().includes(term.toLowerCase()) ||
+                customer.email.toLowerCase().includes(term.toLowerCase())
+              );
+              return { data: filtered };
+            }
+          }
+        ).then(response => {
           setCustomers(response.data);
-        } catch (error) {
-          console.error('Error searching customers:', error);
-          toast.error('Erro ao buscar clientes');
-        }
+        });
       });
     } else {
       loadCustomers();
     }
-  };
+  }, [customers, withLoading, handleApiCall]);
+  
+  const { searchTerm, isSearching, handleSearchChange } = useDebouncedSearch(performSearch, 500);
 
   const submitCustomer = async (customerData) => {
     await withLoading('customers-submit', async () => {
-      try {
-        if (editingCustomer) {
-          await customersAPI.update(editingCustomer.id, customerData);
-          toast.success('Cliente atualizado com sucesso!');
-          announceToScreenReader('Cliente atualizado com sucesso');
-        } else {
-          await customersAPI.create(customerData);
-          toast.success('Cliente criado com sucesso!');
-          announceToScreenReader('Cliente criado com sucesso');
+      await handleApiCall(
+        () => {
+          if (editingCustomer) {
+            return customersAPI.update(editingCustomer.id, customerData);
+          } else {
+            return customersAPI.create(customerData);
+          }
+        },
+        {
+          maxRetries: 2,
+          onRetry: (error, attempt) => {
+            const action = editingCustomer ? 'atualizar' : 'criar';
+            announceToScreenReader(`Tentativa ${attempt} de ${action} cliente`);
+          },
+          fallback: async (error) => {
+            // Fallback: salvar localmente para sincronizar depois
+            const pendingData = {
+              ...customerData,
+              id: editingCustomer?.id || Date.now().toString(),
+              _pending: true,
+              _action: editingCustomer ? 'update' : 'create'
+            };
+            
+            const pending = JSON.parse(localStorage.getItem('pending-customers') || '[]');
+            pending.push(pendingData);
+            localStorage.setItem('pending-customers', JSON.stringify(pending));
+            
+            toast.info('Dados salvos localmente. Serão sincronizados quando a conexão for restaurada.');
+            return { data: pendingData };
+          }
         }
+      ).then(() => {
+        const action = editingCustomer ? 'atualizado' : 'criado';
+        toast.success(`Cliente ${action} com sucesso!`);
+        announceToScreenReader(`Cliente ${action} com sucesso`);
         
         setShowModal(false);
         setEditingCustomer(null);
         resetForm();
         loadCustomers();
-      } catch (error) {
-        console.error('Error saving customer:', error);
+      }).catch(error => {
+        announceToScreenReader('Erro ao salvar cliente');
+        
         if (error.response?.status === 409) {
-          toast.error('Já existe um cliente com este email');
-          announceToScreenReader('Erro: Já existe um cliente com este email');
-        } else {
-          toast.error('Erro ao salvar cliente');
-          announceToScreenReader('Erro ao salvar cliente');
+          showErrorWithActions(error, [
+            {
+              label: 'Usar Email Diferente',
+              handler: () => {
+                // Focar no campo email para correção
+                const emailField = document.querySelector('input[name="email"]');
+                if (emailField) emailField.focus();
+              }
+            }
+          ]);
         }
-      }
+      });
     });
   };
 
-  const handleEdit = (customer) => {
+  const handleEdit = useCallback((customer) => {
     setEditingCustomer(customer);
     setFormValues({
       name: customer.name,
@@ -143,44 +231,79 @@ function Customers() {
       address: customer.address || ''
     });
     setShowModal(true);
-  };
+  }, [setFormValues]);
 
   const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir este cliente?')) {
       await withLoading('customers-delete', async () => {
-        try {
-          await customersAPI.delete(id);
+        await handleApiCall(
+          () => customersAPI.delete(id),
+          {
+            maxRetries: 1,
+            onRetry: () => {
+              announceToScreenReader('Tentando excluir cliente novamente');
+            }
+          }
+        ).then(() => {
           toast.success('Cliente excluído com sucesso!');
           announceToScreenReader('Cliente excluído com sucesso');
           loadCustomers();
-        } catch (error) {
-          console.error('Error deleting customer:', error);
-          toast.error('Erro ao excluir cliente');
+        }).catch(error => {
           announceToScreenReader('Erro ao excluir cliente');
-        }
+          
+          showErrorWithActions(error, [
+            {
+              label: 'Tentar Novamente',
+              handler: () => handleDelete(id)
+            },
+            {
+              label: 'Marcar para Exclusão',
+              handler: () => {
+                // Marcar localmente para exclusão posterior
+                const toDelete = JSON.parse(localStorage.getItem('pending-deletions') || '[]');
+                toDelete.push({ type: 'customer', id, timestamp: Date.now() });
+                localStorage.setItem('pending-deletions', JSON.stringify(toDelete));
+                toast.info('Cliente marcado para exclusão quando a conexão for restaurada.');
+              }
+            }
+          ]);
+        });
       });
     }
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setShowModal(false);
     setEditingCustomer(null);
     resetForm();
-  };
+  }, [resetForm]);
 
-  const handleNewCustomer = () => {
+  const handleNewCustomer = useCallback(() => {
+    setEditingCustomer(null);
+    resetForm();
     setShowModal(true);
-  };
+  }, [resetForm]);
 
-  const isLoadingList = isLoading('customers-list');
-  const isSearching = isLoading('customers-search');
-  const isDeleting = isLoading('customers-delete');
-  const isSubmittingForm = isSubmitting;
-  const isFormValid = Object.keys(errors).length === 0;
+  // Estados memoizados para evitar re-renders
+  const loadingStates = useMemo(() => ({
+    isLoadingList: isLoading('customers-list'),
+    isSearchingAPI: isLoading('customers-search'),
+    isDeleting: isLoading('customers-delete'),
+    isSubmittingForm: isSubmitting,
+    isFormValid: Object.keys(errors).length === 0,
+    hasNetworkError: customers.length === 0 && !isLoading('customers-list')
+  }), [isLoading, isSubmitting, errors, customers.length]);
+  
+  const { isLoadingList, isSearchingAPI, isDeleting, isSubmittingForm, isFormValid, hasNetworkError } = loadingStates;
 
-  const filteredCustomers = customers.filter(customer => 
-    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    customer.email.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filtros otimizados com memoização
+  const filteredCustomers = useOptimizedFilter(
+    customers,
+    { search: searchTerm },
+    {
+      searchFields: ['name', 'email', 'phone'],
+      caseSensitive: false
+    }
   );
 
   return (
@@ -196,13 +319,20 @@ function Customers() {
             <Form.Label htmlFor="search-customers">Buscar clientes:</Form.Label>
             <Form.Control
               id="search-customers"
-              ref={searchInputRef}
               type="text"
-              placeholder="Digite o nome ou email..."
+              placeholder="Buscar por nome ou email..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              ref={searchInputRef}
               aria-describedby="search-help"
             />
+            {isSearching && (
+              <div className="position-absolute end-0 top-50 translate-middle-y me-3">
+                <div className="spinner-border spinner-border-sm text-primary" role="status">
+                  <span className="visually-hidden">Buscando...</span>
+                </div>
+              </div>
+            )}
             <Form.Text id="search-help" className="sr-only">
               Digite para filtrar clientes por nome ou email
             </Form.Text>
@@ -213,8 +343,16 @@ function Customers() {
             variant="primary" 
             onClick={handleNewCustomer}
             aria-describedby="new-customer-help"
+            disabled={isRetrying}
           >
-            Novo Cliente
+            {isRetrying ? (
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Reconectando...
+              </>
+            ) : (
+              'Novo Cliente'
+            )}
           </Button>
           <span id="new-customer-help" className="sr-only">
             Abre formulário para cadastrar novo cliente
@@ -240,11 +378,25 @@ function Customers() {
               </Table>
             </div>
           ) : filteredCustomers.length === 0 ? (
-            <div className="empty-state">
-              <div className="display-1">👥</div>
-              <h3>Nenhum cliente encontrado</h3>
-              <p>Comece adicionando seu primeiro cliente!</p>
-            </div>
+            hasNetworkError ? (
+              <NetworkErrorFallback 
+                onRetry={loadCustomers}
+                onOfflineMode={() => {
+                  const cachedData = localStorage.getItem('customers-cache');
+                  if (cachedData) {
+                    setCustomers(JSON.parse(cachedData));
+                    toast.info('Modo offline ativado');
+                  }
+                }}
+              />
+            ) : (
+              <EmptyStateWithError
+                title="Nenhum cliente encontrado"
+                message="Comece adicionando seu primeiro cliente!"
+                onRetry={loadCustomers}
+                onCreate={handleNewCustomer}
+              />
+            )
           ) : (
             <div className="table-responsive">
               <Table hover>
@@ -404,6 +556,8 @@ function Customers() {
       </Modal>
     </Container>
   );
-}
+});
+
+Customers.displayName = 'Customers';
 
 export default Customers;

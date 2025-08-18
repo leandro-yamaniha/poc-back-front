@@ -1,20 +1,36 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
-
 import { LoadingProvider } from './contexts/LoadingContext';
 import SkipLinks from './components/SkipLinks';
-import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import Customers from './components/Customers';
-import Services from './components/Services';
-import Staff from './components/Staff';
-import Appointments from './components/Appointments';
+import ErrorBoundary from './components/ErrorBoundary';
+import { 
+  Dashboard, 
+  Customers, 
+  Services, 
+  Staff, 
+  Appointments,
+  usePreloadComponent 
+} from './components/LazyComponents';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'react-toastify/dist/ReactToastify.css';
+import './components/SkipLinks.css';
 
 function App() {
+  const { preloadAll } = usePreloadComponent();
+
+  // Preload componentes após carregamento inicial
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      preloadAll();
+    }, 2000); // Preload após 2 segundos
+
+    return () => clearTimeout(timer);
+  }, [preloadAll]);
+
   return (
     <LoadingProvider>
       <Router>
@@ -22,13 +38,15 @@ function App() {
           <SkipLinks />
           <Navbar id="navigation" />
           <main id="main-content" className="container-fluid" tabIndex="-1">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/staff" element={<Staff />} />
-              <Route path="/appointments" element={<Appointments />} />
-            </Routes>
+            <ErrorBoundary>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/staff" element={<Staff />} />
+                <Route path="/appointments" element={<Appointments />} />
+              </Routes>
+            </ErrorBoundary>
           </main>
           <ToastContainer
             position="top-right"
