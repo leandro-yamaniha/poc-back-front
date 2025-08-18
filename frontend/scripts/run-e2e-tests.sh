@@ -85,6 +85,9 @@ run_tests() {
     
     print_message "Executando testes E2E..." $BLUE
     
+    # Navegar para o diretório frontend onde está o cypress.config.js
+    cd "$(dirname "$0")/.."
+    
     case $mode in
         "headless")
             if [ -n "$spec" ]; then
