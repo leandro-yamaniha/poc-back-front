@@ -4,16 +4,20 @@ import DatePicker from 'react-datepicker';
 import { appointmentsAPI, customersAPI, servicesAPI, staffAPI } from '../services/api';
 import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
+import LoadingSpinner, { TableLoading } from './LoadingSpinner';
+import { useLoading } from '../contexts/LoadingContext';
 
 function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [services, setServices] = useState([]);
   const [staff, setStaff] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  
+  // Hook de loading global
+  const { withLoading, isLoading } = useLoading();
   const [formData, setFormData] = useState({
     customerId: '',
     staffId: '',
@@ -46,64 +50,67 @@ function Appointments() {
   }, [selectedDate]);
 
   const loadData = async () => {
-    try {
-      setLoading(true);
-      const [customersRes, servicesRes, staffRes] = await Promise.all([
-        customersAPI.getAll(),
-        servicesAPI.getActive(),
-        staffAPI.getActive()
-      ]);
-      
-      setCustomers(customersRes.data);
-      setServices(servicesRes.data);
-      setStaff(staffRes.data);
-      
-      await loadAppointmentsByDate();
-    } catch (error) {
-      console.error('Error loading data:', error);
-      toast.error('Erro ao carregar dados');
-    } finally {
-      setLoading(false);
-    }
+    await withLoading('appointments-init', async () => {
+      try {
+        const [customersRes, servicesRes, staffRes] = await Promise.all([
+          customersAPI.getAll(),
+          servicesAPI.getActive(),
+          staffAPI.getActive()
+        ]);
+        
+        setCustomers(customersRes.data);
+        setServices(servicesRes.data);
+        setStaff(staffRes.data);
+        
+        await loadAppointmentsByDate();
+      } catch (error) {
+        console.error('Error loading data:', error);
+        toast.error('Erro ao carregar dados');
+      }
+    });
   };
 
   const loadAppointmentsByDate = async () => {
-    try {
-      const dateStr = selectedDate.toISOString().split('T')[0];
-      // Always use backend date endpoint
-      const response = await appointmentsAPI.getByDate(dateStr);
-      setAppointments(response.data);
-    } catch (error) {
-      console.error('Error loading appointments:', error);
-      toast.error('Erro ao carregar agendamentos');
-    }
+    await withLoading('appointments-list', async () => {
+      try {
+        const dateStr = selectedDate.toISOString().split('T')[0];
+        // Always use backend date endpoint
+        const response = await appointmentsAPI.getByDate(dateStr);
+        setAppointments(response.data);
+      } catch (error) {
+        console.error('Error loading appointments:', error);
+        toast.error('Erro ao carregar agendamentos');
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const appointmentData = {
-        ...formData,
-        appointmentDate: formData.appointmentDate.toISOString().split('T')[0],
-        totalPrice: parseFloat(formData.totalPrice) || 0
-      };
+    await withLoading('appointments-submit', async () => {
+      try {
+        const appointmentData = {
+          ...formData,
+          appointmentDate: formData.appointmentDate.toISOString().split('T')[0],
+          totalPrice: parseFloat(formData.totalPrice) || 0
+        };
 
-      if (editingAppointment) {
-        await appointmentsAPI.update(editingAppointment.id, appointmentData);
-        toast.success('Agendamento atualizado com sucesso!');
-      } else {
-        await appointmentsAPI.create(appointmentData);
-        toast.success('Agendamento criado com sucesso!');
+        if (editingAppointment) {
+          await appointmentsAPI.update(editingAppointment.id, appointmentData);
+          toast.success('Agendamento atualizado com sucesso!');
+        } else {
+          await appointmentsAPI.create(appointmentData);
+          toast.success('Agendamento criado com sucesso!');
+        }
+        
+        setShowModal(false);
+        setEditingAppointment(null);
+        resetForm();
+        loadAppointmentsByDate();
+      } catch (error) {
+        console.error('Error saving appointment:', error);
+        toast.error('Erro ao salvar agendamento');
       }
-      
-      setShowModal(false);
-      setEditingAppointment(null);
-      resetForm();
-      loadAppointmentsByDate();
-    } catch (error) {
-      console.error('Error saving appointment:', error);
-      toast.error('Erro ao salvar agendamento');
-    }
+    });
   };
 
   const handleEdit = (appointment) => {
@@ -123,14 +130,16 @@ function Appointments() {
 
   const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir este agendamento?')) {
-      try {
-        await appointmentsAPI.delete(id);
-        toast.success('Agendamento excluído com sucesso!');
-        loadAppointmentsByDate();
-      } catch (error) {
-        console.error('Error deleting appointment:', error);
-        toast.error('Erro ao excluir agendamento');
-      }
+      await withLoading('appointments-delete', async () => {
+        try {
+          await appointmentsAPI.delete(id);
+          toast.success('Agendamento excluído com sucesso!');
+          loadAppointmentsByDate();
+        } catch (error) {
+          console.error('Error deleting appointment:', error);
+          toast.error('Erro ao excluir agendamento');
+        }
+      });
     }
   };
 
@@ -201,14 +210,18 @@ function Appointments() {
     }).format(price);
   };
 
-  if (loading) {
+  const isLoadingInit = isLoading('appointments-init');
+  const isLoadingList = isLoading('appointments-list');
+  const isSubmitting = isLoading('appointments-submit');
+  const isDeleting = isLoading('appointments-delete');
+
+  if (isLoadingInit) {
     return (
       <Container>
-        <div className="loading-spinner">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Carregando...</span>
-          </div>
-        </div>
+        <LoadingSpinner 
+          text="Carregando dados iniciais..." 
+          fullPage 
+        />
       </Container>
     );
   }
@@ -241,7 +254,24 @@ function Appointments() {
 
       <Card>
         <Card.Body>
-          {appointments.length === 0 ? (
+          {isLoadingList ? (
+            <div className="table-responsive">
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>Horário</th>
+                    <th>Cliente</th>
+                    <th>Serviço</th>
+                    <th>Funcionário</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <TableLoading rows={5} columns={7} />
+              </Table>
+            </div>
+          ) : appointments.length === 0 ? (
             <div className="empty-state">
               <div className="display-1">📅</div>
               <h3>Nenhum agendamento encontrado</h3>
@@ -278,6 +308,7 @@ function Appointments() {
                           size="sm"
                           className="me-2"
                           onClick={() => handleEdit(appointment)}
+                          disabled={isDeleting}
                         >
                           Editar
                         </Button>
@@ -285,8 +316,16 @@ function Appointments() {
                           variant="outline-danger"
                           size="sm"
                           onClick={() => handleDelete(appointment.id)}
+                          disabled={isDeleting}
                         >
-                          Excluir
+                          {isDeleting ? (
+                            <>
+                              <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                              Excluindo...
+                            </>
+                          ) : (
+                            'Excluir'
+                          )}
                         </Button>
                       </td>
                     </tr>
@@ -429,8 +468,19 @@ function Appointments() {
             <Button variant="secondary" onClick={handleCloseModal}>
               Cancelar
             </Button>
-            <Button variant="primary" type="submit">
-              {editingAppointment ? 'Atualizar' : 'Criar'}
+            <Button 
+              variant="primary" 
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  {editingAppointment ? 'Atualizando...' : 'Criando...'}
+                </>
+              ) : (
+                editingAppointment ? 'Atualizar' : 'Criar'
+              )}
             </Button>
           </Modal.Footer>
         </Form>

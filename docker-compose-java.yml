@@ -37,7 +37,7 @@ services:
       - CASSANDRA_CONTACT_POINTS=cassandra
       - CASSANDRA_PORT=9042
       - CASSANDRA_KEYSPACE=beauty_salon
-      - JAVA_OPTS=-Xmx2g -Xms1g
+      - JAVA_OPTS=-Xmx1g -Xms512m
       - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=0.0
       - MANAGEMENT_ZIPKIN_TRACING_ENABLED=false
     depends_on:
@@ -56,12 +56,12 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-8084}/api/v1}
+        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-8084}/api}
     container_name: beauty-salon-frontend-java
     ports:
       - "${FRONTEND_HOST_PORT:-3001}:${FRONTEND_HOST_PORT:-3001}"
     environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-8084}/api/v1}
+      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-8084}/api}
       - REACT_APP_BACKEND_TYPE=java
       - PORT=${FRONTEND_HOST_PORT:-3001}
     depends_on:

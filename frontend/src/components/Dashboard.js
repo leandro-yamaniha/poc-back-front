@@ -3,6 +3,8 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import api, { customersAPI, servicesAPI, staffAPI, appointmentsAPI } from '../services/api';
 import { toast } from 'react-toastify';
+import LoadingSpinner, { CardLoading } from './LoadingSpinner';
+import { useLoading } from '../contexts/LoadingContext';
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -12,7 +14,9 @@ function Dashboard() {
     appointments: 0,
     todayAppointments: 0
   });
-  const [loading, setLoading] = useState(true);
+  
+  // Hook de loading global
+  const { withLoading, isLoading } = useLoading();
 
   // Format date as YYYY-MM-DD for backend endpoint /appointments/date/{date}
   const formatDate = (date) => {
@@ -27,40 +31,56 @@ function Dashboard() {
   }, []);
 
   const loadStats = async () => {
-    try {
-      setLoading(true);
-      
-      const [customersRes, servicesRes, staffRes, appointmentsRes, todayAppointmentsRes] = await Promise.all([
-        customersAPI.getAll(),
-        servicesAPI.getActive(),
-        staffAPI.getActive(),
-        appointmentsAPI.getAll(),
-        appointmentsAPI.getByDate(formatDate(new Date()))
-      ]);
+    await withLoading('dashboard-stats', async () => {
+      try {
+        const [customersRes, servicesRes, staffRes, appointmentsRes, todayAppointmentsRes] = await Promise.all([
+          customersAPI.getAll(),
+          servicesAPI.getActive(),
+          staffAPI.getActive(),
+          appointmentsAPI.getAll(),
+          appointmentsAPI.getByDate(formatDate(new Date()))
+        ]);
 
-      setStats({
-        customers: customersRes.data.length,
-        services: servicesRes.data.length,
-        staff: staffRes.data.length,
-        appointments: appointmentsRes.data.length,
-        todayAppointments: todayAppointmentsRes.data.length
-      });
-    } catch (error) {
-      console.error('Error loading stats:', error);
-      toast.error('Erro ao carregar estatísticas');
-    } finally {
-      setLoading(false);
-    }
+        setStats({
+          customers: customersRes.data.length,
+          services: servicesRes.data.length,
+          staff: staffRes.data.length,
+          appointments: appointmentsRes.data.length,
+          todayAppointments: todayAppointmentsRes.data.length
+        });
+      } catch (error) {
+        console.error('Error loading stats:', error);
+        toast.error('Erro ao carregar estatísticas');
+      }
+    });
   };
 
-  if (loading) {
+  const isLoadingStats = isLoading('dashboard-stats');
+
+  if (isLoadingStats) {
     return (
       <Container>
-        <div className="loading-spinner">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Carregando...</span>
-          </div>
+        <div className="page-header">
+          <h1>Dashboard</h1>
+          <p>Visão geral do seu salão de beleza</p>
         </div>
+        
+        <Row className="mb-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Col key={i} md={6} lg={3} className="mb-3">
+              <CardLoading height="120px" />
+            </Col>
+          ))}
+        </Row>
+        
+        <Row>
+          <Col md={6} className="mb-4">
+            <CardLoading height="200px" />
+          </Col>
+          <Col md={6} className="mb-4">
+            <CardLoading height="200px" />
+          </Col>
+        </Row>
       </Container>
     );
   }
@@ -74,41 +94,41 @@ function Dashboard() {
 
       <Row className="mb-4">
         <Col md={6} lg={3} className="mb-3">
-          <Card className="dashboard-card h-100">
+          <Card className="dashboard-card h-100 border-primary">
             <Card.Body className="text-center">
-              <div className="display-4">👥</div>
-              <h2 className="display-4">{stats.customers}</h2>
-              <p className="mb-0">Clientes</p>
+              <div className="display-4 text-primary">👥</div>
+              <h2 className="display-4 text-primary">{stats.customers}</h2>
+              <p className="mb-0 text-muted">Clientes</p>
             </Card.Body>
           </Card>
         </Col>
         
         <Col md={6} lg={3} className="mb-3">
-          <Card className="dashboard-card h-100">
+          <Card className="dashboard-card h-100 border-success">
             <Card.Body className="text-center">
-              <div className="display-4">✨</div>
-              <h2 className="display-4">{stats.services}</h2>
-              <p className="mb-0">Serviços Ativos</p>
+              <div className="display-4 text-success">✨</div>
+              <h2 className="display-4 text-success">{stats.services}</h2>
+              <p className="mb-0 text-muted">Serviços Ativos</p>
             </Card.Body>
           </Card>
         </Col>
         
         <Col md={6} lg={3} className="mb-3">
-          <Card className="dashboard-card h-100">
+          <Card className="dashboard-card h-100 border-info">
             <Card.Body className="text-center">
-              <div className="display-4">👩‍💼</div>
-              <h2 className="display-4">{stats.staff}</h2>
-              <p className="mb-0">Funcionários</p>
+              <div className="display-4 text-info">👩‍💼</div>
+              <h2 className="display-4 text-info">{stats.staff}</h2>
+              <p className="mb-0 text-muted">Funcionários</p>
             </Card.Body>
           </Card>
         </Col>
         
         <Col md={6} lg={3} className="mb-3">
-          <Card className="dashboard-card h-100">
+          <Card className="dashboard-card h-100 border-warning">
             <Card.Body className="text-center">
-              <div className="display-4">📅</div>
-              <h2 className="display-4">{stats.todayAppointments}</h2>
-              <p className="mb-0">Agendamentos Hoje</p>
+              <div className="display-4 text-warning">📅</div>
+              <h2 className="display-4 text-warning">{stats.todayAppointments}</h2>
+              <p className="mb-0 text-muted">Agendamentos Hoje</p>
             </Card.Body>
           </Card>
         </Col>

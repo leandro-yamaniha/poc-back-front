@@ -16,7 +16,7 @@ module.exports = defineConfig({
       openMode: 0
     },
     env: {
-      apiUrl: 'http://localhost:8084/api'
+      apiUrl: 'http://localhost:8080/api'
     },
     setupNodeEvents(on, config) {
       // Task para logs customizados
