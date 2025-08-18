@@ -1,0 +1,45 @@
+/* Accessible Table Styles */
+.accessible-table-container {
+  position: relative;
+}
+
+.table-row-focused {
+  background-color: rgba(0, 123, 255, 0.1) !important;
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+}
+
+.table-row-focused:hover {
+  background-color: rgba(0, 123, 255, 0.15) !important;
+}
+
+/* Melhorar contraste para foco */
+.table tbody tr:focus {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Suporte para high contrast mode */
+@media (prefers-contrast: high) {
+  .table-row-focused {
+    background-color: Highlight !important;
+    color: HighlightText !important;
+    outline: 2px solid ButtonText;
+  }
+}
+
+/* Suporte para reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .table tbody tr {
+    transition: none;
+  }
+}
+
+/* Melhorar visibilidade do foco em botões dentro da tabela */
+.table tbody tr button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+  z-index: 1;
+  position: relative;
+}

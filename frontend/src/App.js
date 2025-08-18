@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 import { LoadingProvider } from './contexts/LoadingContext';
+import SkipLinks from './components/SkipLinks';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import Customers from './components/Customers';
@@ -18,8 +19,9 @@ function App() {
     <LoadingProvider>
       <Router>
         <div className="App">
-          <Navbar />
-          <div className="container-fluid">
+          <SkipLinks />
+          <Navbar id="navigation" />
+          <main id="main-content" className="container-fluid" tabIndex="-1">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/customers" element={<Customers />} />
@@ -27,7 +29,7 @@ function App() {
               <Route path="/staff" element={<Staff />} />
               <Route path="/appointments" element={<Appointments />} />
             </Routes>
-          </div>
+          </main>
           <ToastContainer
             position="top-right"
             autoClose={3000}
@@ -38,6 +40,8 @@ function App() {
             pauseOnFocusLoss
             draggable
             pauseOnHover
+            role="alert"
+            aria-live="polite"
           />
         </div>
       </Router>
