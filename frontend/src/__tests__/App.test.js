@@ -1,37 +1,39 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import App from '../App';
+
+// Mock window.location
+const originalLocation = window.location;
+beforeAll(() => {
+  delete window.location;
+  window.location = {
+    ...originalLocation,
+    href: 'http://localhost/',
+    origin: 'http://localhost',
+    pathname: '/',
+    search: '',
+    hash: ''
+  };
+});
+
+afterAll(() => {
+  window.location = originalLocation;
+});
 
 // Mock dos componentes lazy loading
 jest.mock('../components/LazyComponents', () => ({
-  LazyDashboard: React.lazy(() => Promise.resolve({
-    default: function MockDashboard() {
-      return <div data-testid="dashboard">Dashboard</div>;
-    }
-  })),
-  LazyCustomers: React.lazy(() => Promise.resolve({
-    default: function MockCustomers() {
-      return <div data-testid="customers">Customers</div>;
-    }
-  })),
-  LazyServices: React.lazy(() => Promise.resolve({
-    default: function MockServices() {
-      return <div data-testid="services">Services</div>;
-    }
-  })),
-  LazyStaff: React.lazy(() => Promise.resolve({
-    default: function MockStaff() {
-      return <div data-testid="staff">Staff</div>;
-    }
-  })),
-  LazyAppointments: React.lazy(() => Promise.resolve({
-    default: function MockAppointments() {
-      return <div data-testid="appointments">Appointments</div>;
-    }
-  })),
-  usePreloadComponents: jest.fn()
+  __esModule: true,
+  default: jest.fn(),
+  usePreloadComponent: () => ({
+    preloadAll: jest.fn()
+  }),
+  Dashboard: () => <div data-testid="dashboard">Dashboard</div>,
+  Customers: () => <div data-testid="customers">Customers</div>,
+  Services: () => <div data-testid="services">Services</div>,
+  Staff: () => <div data-testid="staff">Staff</div>,
+  Appointments: () => <div data-testid="appointments">Appointments</div>
 }));
 
 // Mock dos componentes filhos para focar no teste do App
@@ -66,8 +68,11 @@ jest.mock('react-toastify', () => ({
 
 describe('App Component', () => {
   const renderApp = (initialRoute = '/') => {
-    window.history.pushState({}, 'Test page', initialRoute);
-    return render(<App />);
+    return render(
+      <MemoryRouter initialEntries={[initialRoute]}>
+        <App />
+      </MemoryRouter>
+    );
   };
 
   test('renders navbar and toast container', () => {
