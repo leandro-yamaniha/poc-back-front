@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import LoadingSpinner from './LoadingSpinner';
 import { useLoading } from '../contexts/LoadingContext';
 
-function Customers() {
+const Customers = () => {
   const [customers, setCustomers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState(null);
@@ -17,10 +17,8 @@ function Customers() {
     address: ''
   });
 
-  // Hook de loading global
   const { withLoading, isLoading } = useLoading();
 
-  // Carregar clientes na inicialização
   useEffect(() => {
     loadCustomers();
   }, []);
@@ -158,7 +156,6 @@ function Customers() {
         </Col>
       </Row>
 
-      {/* Modal para adicionar/editar cliente */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -219,6 +216,6 @@ function Customers() {
       </Modal>
     </Container>
   );
-}
+};
 
 export default Customers;
