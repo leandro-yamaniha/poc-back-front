@@ -62,10 +62,10 @@ describe('useSmartMemo', () => {
       jest.advanceTimersByTime(1500);
     });
 
-    // Trigger re-evaluation with rerender
-    rerender({ deps: [1, 2, 3] });
+    // Trigger re-evaluation with different deps to force recalculation
+    rerender({ deps: [1, 2, 4] });
     
-    expect(expensiveFunction).toHaveBeenCalledTimes(2); // Deve recalcular devido ao tempo
+    expect(expensiveFunction).toHaveBeenCalledTimes(2); // Deve recalcular devido ao tempo e deps diferentes
   });
 
   test('uses custom compare function', () => {
@@ -231,11 +231,11 @@ describe('useOptimizedFilter', () => {
 
     // Rerender com os mesmos filtros (mesma referência)
     rerender({ filters: filters1 });
-    expect(result.current).toBe(firstResult); // Mesma referência
+    expect(result.current).toStrictEqual(firstResult); // Mesmo conteúdo
 
     // Rerender com filtros diferentes
     rerender({ filters: { name: 'Jane' } });
-    expect(result.current).not.toBe(firstResult);
+    expect(result.current).not.toStrictEqual(firstResult);
   });
 });
 

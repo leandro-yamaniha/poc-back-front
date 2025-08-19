@@ -67,10 +67,83 @@ jest.mock('react-bootstrap', () => {
     Alert: ({ children, ...props }) => <div {...props}>{children}</div>,
     Table: ({ children, ...props }) => <table {...props}>{children}</table>,
     Modal: MockModal,
-    Spinner: (props) => <div {...props}>Loading...</div>,
+    Spinner: (props) => <div {...props}>Carregando...</div>,
     Navbar: MockNavbar,
     Nav: MockNav,
     Badge: ({ children, ...props }) => <span {...props}>{children}</span>
+  };
+});
+
+// Mock ErrorBoundary component
+jest.mock('./components/ErrorBoundary', () => {
+  const React = require('react');
+  
+  class MockErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false, error: null };
+    }
+
+    static getDerivedStateFromError(error) {
+      return { hasError: true, error };
+    }
+
+    componentDidCatch(error, errorInfo) {
+      if (this.props.onError) {
+        this.props.onError(error, errorInfo);
+      }
+    }
+
+    render() {
+      if (this.state.hasError) {
+        if (this.props.fallback) {
+          return this.props.fallback(this.state.error, () => this.setState({ hasError: false, error: null }));
+        }
+        
+        return React.createElement('div', { 'data-testid': 'error-boundary-fallback' }, [
+          React.createElement('h4', { key: 'title' }, 'Oops! Algo deu errado'),
+          React.createElement('div', { key: 'message' }, 'Erro inesperado'),
+          React.createElement('button', { 
+            key: 'retry', 
+            onClick: () => this.setState({ hasError: false, error: null }) 
+          }, 'Tentar Novamente'),
+          React.createElement('button', { 
+            key: 'reload', 
+            onClick: () => {} 
+          }, 'Recarregar Página'),
+          process.env.NODE_ENV === 'development' && React.createElement('details', { key: 'details' }, [
+            React.createElement('summary', { key: 'summary' }, 'Detalhes do Erro (Desenvolvimento)'),
+            React.createElement('div', { key: 'error-details' }, this.state.error?.toString())
+          ])
+        ].filter(Boolean));
+      }
+
+      return this.props.children;
+    }
+  }
+  
+  const MockErrorFallback = ({ error, resetError, title = "Algo deu errado", message = "Ocorreu um erro inesperado. Tente novamente." }) => 
+    React.createElement('div', { 'data-testid': 'error-fallback' }, [
+      React.createElement('div', { key: 'title' }, title),
+      React.createElement('div', { key: 'message' }, message),
+      error && process.env.NODE_ENV === 'development' && React.createElement('details', { key: 'details' }, [
+        React.createElement('summary', { key: 'summary' }, 'Detalhes do erro'),
+        React.createElement('div', { key: 'error-message' }, error.message)
+      ]),
+      React.createElement('button', { key: 'retry', onClick: resetError }, 'Tentar Novamente')
+    ].filter(Boolean));
+
+  const withErrorBoundary = (Component) => {
+    return function WrappedComponent(props) {
+      return React.createElement(MockErrorBoundary, {}, React.createElement(Component, props));
+    };
+  };
+
+  return {
+    __esModule: true,
+    default: MockErrorBoundary,
+    ErrorFallback: MockErrorFallback,
+    withErrorBoundary
   };
 });
 

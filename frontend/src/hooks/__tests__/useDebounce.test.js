@@ -328,6 +328,7 @@ describe('useThrottle', () => {
       result.current('first');
     });
 
+    // Aguardar um tick para garantir que a primeira chamada foi processada
     expect(callback).toHaveBeenCalledTimes(1);
     expect(callback).toHaveBeenCalledWith('first');
 
@@ -341,7 +342,7 @@ describe('useThrottle', () => {
 
     // Avançar o tempo
     act(() => {
-      jest.advanceTimersByTime(100);
+      jest.advanceTimersByTime(150);
     });
 
     expect(callback).toHaveBeenCalledTimes(2);

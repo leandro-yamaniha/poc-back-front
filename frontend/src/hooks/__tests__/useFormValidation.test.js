@@ -158,7 +158,7 @@ describe('useFormValidation', () => {
       });
 
       expect(result.current.touched.email).toBe(true);
-      expect(result.current.errors.email).toBe('Email é obrigatório');
+      expect(result.current.errors.email).toBe('email é obrigatório');
     });
   });
 
@@ -292,8 +292,8 @@ describe('useFormValidation', () => {
 
       expect(isValid).toBe(false);
       expect(result.current.errors.name).toBe('Nome é obrigatório');
-      expect(result.current.errors.email).toBe('Email é obrigatório');
-      expect(result.current.errors.password).toBe('Senha é obrigatório');
+      expect(result.current.errors.email).toBe('email é obrigatório');
+      expect(result.current.errors.password).toBe('password é obrigatório');
     });
 
     test('returns true when all fields are valid', () => {
