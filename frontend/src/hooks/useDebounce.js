@@ -135,8 +135,8 @@ export const useDebouncedSearch = (searchFunction, delay = 500) => {
  * Hook para throttle (limitar frequência de execução)
  * Útil para eventos de scroll, resize, etc.
  */
-export const useThrottle = (callback, delay = 100) => {
-  const lastRun = useRef(Date.now());
+export const useThrottle = (callback, delay = 300) => {
+  const lastRun = useRef(0);
   const timeoutRef = useRef(null);
 
   const throttledCallback = useCallback((...args) => {
