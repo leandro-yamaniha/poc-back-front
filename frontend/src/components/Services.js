@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table, Button, Modal, Form, Badge } from 'react-bootstrap';
 import { servicesAPI } from '../services/api';
 import { toast } from 'react-toastify';
-import LoadingSpinner, { TableLoading } from './LoadingSpinner';
+import LoadingSpinner from './LoadingSpinner';
 import { useLoading } from '../contexts/LoadingContext';
 
 function Services() {
