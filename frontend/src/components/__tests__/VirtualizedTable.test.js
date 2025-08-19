@@ -114,8 +114,8 @@ describe('VirtualizedTable', () => {
     );
 
     // Verifica se o render customizado do status está funcionando
-    expect(screen.getByText('Active')).toBeInTheDocument();
-    expect(screen.getByText('Inactive')).toBeInTheDocument();
+    expect(screen.getAllByText('Active')).toHaveLength(3);
+    expect(screen.getAllByText('Inactive')).toHaveLength(2);
   });
 
   test('shows scroll indicator with correct range', () => {

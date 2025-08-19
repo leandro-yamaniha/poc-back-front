@@ -295,7 +295,9 @@ describe('useErrorFallback', () => {
     const options = { onRetry: jest.fn() };
 
     const FallbackComponent = result.current.getFallbackComponent(error, options);
-    render(<FallbackComponent />);
+    
+    // Render the component returned by the function
+    render(React.createElement(FallbackComponent));
 
     expect(screen.getByText('Sem conexão')).toBeInTheDocument();
   });
@@ -306,7 +308,9 @@ describe('useErrorFallback', () => {
     const options = { onGoBack: jest.fn() };
 
     const FallbackComponent = result.current.getFallbackComponent(error, options);
-    render(<FallbackComponent />);
+    
+    // Render the component returned by the function
+    render(React.createElement(FallbackComponent));
 
     expect(screen.getByText('Dados não encontrados')).toBeInTheDocument();
   });
@@ -317,7 +321,9 @@ describe('useErrorFallback', () => {
     const options = { onRetry: jest.fn() };
 
     const FallbackComponent = result.current.getFallbackComponent(error, options);
-    render(<FallbackComponent />);
+    
+    // Render the component returned by the function
+    render(React.createElement(FallbackComponent));
 
     expect(screen.getByText('Erro do servidor')).toBeInTheDocument();
   });
@@ -333,7 +339,9 @@ describe('useErrorFallback', () => {
     const options = { onRetry: jest.fn() };
 
     const FallbackComponent = result.current.getFallbackComponent(error, options);
-    render(<FallbackComponent />);
+    
+    // Render the component returned by the function
+    render(React.createElement(FallbackComponent));
 
     expect(screen.getByText('Erro na operação')).toBeInTheDocument();
     expect(screen.getByText('Bad request')).toBeInTheDocument();
