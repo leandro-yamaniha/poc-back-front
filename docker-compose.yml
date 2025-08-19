@@ -67,6 +67,30 @@ services:
       timeout: 10s
       retries: 5
 
+  backend-java-reactive:
+    build:
+      context: ./backend-java-reactive
+      dockerfile: Dockerfile
+    container_name: beauty-salon-backend-reactive
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_CASSANDRA_CONTACT_POINTS=cassandra
+      - SPRING_CASSANDRA_PORT=9042
+      - SPRING_CASSANDRA_KEYSPACE_NAME=beauty_salon
+      - SPRING_CASSANDRA_LOCAL_DATACENTER=datacenter1
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8085/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   frontend:
     build:
       context: ./frontend

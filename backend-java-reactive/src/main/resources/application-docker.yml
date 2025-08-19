@@ -1,0 +1,24 @@
+server:
+  port: 8085
+
+spring:
+  cassandra:
+    keyspace-name: beauty_salon
+    contact-points: ${SPRING_CASSANDRA_CONTACT_POINTS:cassandra}
+    port: ${SPRING_CASSANDRA_PORT:9042}
+    local-datacenter: ${SPRING_CASSANDRA_LOCAL_DATACENTER:datacenter1}
+    schema-action: create-if-not-exists
+    request:
+      timeout: 30s
+      consistency: local-quorum
+    connection:
+      connect-timeout: 30s
+      init-query-timeout: 30s
+
+logging:
+  level:
+    com.beautysalon.reactive: INFO
+    org.springframework.data.cassandra: WARN
+    reactor.netty: WARN
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

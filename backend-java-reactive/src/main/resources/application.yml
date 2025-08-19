@@ -1,0 +1,48 @@
+server:
+  port: 8085
+  undertow:
+    threads:
+      io: 16
+      worker: 256
+    buffer-size: 1024
+    direct-buffers: true
+
+spring:
+  application:
+    name: beauty-salon-reactive
+  
+  cassandra:
+    keyspace-name: beauty_salon
+    contact-points: localhost
+    port: 9042
+    local-datacenter: datacenter1
+    schema-action: create-if-not-exists
+    request:
+      timeout: 10s
+      consistency: local-quorum
+    connection:
+      connect-timeout: 10s
+      init-query-timeout: 10s
+
+  webflux:
+    base-path: /api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    cassandra:
+      enabled: true
+
+logging:
+  level:
+    com.beautysalon.reactive: DEBUG
+    org.springframework.data.cassandra: INFO
+    reactor.netty: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
