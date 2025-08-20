@@ -1,4 +1,4 @@
-package com.beautysalon.reactive.controller;
+package com.test.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,6 +17,6 @@ public class TestController {
     @Operation(summary = "Test endpoint", description = "Simple test endpoint to validate SpringDoc integration")
     @ApiResponse(responseCode = "200", description = "Successfully returned hello message")
     public Mono<String> hello() {
-        return Mono.just("Hello from Beauty Salon Reactive Backend!");
+        return Mono.just("Hello from SpringDoc WebFlux!");
     }
 }

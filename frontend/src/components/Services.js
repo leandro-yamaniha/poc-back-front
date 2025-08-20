@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Table, Button, Modal, Form, Badge } from 'react-bootstrap';
+import { Table, Button, Modal, Form, Alert, Badge, Container, Row, Col, Card } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faEdit, faTrash, faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { servicesAPI } from '../services/api';
-import { toast } from 'react-toastify';
-import LoadingSpinner from './LoadingSpinner';
 import { useLoading } from '../contexts/LoadingContext';
+import { useErrorHandling } from '../hooks/useErrorHandling';
+import { useDebounce } from '../hooks/useDebounce';
+import { useFormValidation } from '../hooks/useFormValidation';
+import { useAccessibility } from '../hooks/useAccessibility';
+import { usePerformance } from '../hooks/usePerformance';
+import LoadingSpinner, { TableLoading } from './LoadingSpinner';
+import { ErrorFallbacks } from './ErrorFallbacks';
+import { VirtualizedTable } from './VirtualizedTable';
+import { LazyComponents } from './LazyComponents';
 
 function Services() {
   const [services, setServices] = useState([]);
