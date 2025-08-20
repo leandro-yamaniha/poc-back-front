@@ -1,0 +1,6 @@
+projectKey=beauty-salon-frontend-react
+serverUrl=http://localhost:9000
+serverVersion=10.3.0.82913
+dashboardUrl=http://localhost:9000/dashboard?id=beauty-salon-frontend-react
+ceTaskId=AZjFq9cpj8ITbHJMxn8C
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AZjFq9cpj8ITbHJMxn8C
