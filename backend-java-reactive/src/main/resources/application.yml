@@ -25,19 +25,29 @@ spring:
       init-query-timeout: 10s
 
   webflux:
-    base-path: /api
+    # Removed base-path to avoid conflicts with SpringDoc
+
+# SpringDoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,metrics,prometheus
+      base-path: /actuator
   endpoint:
     health:
       show-details: always
   health:
     cassandra:
       enabled: true
+  server:
+    port: 8085
 
 logging:
   level:

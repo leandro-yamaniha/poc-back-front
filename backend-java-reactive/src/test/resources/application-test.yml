@@ -1,0 +1,13 @@
+spring:
+  cassandra:
+    keyspace-name: test_keyspace
+    contact-points: localhost
+    port: 9042
+    local-datacenter: datacenter1
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    com.beautysalon.reactive: DEBUG
+    org.springframework.data.cassandra: DEBUG

@@ -2,6 +2,11 @@ package com.beautysalon.reactive.controller;
 
 import com.beautysalon.reactive.model.Customer;
 import com.beautysalon.reactive.service.CustomerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +21,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/customers")
 @Validated
+@Tag(name = "Customers", description = "Customer management operations")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -26,6 +32,8 @@ public class CustomerController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all customers", description = "Retrieve all customers from the system")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved customers")
     public Flux<Customer> getAllCustomers() {
         return customerService.getAllCustomers();
     }

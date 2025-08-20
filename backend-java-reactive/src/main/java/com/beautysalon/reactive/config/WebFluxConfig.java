@@ -6,12 +6,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.reactive.config.EnableWebFlux;
+import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 import java.util.Arrays;
 
 @Configuration
-@EnableWebFlux
 public class WebFluxConfig implements WebFluxConfigurer {
 
     @Bean
@@ -27,5 +27,12 @@ public class WebFluxConfig implements WebFluxConfigurer {
         source.registerCorsConfiguration("/**", corsConfig);
 
         return new CorsWebFilter(source);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springdoc-openapi-ui/")
+                .resourceChain(false);
     }
 }
