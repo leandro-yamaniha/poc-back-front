@@ -553,8 +553,29 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 ---
 
 **Beauty Salon Management System** - Gerenciamento completo para salões de beleza com tecnologia moderna e arquitetura robusta multi-backend.
-```
 
 ## Development
 
 Each service can be run independently for development purposes. See individual README files in each directory for specific instructions.
+
+## 📚 Documentação Completa
+
+### **Guias de Instalação e Configuração**
+- 📦 **[INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md)** - Guia completo de instalação de ferramentas e dependências
+- 🔧 **[DEVELOPMENT_TOOLS_GUIDE.md](DEVELOPMENT_TOOLS_GUIDE.md)** - Configuração do ambiente de desenvolvimento
+- 🚀 **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Guia de deployment e produção
+
+### **Documentação Técnica**
+- 🏆 **[REACTIVE_BACKEND_SUCCESS.md](REACTIVE_BACKEND_SUCCESS.md)** - Conquistas do backend reativo (190/190 testes)
+- 📊 **[PERFORMANCE_TEST_RESULTS.md](PERFORMANCE_TEST_RESULTS.md)** - Resultados de stress test (30,000+ RPS)
+- 🐳 **[DOCKER_COMPOSE_GUIDE.md](DOCKER_COMPOSE_GUIDE.md)** - Containerização e orquestração
+
+### **Recursos de Desenvolvimento**
+- **Scripts**: `scripts/` - Automação de testes e deployment
+- **Documentação API**: Swagger/OpenAPI em todos os backends
+- **Testes**: Cobertura 100% frontend e backend reativo
+- **Performance**: Benchmarks e otimizações documentadas
+
+---
+
+**Beauty Salon Management System** - Solução completa com múltiplos backends, frontend React otimizado e testes 100% funcionais.

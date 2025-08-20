@@ -1,16 +1,30 @@
-# Beauty Salon Management System - Deployment Guide
+# 🚀 Beauty Salon Management System - Deployment Guide
 
-## Overview
+## 📋 Overview
 This guide provides comprehensive instructions for deploying the Beauty Salon Management System with multiple backend options and a React frontend.
 
-## Architecture Summary
+## 🏗️ Architecture Summary
 - **Frontend**: React 18 (Port 3000)
 - **Backend Options**:
+  - **Java Reactive (Port 8085)** - **🏆 CHAMPION - 30,000+ RPS**
   - Node.js Express (Port 8083) - **RECOMMENDED FOR PRODUCTION**
   - Java Spring Boot (Port 8084) - **ENTERPRISE READY**
   - Go Gin (Port 8080) - **HIGH PERFORMANCE**
   - Python FastAPI (Port 8081) - **RAPID DEVELOPMENT**
 - **Database**: Apache Cassandra 4.1 (Port 9042)
+
+## 🎯 Recommended Deployment Strategy
+
+### **Production (High Performance)**
+- **Backend**: Java Reactive (Spring WebFlux) - 30,000+ RPS
+- **Database**: Cassandra cluster (3+ nodes)
+- **Frontend**: React with CDN
+- **Load Balancer**: Nginx/HAProxy
+
+### **Development**
+- **Backend**: Any backend for testing
+- **Database**: Single Cassandra instance
+- **Frontend**: Development server
 
 ## Quick Start (Docker Compose)
 
