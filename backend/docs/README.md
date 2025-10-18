@@ -31,10 +31,20 @@ Documentação específica dos backends do Beauty Salon Management System.
 - **Performance**: Alta
 - **Documentação**: [backend/java/README.md](../java/README.md)
 
-### 3. **.NET Core**
+### 3. **.NET** (Enterprise Ready)
 - **Localização**: `backend/dotnet/`
 - **Framework**: ASP.NET Core 8.0
-- **Performance**: Excelente
+- **Linguagem**: C# 12 (.NET 8.0 LTS)
+- **Banco de Dados**: SQL Server + Entity Framework Core
+- **Performance**: 6,000-10,000 RPS
+- **Características**:
+  - LINQ para queries type-safe
+  - Dependency Injection nativo
+  - Async/await pattern
+  - Swagger/OpenAPI integrado
+  - Integração Microsoft completa
+- **Porta**: 8081
+- **Status**: ✅ Enterprise Ready
 - **Documentação**: [backend/dotnet/README.md](../dotnet/README.md)
 
 ### 4. **Go**
