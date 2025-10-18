@@ -10,26 +10,31 @@ Este diretório contém scripts utilitários para desenvolvimento, testes e manu
   - Múltiplos métodos de instalação
   - Verificação automática
 
-### 🧪 **Testes e Debug**
-- **[debug-api-endpoints.js](debug-api-endpoints.js)** - Testa endpoints da API
+### 🚀 **Inicialização**
+- **[start-reactive-stack.sh](start-reactive-stack.sh)** - Inicia stack completo do backend reativo
+  - Cassandra + Backend Reactive + Frontend
+  - Health checks automáticos
+  - Configuração completa
+
+### 🔌 **Banco de Dados**
+- **[connect-cassandra.sh](connect-cassandra.sh)** - Conecta ao Cassandra via cqlsh
+  - Conexão rápida ao banco
+  - Útil para debug e queries manuais
+
+### 📊 **Performance e Stress Tests**
+- **[stress-test-reactive.sh](stress-test-reactive.sh)** - Teste de carga profissional do backend reativo
+  - Usa wrk para testes de performance
+  - Múltiplos cenários de carga (10, 50, 100, 200, 500 usuários)
+  - Gera relatórios detalhados em Markdown
+  - Testa todos os endpoints principais
+
+### 🧪 **Debug**
+- **[debug-api-endpoints.js](debug-api-endpoints.js)** - Testa endpoints da API (gitignored)
   - Verifica status de todos os endpoints
   - Mostra dados de exemplo
   - Útil para debug e validação
 
-### 📊 **Performance e Stress Tests**
-- **[stress-test-reactive.sh](stress-test-reactive.sh)** - Teste de carga do backend reativo
-  - Usa wrk para testes de performance
-  - Múltiplos cenários de carga
-  - Gera relatórios detalhados
-
 ## 🚀 Como Usar
-
-### Debug de API
-```bash
-# Certifique-se que o backend está rodando
-cd scripts
-node debug-api-endpoints.js
-```
 
 ### Instalar .NET
 ```bash
@@ -38,11 +43,34 @@ chmod +x install-dotnet.sh
 ./install-dotnet.sh
 ```
 
-### Teste de Stress
+### Iniciar Stack Reativo
+```bash
+cd scripts
+chmod +x start-reactive-stack.sh
+./start-reactive-stack.sh
+```
+
+### Conectar ao Cassandra
+```bash
+cd scripts
+chmod +x connect-cassandra.sh
+./connect-cassandra.sh
+```
+
+### Teste de Stress/Performance
 ```bash
 cd scripts
 chmod +x stress-test-reactive.sh
 ./stress-test-reactive.sh
+
+# Resultados salvos em: performance-test-results/
+```
+
+### Debug de API
+```bash
+# Certifique-se que o backend está rodando
+cd scripts
+node debug-api-endpoints.js
 ```
 
 ## 📝 Convenções
@@ -57,9 +85,10 @@ chmod +x stress-test-reactive.sh
 scripts/
 ├── README.md                    # Este arquivo
 ├── install-*.sh                 # Scripts de instalação
-├── test-*.sh                    # Scripts de teste
-├── debug-*.js                   # Scripts de debug
-└── stress-test-*.sh            # Scripts de performance
+├── start-*.sh                   # Scripts de inicialização
+├── connect-*.sh                 # Scripts de conexão
+├── stress-test-*.sh             # Scripts de performance
+└── debug-*.js                   # Scripts de debug
 ```
 
 ## ⚠️ Requisitos
@@ -78,6 +107,40 @@ brew install wrk
 sudo apt-get install wrk
 ```
 
+### connect-cassandra.sh
+```bash
+# Cassandra deve estar rodando
+docker-compose up -d cassandra
+```
+
+## 🎯 Quando Usar Cada Script
+
+### Para Desenvolvimento
+1. `start-reactive-stack.sh` - Inicia ambiente completo
+2. `connect-cassandra.sh` - Debug do banco de dados
+3. `debug-api-endpoints.js` - Testa API
+
+### Para Testes de Performance
+1. `stress-test-reactive.sh` - Teste completo com wrk
+
+### Para Setup Inicial
+1. `install-dotnet.sh` - Instala dependências .NET
+
+## 📊 Scripts de Performance
+
+O script `stress-test-reactive.sh` testa com:
+- **10 usuários** - Carga leve
+- **50 usuários** - Carga média
+- **100 usuários** - Carga alta
+- **200 usuários** - Carga muito alta
+- **500 usuários** - Carga extrema
+
+Endpoints testados:
+- `/api/customers`
+- `/api/services`
+- `/api/staff`
+- `/api/appointments`
+
 ## 🎯 Propósito
 
 Este diretório organiza:
@@ -85,6 +148,7 @@ Este diretório organiza:
 - ✅ Ferramentas de desenvolvimento
 - ✅ Utilitários de teste
 - ✅ Scripts de instalação
+- ✅ Scripts de performance
 
 ---
 
