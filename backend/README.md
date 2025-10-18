@@ -6,8 +6,8 @@ Este diretório contém todas as implementações de backend para o sistema de g
 
 ```
 backend/
-├── java/              # Java Spring Boot 2.x (tradicional)
-├── java-reactive/     # Java Spring Boot 3.x + WebFlux (reativo)
+├── java/              # Java Spring Boot 3.5.4 (tradicional)
+├── java-reactive/     # Java Spring Boot 3.5.4 + WebFlux (reativo)
 ├── dotnet/           # .NET Core 8.0 + Entity Framework
 ├── go/               # Go + Gin Framework
 ├── nodejs/           # Node.js + Express
