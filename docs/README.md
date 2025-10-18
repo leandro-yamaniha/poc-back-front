@@ -18,9 +18,9 @@ Este diretório contém toda a documentação detalhada do projeto Beauty Salon 
 - **[copilot-instructions.md](copilot-instructions.md)** - Instruções para GitHub Copilot
 
 ### 📊 **Qualidade e Performance**
-- **[SONAR_SETUP_GUIDE.md](SONAR_SETUP_GUIDE.md)** - Configuração do SonarQube
-- **[SONAR_LOCAL_SETUP_GUIDE.md](SONAR_LOCAL_SETUP_GUIDE.md)** - SonarQube local
 - **[PERFORMANCE_TEST_RESULTS.md](PERFORMANCE_TEST_RESULTS.md)** - Resultados de testes de performance
+
+**Nota**: Para configuração do SonarQube, consulte [../tools/sonarqube/README.md](../tools/sonarqube/README.md)
 
 ### 📝 **Status e Relatórios**
 - **[FINAL_STATUS_REPORT.md](FINAL_STATUS_REPORT.md)** - Relatório final do projeto
@@ -39,8 +39,8 @@ Este diretório contém toda a documentação detalhada do projeto Beauty Salon 
 2. [DOCKER_COMPOSE_ANALYSIS.md](DOCKER_COMPOSE_ANALYSIS.md) - Entenda estrutura
 
 ### Para Qualidade
-1. [SONAR_SETUP_GUIDE.md](SONAR_SETUP_GUIDE.md) - Configure análise
-2. [PERFORMANCE_TEST_RESULTS.md](PERFORMANCE_TEST_RESULTS.md) - Veja métricas
+1. [PERFORMANCE_TEST_RESULTS.md](PERFORMANCE_TEST_RESULTS.md) - Veja métricas
+2. [../tools/sonarqube/README.md](../tools/sonarqube/README.md) - Configure SonarQube
 
 ---
 
