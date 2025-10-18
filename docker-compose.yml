@@ -1,61 +1,6 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: beauty-salon-postgres
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_DB=beauty_salon
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - beauty-salon-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  mongodb:
-    image: mongo:7.0
-    container_name: beauty-salon-mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_DATABASE=beauty_salon
-    volumes:
-      - mongodb_data:/data/db
-    networks:
-      - beauty-salon-network
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: beauty-salon-sqlserver
-    ports:
-      - "1433:1433"
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong@Passw0rd
-      - MSSQL_PID=Developer
-    volumes:
-      - sqlserver_data:/var/opt/mssql
-    networks:
-      - beauty-salon-network
-    healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q 'SELECT 1' || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   cassandra:
     image: cassandra:4.1
     container_name: beauty-salon-cassandra
@@ -108,10 +53,14 @@ services:
     ports:
       - "8081:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BeautySalon;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      - Cassandra__ContactPoints=cassandra
+      - Cassandra__Port=9042
+      - Cassandra__Keyspace=beauty_salon
+      - Cassandra__LocalDatacenter=datacenter1
     depends_on:
-      sqlserver:
+      cassandra:
         condition: service_healthy
     networks:
       - beauty-salon-network
@@ -151,9 +100,11 @@ services:
     ports:
       - "8082:8000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/beauty_salon
+      - CASSANDRA_HOSTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
     depends_on:
-      postgres:
+      cassandra:
         condition: service_healthy
     networks:
       - beauty-salon-network
@@ -171,10 +122,13 @@ services:
     ports:
       - "8083:3000"
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/beauty_salon
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - CASSANDRA_LOCAL_DATACENTER=datacenter1
       - NODE_ENV=production
     depends_on:
-      mongodb:
+      cassandra:
         condition: service_healthy
     networks:
       - beauty-salon-network
@@ -224,9 +178,6 @@ services:
       - beauty-salon-network
 
 volumes:
-  postgres_data:
-  mongodb_data:
-  sqlserver_data:
   cassandra_data:
 
 networks:

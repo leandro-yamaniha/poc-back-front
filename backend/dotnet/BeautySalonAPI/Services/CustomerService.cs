@@ -1,6 +1,5 @@
-using BeautySalonAPI.Data;
 using BeautySalonAPI.Models;
-using Microsoft.EntityFrameworkCore;
+using BeautySalonAPI.Repositories;
 
 namespace BeautySalonAPI.Services;
 
@@ -16,60 +15,47 @@ public interface ICustomerService
 
 public class CustomerService : ICustomerService
 {
-    private readonly BeautySalonDbContext _context;
+    private readonly ICustomerRepository _repository;
 
-    public CustomerService(BeautySalonDbContext context)
+    public CustomerService(ICustomerRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
     public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
     {
-        return await _context.Customers.ToListAsync();
+        return await _repository.GetAllAsync();
     }
 
     public async Task<Customer?> GetCustomerByIdAsync(Guid id)
     {
-        return await _context.Customers.FindAsync(id);
+        return await _repository.GetByIdAsync(id);
     }
 
     public async Task<IEnumerable<Customer>> GetCustomersByNameAsync(string name)
     {
-        return await _context.Customers
-            .Where(c => c.Name.Contains(name))
-            .ToListAsync();
+        var allCustomers = await _repository.GetAllAsync();
+        return allCustomers.Where(c => c.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<Customer> CreateCustomerAsync(Customer customer)
     {
-        _context.Customers.Add(customer);
-        await _context.SaveChangesAsync();
-        return customer;
+        return await _repository.CreateAsync(customer);
     }
 
     public async Task<Customer> UpdateCustomerAsync(Guid id, Customer customer)
     {
-        var existingCustomer = await _context.Customers.FindAsync(id);
-        if (existingCustomer == null)
+        var updated = await _repository.UpdateAsync(id, customer);
+        if (updated == null)
             throw new KeyNotFoundException($"Customer with ID {id} not found");
 
-        existingCustomer.Name = customer.Name;
-        existingCustomer.Email = customer.Email;
-        existingCustomer.Phone = customer.Phone;
-        existingCustomer.Address = customer.Address;
-        existingCustomer.UpdatedAt = DateTime.UtcNow;
-
-        await _context.SaveChangesAsync();
-        return existingCustomer;
+        return updated;
     }
 
     public async Task DeleteCustomerAsync(Guid id)
     {
-        var customer = await _context.Customers.FindAsync(id);
-        if (customer == null)
+        var deleted = await _repository.DeleteAsync(id);
+        if (!deleted)
             throw new KeyNotFoundException($"Customer with ID {id} not found");
-
-        _context.Customers.Remove(customer);
-        await _context.SaveChangesAsync();
     }
 }

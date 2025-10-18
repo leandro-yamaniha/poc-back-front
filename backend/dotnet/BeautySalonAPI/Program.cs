@@ -1,25 +1,38 @@
 using BeautySalonAPI.Data;
 using BeautySalonAPI.Services;
-using Microsoft.EntityFrameworkCore;
+using BeautySalonAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add DbContext
-builder.Services.AddDbContext<BeautySalonDbContext>(options =>
-    options.UseInMemoryDatabase("BeautySalonDb"));
+// Add Cassandra
+builder.Services.AddSingleton<CassandraContext>();
+
+// Register repositories
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 // Register services
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IStaffService, StaffService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -31,6 +44,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
