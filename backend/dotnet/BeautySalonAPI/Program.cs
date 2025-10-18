@@ -17,14 +17,15 @@ builder.Services.AddSingleton<CassandraContext>();
 
 // Register repositories
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IStaffRepository, StaffRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 // Register services
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-// Note: Only Customer is migrated to Cassandra
-// Other services still use EntityFrameworkCore (not compatible)
-// builder.Services.AddScoped<IServiceService, ServiceService>();
-// builder.Services.AddScoped<IStaffService, StaffService>();
-// builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 // Add CORS
 builder.Services.AddCors(options =>
