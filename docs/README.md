@@ -4,10 +4,6 @@ Este diretório contém toda a documentação detalhada do projeto Beauty Salon 
 
 ## 📚 Índice de Documentação
 
-### 🏗️ **Arquitetura e Comparação**
-- **[BACKEND_COMPARISON.md](BACKEND_COMPARISON.md)** - Comparação detalhada entre todos os backends
-- **[REACTIVE_BACKEND_SUCCESS.md](REACTIVE_BACKEND_SUCCESS.md)** - Conquistas do backend reativo
-
 ### 🚀 **Deployment e Instalação**
 - **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Guia completo de deploy
 - **[INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md)** - Guia de instalação do projeto
@@ -38,10 +34,6 @@ Este diretório contém toda a documentação detalhada do projeto Beauty Salon 
 2. [DOCKER_COMPOSE_GUIDE.md](DOCKER_COMPOSE_GUIDE.md) - Execute com Docker
 3. [DEVELOPMENT_TOOLS_GUIDE.md](DEVELOPMENT_TOOLS_GUIDE.md) - Configure ferramentas
 
-### Para Escolher Backend
-1. [BACKEND_COMPARISON.md](BACKEND_COMPARISON.md) - Compare opções
-2. [REACTIVE_BACKEND_SUCCESS.md](REACTIVE_BACKEND_SUCCESS.md) - Veja o melhor
-
 ### Para Deploy
 1. [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) - Guia completo
 2. [DOCKER_COMPOSE_ANALYSIS.md](DOCKER_COMPOSE_ANALYSIS.md) - Entenda estrutura
@@ -49,6 +41,17 @@ Este diretório contém toda a documentação detalhada do projeto Beauty Salon 
 ### Para Qualidade
 1. [SONAR_SETUP_GUIDE.md](SONAR_SETUP_GUIDE.md) - Configure análise
 2. [PERFORMANCE_TEST_RESULTS.md](PERFORMANCE_TEST_RESULTS.md) - Veja métricas
+
+---
+
+## 📖 Documentação Específica
+
+### Backend
+Para documentação específica dos backends, consulte:
+- **[../backend/docs/README.md](../backend/docs/README.md)** - Documentação de backends
+  - Comparação entre backends
+  - Conquistas do backend reativo
+  - Guias técnicos específicos
 
 ---
 
@@ -62,6 +65,7 @@ A documentação principal do projeto está no arquivo **[README.md](../README.m
 
 - **Raiz**: [../README.md](../README.md)
 - **Backend**: [../backend/README.md](../backend/README.md)
+- **Backend Docs**: [../backend/docs/README.md](../backend/docs/README.md)
 - **Frontend**: [../frontend/README.md](../frontend/README.md)
 
 ---
