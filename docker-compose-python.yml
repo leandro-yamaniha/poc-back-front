@@ -24,11 +24,11 @@ services:
       timeout: 10s
       retries: 5
 
-  backend-python:
+  backend/python:
     build:
-      context: ./backend-python
+      context: ./backend/python
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-python
+    container_name: beauty-salon-backend/python
     ports:
       - "8081:8081"
     environment:
@@ -60,7 +60,7 @@ services:
       - REACT_APP_API_URL=http://localhost:8081/api
       - REACT_APP_BACKEND_TYPE=python
     depends_on:
-      backend-python:
+      backend/python:
         condition: service_healthy
     networks:
       - beauty-salon-python

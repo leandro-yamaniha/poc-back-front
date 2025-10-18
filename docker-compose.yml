@@ -45,11 +45,11 @@ services:
       timeout: 10s
       retries: 5
 
-  backend-go:
+  backend/go:
     build:
-      context: ./backend-go
+      context: ./backend/go
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-go
+    container_name: beauty-salon-backend/go
     ports:
       - "8082:8080"
     environment:
@@ -67,9 +67,9 @@ services:
       timeout: 10s
       retries: 5
 
-  backend-java-reactive:
+  backend/java-reactive:
     build:
-      context: ./backend-java-reactive
+      context: ./backend/java-reactive
       dockerfile: Dockerfile
     container_name: beauty-salon-backend-reactive
     ports:

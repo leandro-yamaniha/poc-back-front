@@ -24,11 +24,11 @@ services:
       timeout: 10s
       retries: 5
 
-  backend-nodejs:
+  backend/nodejs:
     build:
-      context: ./backend-nodejs
+      context: ./backend/nodejs
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-nodejs
+    container_name: beauty-salon-backend/nodejs
     ports:
       - "8083:8083"
     environment:
@@ -59,7 +59,7 @@ services:
       - REACT_APP_API_URL=http://localhost:8083/api
       - REACT_APP_BACKEND_TYPE=nodejs
     depends_on:
-      backend-nodejs:
+      backend/nodejs:
         condition: service_healthy
     networks:
       - beauty-salon-nodejs

@@ -66,11 +66,11 @@ services:
       retries: 5
     restart: unless-stopped
 
-  backend-nodejs:
+  backend/nodejs:
     build:
-      context: ./backend-nodejs
+      context: ./backend/nodejs
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-nodejs
+    container_name: beauty-salon-backend/nodejs
     ports:
       - "3000:3000"
     environment:
@@ -108,7 +108,7 @@ services:
       - "80:80"
     depends_on:
       - backend
-      - backend-nodejs
+      - backend/nodejs
     networks:
       - beauty-salon-network
     restart: unless-stopped

@@ -29,9 +29,9 @@ services:
       start_period: 60s
 
   # Java Reactive Backend
-  backend-java-reactive:
+  backend/java-reactive:
     build:
-      context: ./backend-java-reactive
+      context: ./backend/java-reactive
       dockerfile: Dockerfile
     container_name: beauty-salon-backend-reactive
     ports:
@@ -70,7 +70,7 @@ services:
       - REACT_APP_ENVIRONMENT=docker
       - CHOKIDAR_USEPOLLING=true
     depends_on:
-      backend-java-reactive:
+      backend/java-reactive:
         condition: service_healthy
     networks:
       - beauty-salon-network
