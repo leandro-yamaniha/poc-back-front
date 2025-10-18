@@ -4,12 +4,6 @@ Este diretório contém scripts utilitários para desenvolvimento, testes e manu
 
 ## 📜 Scripts Disponíveis
 
-### 🔧 **Instalação e Setup**
-- **[install-dotnet.sh](install-dotnet.sh)** - Instala .NET Core SDK no sistema
-  - Suporta macOS, Linux e Windows
-  - Múltiplos métodos de instalação
-  - Verificação automática
-
 ### 🚀 **Inicialização**
 - **[start-reactive-stack.sh](start-reactive-stack.sh)** - Inicia stack completo do backend reativo
   - Cassandra + Backend Reactive + Frontend
@@ -35,13 +29,6 @@ Este diretório contém scripts utilitários para desenvolvimento, testes e manu
   - Útil para debug e validação
 
 ## 🚀 Como Usar
-
-### Instalar .NET
-```bash
-cd scripts
-chmod +x install-dotnet.sh
-./install-dotnet.sh
-```
 
 ### Iniciar Stack Reativo
 ```bash
@@ -84,7 +71,6 @@ node debug-api-endpoints.js
 ```
 scripts/
 ├── README.md                    # Este arquivo
-├── install-*.sh                 # Scripts de instalação
 ├── start-*.sh                   # Scripts de inicialização
 ├── connect-*.sh                 # Scripts de conexão
 ├── stress-test-*.sh             # Scripts de performance
@@ -122,9 +108,6 @@ docker-compose up -d cassandra
 
 ### Para Testes de Performance
 1. `stress-test-reactive.sh` - Teste completo com wrk
-
-### Para Setup Inicial
-1. `install-dotnet.sh` - Instala dependências .NET
 
 ## 📊 Scripts de Performance
 
