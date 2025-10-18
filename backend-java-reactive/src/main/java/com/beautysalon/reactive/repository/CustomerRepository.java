@@ -15,5 +15,6 @@ public interface CustomerRepository extends ReactiveCassandraRepository<Customer
     
     Mono<Customer> findByEmail(String email);
     
-    Flux<Customer> findAllByOrderByCreatedAtDesc();
+    // Removed ORDER BY createdAt - not supported without partition key restriction
+    // Use findAll() and sort in service layer if needed
 }

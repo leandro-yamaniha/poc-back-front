@@ -23,5 +23,6 @@ public interface AppointmentRepository extends ReactiveCassandraRepository<Appoi
     
     Flux<Appointment> findByStaffIdAndAppointmentDateBetween(UUID staffId, LocalDateTime start, LocalDateTime end);
     
-    Flux<Appointment> findAllByOrderByAppointmentDateDesc();
+    // Removed ORDER BY appointmentDate - not supported without partition key restriction
+    // Use findAll() and sort in service layer if needed
 }

@@ -1,0 +1,1 @@
+open --background -a Docker

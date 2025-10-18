@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8080
   undertow:
     threads:
       io: 16
@@ -51,8 +51,28 @@ management:
 
 logging:
   level:
+    root: INFO
     com.beautysalon.reactive: DEBUG
+    com.beautysalon.reactive.controller: INFO
+    com.beautysalon.reactive.service: INFO
+    com.beautysalon.reactive.repository: DEBUG
+    com.beautysalon.reactive.exception: WARN
     org.springframework.data.cassandra: INFO
+    org.springframework.web.reactive: INFO
     reactor.netty: INFO
+    reactor.core: INFO
+    io.undertow: INFO
   pattern:
-    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] %logger{40} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] %logger{40} - %msg%n"
+  file:
+    name: logs/beauty-salon-reactive.log
+    max-size: 100MB
+    max-history: 30
+    total-size-cap: 1GB
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/beauty-salon-reactive.%d{yyyy-MM-dd}.%i.log
+      max-file-size: 100MB
+      max-history: 30
+      total-size-cap: 1GB

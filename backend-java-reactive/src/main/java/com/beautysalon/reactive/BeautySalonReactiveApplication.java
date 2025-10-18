@@ -12,3 +12,4 @@ public class BeautySalonReactiveApplication {
         SpringApplication.run(BeautySalonReactiveApplication.class, args);
     }
 }
+

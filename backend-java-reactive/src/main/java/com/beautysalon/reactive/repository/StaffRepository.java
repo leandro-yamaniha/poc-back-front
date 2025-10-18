@@ -21,5 +21,6 @@ public interface StaffRepository extends ReactiveCassandraRepository<Staff, UUID
     
     Flux<Staff> findByNameContainingIgnoreCase(String name);
     
-    Flux<Staff> findAllByOrderByCreatedAtDesc();
+    // Removed ORDER BY createdAt - not supported without partition key restriction
+    // Use findAll() and sort in service layer if needed
 }

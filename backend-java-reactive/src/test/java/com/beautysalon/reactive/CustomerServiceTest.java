@@ -15,7 +15,6 @@ import reactor.test.StepVerifier;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +37,7 @@ class CustomerServiceTest {
 
     @Test
     void getAllCustomers_ShouldReturnAllCustomers() {
-        when(customerRepository.findAllByOrderByCreatedAtDesc())
+        when(customerRepository.findAll())
             .thenReturn(Flux.just(testCustomer));
 
         StepVerifier.create(customerService.getAllCustomers())

@@ -18,5 +18,6 @@ public interface ServiceRepository extends ReactiveCassandraRepository<Service, 
     
     Flux<Service> findByNameContainingIgnoreCase(String name);
     
-    Flux<Service> findAllByOrderByCreatedAtDesc();
+    // Removed ORDER BY createdAt - not supported without partition key restriction
+    // Use findAll() and sort in service layer if needed
 }

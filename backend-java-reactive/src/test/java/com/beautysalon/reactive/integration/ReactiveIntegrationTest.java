@@ -63,7 +63,7 @@ class ReactiveIntegrationTest {
         );
 
         // Mock repository calls
-        when(customerRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.just(customer));
+        when(customerRepository.findAll()).thenReturn(Flux.just(customer));
         when(customerRepository.save(any(Customer.class))).thenReturn(Mono.just(customer));
 
         // Test GET all customers
@@ -99,7 +99,7 @@ class ReactiveIntegrationTest {
         );
 
         // Mock repository calls
-        when(serviceRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.just(service));
+        when(serviceRepository.findAll()).thenReturn(Flux.just(service));
         when(serviceRepository.save(any(Service.class))).thenReturn(Mono.just(service));
 
         // Test GET all services
@@ -135,7 +135,7 @@ class ReactiveIntegrationTest {
         );
 
         // Mock repository calls
-        when(staffRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.just(staff));
+        when(staffRepository.findAll()).thenReturn(Flux.just(staff));
         when(staffRepository.save(any(Staff.class))).thenReturn(Mono.just(staff));
 
         // Test GET all staff
@@ -176,7 +176,7 @@ class ReactiveIntegrationTest {
         );
 
         // Mock repository calls
-        when(appointmentRepository.findAllByOrderByAppointmentDateDesc()).thenReturn(Flux.just(appointment));
+        when(appointmentRepository.findAll()).thenReturn(Flux.just(appointment));
         when(appointmentRepository.save(any(Appointment.class))).thenReturn(Mono.just(appointment));
 
         // Test GET all appointments

@@ -50,7 +50,7 @@ class AppointmentServiceTest {
 
     @Test
     void getAllAppointments_ShouldReturnAllAppointments() {
-        when(appointmentRepository.findAllByOrderByAppointmentDateDesc()).thenReturn(Flux.just(testAppointment));
+        when(appointmentRepository.findAll()).thenReturn(Flux.just(testAppointment));
 
         Flux<Appointment> result = appointmentService.getAllAppointments();
 
@@ -235,7 +235,7 @@ class AppointmentServiceTest {
         Appointment appointment1 = Appointment.create(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), LocalDateTime.now().plusDays(1), "Appointment 1");
         Appointment appointment2 = Appointment.create(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), LocalDateTime.now().plusDays(2), "Appointment 2");
         
-        when(appointmentRepository.findAllByOrderByAppointmentDateDesc()).thenReturn(Flux.just(appointment1, appointment2));
+        when(appointmentRepository.findAll()).thenReturn(Flux.just(appointment1, appointment2));
         
         StepVerifier.create(appointmentService.getAllAppointments())
             .expectNext(appointment1)
@@ -245,7 +245,7 @@ class AppointmentServiceTest {
 
     @Test
     void appointmentFlux_ShouldHandleEmptyResult() {
-        when(appointmentRepository.findAllByOrderByAppointmentDateDesc()).thenReturn(Flux.empty());
+        when(appointmentRepository.findAll()).thenReturn(Flux.empty());
         
         StepVerifier.create(appointmentService.getAllAppointments())
             .verifyComplete();
@@ -253,7 +253,7 @@ class AppointmentServiceTest {
 
     @Test
     void appointmentFlux_ShouldHandleError() {
-        when(appointmentRepository.findAllByOrderByAppointmentDateDesc()).thenReturn(Flux.error(new RuntimeException("Database error")));
+        when(appointmentRepository.findAll()).thenReturn(Flux.error(new RuntimeException("Database error")));
         
         StepVerifier.create(appointmentService.getAllAppointments())
             .expectError(RuntimeException.class)

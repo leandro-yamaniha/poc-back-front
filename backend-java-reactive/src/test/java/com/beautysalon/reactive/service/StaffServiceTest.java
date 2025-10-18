@@ -41,7 +41,7 @@ class StaffServiceTest {
 
     @Test
     void getAllStaff_ShouldReturnAllStaff() {
-        when(staffRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.just(testStaff));
+        when(staffRepository.findAll()).thenReturn(Flux.just(testStaff));
 
         Flux<Staff> result = staffService.getAllStaff();
 
@@ -49,7 +49,7 @@ class StaffServiceTest {
             .expectNext(testStaff)
             .verifyComplete();
         
-        verify(staffRepository).findAllByOrderByCreatedAtDesc();
+        verify(staffRepository).findAll();
     }
 
     @Test
@@ -217,7 +217,7 @@ class StaffServiceTest {
         Staff staff1 = Staff.create("John Doe", "john@example.com", "123-456-7890", "STYLIST", List.of("Haircut", "Coloring"));
         Staff staff2 = Staff.create("Jane Smith", "jane@example.com", "098-765-4321", "THERAPIST", List.of("Massage", "Facial"));
         
-        when(staffRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.just(staff1, staff2));
+        when(staffRepository.findAll()).thenReturn(Flux.just(staff1, staff2));
         
         StepVerifier.create(staffService.getAllStaff())
             .expectNext(staff1)
@@ -227,7 +227,7 @@ class StaffServiceTest {
 
     @Test
     void staffFlux_ShouldHandleEmptyResult() {
-        when(staffRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.empty());
+        when(staffRepository.findAll()).thenReturn(Flux.empty());
         
         StepVerifier.create(staffService.getAllStaff())
             .verifyComplete();
@@ -235,7 +235,7 @@ class StaffServiceTest {
 
     @Test
     void staffFlux_ShouldHandleError() {
-        when(staffRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.error(new RuntimeException("Database error")));
+        when(staffRepository.findAll()).thenReturn(Flux.error(new RuntimeException("Database error")));
         
         StepVerifier.create(staffService.getAllStaff())
             .expectError(RuntimeException.class)

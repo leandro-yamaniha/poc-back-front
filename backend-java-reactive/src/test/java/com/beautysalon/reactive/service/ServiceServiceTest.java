@@ -41,7 +41,7 @@ class ServiceServiceTest {
 
     @Test
     void getAllServices_ShouldReturnAllServices() {
-        when(serviceRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.just(testService));
+        when(serviceRepository.findAll()).thenReturn(Flux.just(testService));
 
         Flux<Service> result = serviceService.getAllServices();
 
@@ -49,7 +49,7 @@ class ServiceServiceTest {
             .expectNext(testService)
             .verifyComplete();
         
-        verify(serviceRepository).findAllByOrderByCreatedAtDesc();
+        verify(serviceRepository).findAll();
     }
 
     @Test
@@ -194,7 +194,7 @@ class ServiceServiceTest {
         Service service1 = Service.create("Service 1", "Description 1", BigDecimal.valueOf(50.0), 60, "BEAUTY");
         Service service2 = Service.create("Service 2", "Description 2", BigDecimal.valueOf(75.0), 90, "WELLNESS");
         
-        when(serviceRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.just(service1, service2));
+        when(serviceRepository.findAll()).thenReturn(Flux.just(service1, service2));
         
         StepVerifier.create(serviceService.getAllServices())
             .expectNext(service1)
@@ -204,7 +204,7 @@ class ServiceServiceTest {
 
     @Test
     void serviceFlux_ShouldHandleEmptyResult() {
-        when(serviceRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.empty());
+        when(serviceRepository.findAll()).thenReturn(Flux.empty());
         
         StepVerifier.create(serviceService.getAllServices())
             .verifyComplete();
@@ -212,7 +212,7 @@ class ServiceServiceTest {
 
     @Test
     void serviceFlux_ShouldHandleError() {
-        when(serviceRepository.findAllByOrderByCreatedAtDesc()).thenReturn(Flux.error(new RuntimeException("Database error")));
+        when(serviceRepository.findAll()).thenReturn(Flux.error(new RuntimeException("Database error")));
         
         StepVerifier.create(serviceService.getAllServices())
             .expectError(RuntimeException.class)
