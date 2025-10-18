@@ -27,6 +27,7 @@ WARMUP_REQUESTS=50
 
 # Backend configurations
 declare -A BACKENDS=(
+    ["java-spring"]="http://localhost:8080/api/customers"
     ["dotnet"]="http://localhost:8081/api/customers"
     ["python"]="http://localhost:8082/api/customers"
     ["nodejs"]="http://localhost:8083/api/customers"
@@ -35,6 +36,7 @@ declare -A BACKENDS=(
 )
 
 declare -A BACKEND_NAMES=(
+    ["java-spring"]="Java Spring Boot"
     ["dotnet"]=".NET Core"
     ["python"]="Python FastAPI"
     ["nodejs"]="Node.js Express"

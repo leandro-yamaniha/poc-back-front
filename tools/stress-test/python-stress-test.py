@@ -14,6 +14,11 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Backend configurations
 BACKENDS = {
+    "java-spring": {
+        "name": "Java Spring Boot",
+        "url": "http://localhost:8080/api/customers",
+        "port": 8080
+    },
     "dotnet": {
         "name": ".NET Core",
         "url": "http://localhost:8081/api/customers",

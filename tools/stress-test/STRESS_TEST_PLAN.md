@@ -20,11 +20,12 @@ Plano completo de stress test para avaliar e comparar o desempenho de todos os 6
 
 | # | Backend | Port | URL | Tecnologia |
 |---|---------|------|-----|------------|
-| 1 | .NET Core | 8081 | http://localhost:8081/api/customers | ASP.NET Core 8.0 |
-| 2 | Python | 8082 | http://localhost:8082/api/customers | FastAPI + Uvicorn |
-| 3 | Node.js | 8083 | http://localhost:8083/api/customers | Express.js |
-| 4 | Go | 8084 | http://localhost:8084/api/v1/customers | Gin Framework |
-| 5 | Java Reactive | 8085 | http://localhost:8085/api/customers | Spring WebFlux |
+| 1 | Java Spring Boot | 8080 | http://localhost:8080/api/customers | Spring MVC + Tomcat |
+| 2 | .NET Core | 8081 | http://localhost:8081/api/customers | ASP.NET Core 8.0 |
+| 3 | Python | 8082 | http://localhost:8082/api/customers | FastAPI + Uvicorn |
+| 4 | Node.js | 8083 | http://localhost:8083/api/customers | Express.js |
+| 5 | Go | 8084 | http://localhost:8084/api/v1/customers | Gin Framework |
+| 6 | Java Reactive | 8085 | http://localhost:8085/api/customers | Spring WebFlux |
 
 ---
 
