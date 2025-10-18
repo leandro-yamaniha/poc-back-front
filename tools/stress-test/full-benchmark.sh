@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#!/opt/homebrew/bin/bash
 
 # Full Backend Benchmark with Metrics
+# Requires bash 4.0+ for associative arrays
 # - Recreates database for each backend
 # - Measures startup time
 # - Monitors CPU and memory usage

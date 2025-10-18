@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#!/opt/homebrew/bin/bash
 
 # Single Backend Benchmark with Full Metrics
+# Requires bash 4.0+ for associative arrays
 # Usage: ./benchmark-single.sh <backend-key>
 # Example: ./benchmark-single.sh java-spring
 
