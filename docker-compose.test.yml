@@ -38,7 +38,7 @@ services:
     networks:
       - beauty-salon-test-network
     volumes:
-      - ./backend/target:/app/target
+      - ./backend-java/target:/app/target
 
 volumes:
   cassandra_test_data:
