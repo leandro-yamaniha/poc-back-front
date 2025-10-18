@@ -1,6 +1,61 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: beauty-salon-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=beauty_salon
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
+    image: mongo:7.0
+    container_name: beauty-salon-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=beauty_salon
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: beauty-salon-sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   cassandra:
     image: cassandra:4.1
     container_name: beauty-salon-cassandra
@@ -22,9 +77,9 @@ services:
       timeout: 10s
       retries: 5
 
-  backend:
+  backend-java:
     build:
-      context: ./backend
+      context: ./backend/java
       dockerfile: Dockerfile
     container_name: beauty-salon-backend
     ports:
@@ -45,13 +100,34 @@ services:
       timeout: 10s
       retries: 5
 
-  backend/go:
+  backend-dotnet:
+    build:
+      context: ./backend/dotnet
+      dockerfile: Dockerfile
+    container_name: beauty-salon-backend-dotnet
+    ports:
+      - "8081:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BeautySalon;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-go:
     build:
       context: ./backend/go
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend/go
+    container_name: beauty-salon-backend-go
     ports:
-      - "8082:8080"
+      - "8084:8080"
     environment:
       - CASSANDRA_HOSTS=cassandra
       - CASSANDRA_PORT=9042
@@ -67,11 +143,52 @@ services:
       timeout: 10s
       retries: 5
 
-  backend/java-reactive:
+  backend-python:
+    build:
+      context: ./backend/python
+      dockerfile: Dockerfile
+    container_name: beauty-salon-backend-python
+    ports:
+      - "8082:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/beauty_salon
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-nodejs:
+    build:
+      context: ./backend/nodejs
+      dockerfile: Dockerfile
+    container_name: beauty-salon-backend-nodejs
+    ports:
+      - "8083:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/beauty_salon
+      - NODE_ENV=production
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - beauty-salon-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-java-reactive:
     build:
       context: ./backend/java-reactive
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-reactive
+    container_name: beauty-salon-backend-java-reactive
     ports:
       - "8085:8085"
     environment:
@@ -101,12 +218,15 @@ services:
     environment:
       - REACT_APP_API_URL=http://localhost:8080
     depends_on:
-      backend:
+      backend-java:
         condition: service_healthy
     networks:
       - beauty-salon-network
 
 volumes:
+  postgres_data:
+  mongodb_data:
+  sqlserver_data:
   cassandra_data:
 
 networks:
