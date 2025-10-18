@@ -1,11 +1,12 @@
 using Cassandra;
+using CassandraSession = Cassandra.ISession;
 
 namespace BeautySalonAPI.Data;
 
 public class CassandraContext : IDisposable
 {
     private readonly ICluster _cluster;
-    private readonly ISession _session;
+    private readonly CassandraSession _session;
 
     public CassandraContext(IConfiguration configuration)
     {
@@ -23,7 +24,7 @@ public class CassandraContext : IDisposable
         _session = _cluster.Connect(keyspace);
     }
 
-    public ISession Session => _session;
+    public CassandraSession Session => _session;
 
     public void Dispose()
     {

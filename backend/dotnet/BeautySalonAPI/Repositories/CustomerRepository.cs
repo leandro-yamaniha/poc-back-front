@@ -1,12 +1,13 @@
 using Cassandra;
 using BeautySalonAPI.Data;
 using BeautySalonAPI.Models;
+using CassandraSession = Cassandra.ISession;
 
 namespace BeautySalonAPI.Repositories;
 
 public class CustomerRepository : ICustomerRepository
 {
-    private readonly ISession _session;
+    private readonly CassandraSession _session;
 
     public CustomerRepository(CassandraContext context)
     {
@@ -24,7 +25,7 @@ public class CustomerRepository : ICustomerRepository
             Name = row.GetValue<string>("name"),
             Email = row.GetValue<string>("email"),
             Phone = row.GetValue<string>("phone"),
-            CreatedAt = row.GetValue<DateTimeOffset>("created_at")
+            CreatedAt = row.GetValue<DateTimeOffset>("created_at").DateTime
         });
     }
 
@@ -42,14 +43,14 @@ public class CustomerRepository : ICustomerRepository
             Name = row.GetValue<string>("name"),
             Email = row.GetValue<string>("email"),
             Phone = row.GetValue<string>("phone"),
-            CreatedAt = row.GetValue<DateTimeOffset>("created_at")
+            CreatedAt = row.GetValue<DateTimeOffset>("created_at").DateTime
         };
     }
 
     public async Task<Customer> CreateAsync(Customer customer)
     {
         customer.Id = Guid.NewGuid();
-        customer.CreatedAt = DateTimeOffset.UtcNow;
+        customer.CreatedAt = DateTime.UtcNow;
 
         var statement = new SimpleStatement(
             "INSERT INTO customers (id, name, email, phone, created_at) VALUES (?, ?, ?, ?, ?)",
