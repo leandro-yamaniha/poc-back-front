@@ -30,7 +30,7 @@ fi
 echo -e "${YELLOW}📦 Starting SonarQube and PostgreSQL containers...${NC}"
 
 # Start SonarQube with PostgreSQL
-docker-compose -f ../docker-compose-sonarqube.yml up -d
+docker-compose -f ./docker-compose.yml up -d
 
 echo -e "${YELLOW}⏳ Waiting for SonarQube to start...${NC}"
 
@@ -51,7 +51,7 @@ done
 
 if [ $attempt -eq $max_attempts ]; then
     echo -e "${RED}❌ SonarQube failed to start within expected time${NC}"
-    echo -e "${YELLOW}📋 Check logs with: docker-compose -f docker-compose-sonarqube.yml logs${NC}"
+    echo -e "${YELLOW}📋 Check logs with: docker-compose -f ./docker-compose.yml logs${NC}"
     exit 1
 fi
 
@@ -67,6 +67,6 @@ echo -e "${GREEN}1. Open http://localhost:9000 in your browser${NC}"
 echo -e "${GREEN}2. Login with admin/admin${NC}"
 echo -e "${GREEN}3. Change the default password${NC}"
 echo -e "${GREEN}4. Create projects for each backend/frontend${NC}"
-echo -e "${GREEN}5. Run analysis with: ./scripts/sonar-analysis-local.sh${NC}"
+echo -e "${GREEN}5. Run analysis with: cd tools/sonarqube && ./sonar-analysis-local.sh${NC}"
 echo
 echo -e "${BLUE}🏆 Ready to analyze the Performance Champion Java Reactive Backend!${NC}"

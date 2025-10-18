@@ -92,11 +92,11 @@ echo
 
 # Analyze each project
 run_analysis "frontend" "Frontend (React)"
-run_analysis "backend-java-reactive" "Backend Java Reactive"
-run_analysis "backend" "Backend Java Spring"
-run_analysis "backend-nodejs" "Backend Node.js"
-run_analysis "backend-python" "Backend Python"
-run_analysis "backend-go" "Backend Go"
+run_analysis "backend/java-reactive" "Backend Java Reactive"
+run_analysis "backend/java" "Backend Java Spring"
+run_analysis "backend/nodejs" "Backend Node.js"
+run_analysis "backend/python" "Backend Python"
+run_analysis "backend/go" "Backend Go"
 
 echo
 echo -e "${GREEN}🎉 SonarQube Analysis Complete!${NC}"

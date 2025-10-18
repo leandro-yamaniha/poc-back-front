@@ -17,9 +17,9 @@ echo "====================================="
 
 # Stop SonarQube containers
 echo -e "${YELLOW}📦 Stopping SonarQube and PostgreSQL containers...${NC}"
-docker-compose -f ../docker-compose-sonarqube.yml down
+docker-compose -f ./docker-compose.yml down
 
 echo -e "${GREEN}✅ SonarQube Local Instance Stopped${NC}"
 echo
-echo -e "${BLUE}💡 To start again: ./scripts/start-sonarqube-local.sh${NC}"
-echo -e "${BLUE}🗑️  To remove all data: docker-compose -f ../docker-compose-sonarqube.yml down -v${NC}"
+echo -e "${BLUE}💡 To start again: cd tools/sonarqube && ./start-sonarqube-local.sh${NC}"
+echo -e "${BLUE}🗑️  To remove all data: docker-compose -f ./docker-compose.yml down -v${NC}"

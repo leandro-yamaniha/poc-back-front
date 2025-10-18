@@ -21,7 +21,7 @@ SONAR_LOGIN="admin"
 
 # Check if SonarQube is running
 if ! curl -s "$SONAR_HOST_URL/api/system/status" | grep -q '"status":"UP"'; then
-    echo -e "${RED}❌ SonarQube is not running. Start it with: ./scripts/start-sonarqube-local.sh${NC}"
+    echo -e "${RED}❌ SonarQube is not running. Start it with: cd tools/sonarqube && ./start-sonarqube-local.sh${NC}"
     exit 1
 fi
 
@@ -141,11 +141,11 @@ echo
 
 # Analyze each project with unique keys
 run_analysis "frontend" "Frontend (React)" "beauty-salon-frontend-react"
-run_analysis "backend-java-reactive" "Backend Java Reactive" "beauty-salon-backend-java-reactive"
-run_analysis "backend" "Backend Java Spring" "beauty-salon-backend-java-spring"
-run_analysis "backend-nodejs" "Backend Node.js" "beauty-salon-backend-nodejs"
-run_analysis "backend-python" "Backend Python" "beauty-salon-backend-python"
-run_analysis "backend-go" "Backend Go" "beauty-salon-backend-go"
+run_analysis "backend/java-reactive" "Backend Java Reactive" "beauty-salon-backend-java-reactive"
+run_analysis "backend/java" "Backend Java Spring" "beauty-salon-backend-java-spring"
+run_analysis "backend/nodejs" "Backend Node.js" "beauty-salon-backend-nodejs"
+run_analysis "backend/python" "Backend Python" "beauty-salon-backend-python"
+run_analysis "backend/go" "Backend Go" "beauty-salon-backend-go"
 
 echo
 echo -e "${GREEN}🎉 SonarQube Local Analysis Complete!${NC}"
