@@ -66,7 +66,7 @@ atlassian-ide-plugin.xml
 .idea/replstate.xml
 
 # SonarLint plugin
-.idea/sonarlint/
+.idea/**/sonarlint/
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -163,6 +163,54 @@ replay_pid*
 
 # Ignore all files in the target directory
 target/
+
+### .NET Core ###
+# Binaries and build outputs
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# Assemblies
+*.dll
+*.exe
+*.pdb
+
+# NuGet packages
+packages/
+*.nupkg
+
+# Visual Studio
+.vs/
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.cache
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+.published/
+
+# Coverage reports
+coverage/
+*.coverage
+*.coveragexml
+
+# Test results
+TestResults/
+*.trx
+
+# NuGet
+.nuget/
+
+# Temporary files
+*.tmp
+*.temp
 
 ### Node.js and Frontend ###
 # Dependencies
