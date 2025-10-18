@@ -32,37 +32,43 @@ backend/
 - **Porta**: 8085
 - **Documentação**: [backend/java-reactive/README.md](java-reactive/README.md)
 
-### 3. **.NET Core** (`dotnet/`)
+### 3. **.NET** (`dotnet/`)
 - **Framework**: ASP.NET Core 8.0
+- **Linguagem**: C# 12 (.NET 8.0 LTS)
 - **ORM**: Entity Framework Core
-- **Banco**: In-Memory (desenvolvimento)
-- **Características**: Performance, tipagem forte
-- **Porta**: 5063
+- **Banco**: SQL Server
+- **Características**: Enterprise-grade, LINQ, Async/await, DI
+- **Performance**: 6,000-10,000 req/s
+- **Porta**: 8081
+- **Status**: ✅ Enterprise Ready
 - **Documentação**: [backend/dotnet/README.md](dotnet/README.md)
 
-### 4. **Go** (`go/`)
-- **Framework**: Gin Web Framework
-- **ORM**: GORM
+### 4. **Python** (`python/`)
+- **Framework**: FastAPI
+- **ORM**: SQLAlchemy
 - **Banco**: PostgreSQL
-- **Características**: Performance nativa, concorrência
+- **Características**: Desenvolvimento rápido, tipagem, async/await
+- **Performance**: 3,000-5,000 req/s
 - **Porta**: 8082
-- **Documentação**: [backend/go/README.md](go/README.md)
+- **Documentação**: [backend/python/README.md](python/README.md)
 
 ### 5. **Node.js** (`nodejs/`)
 - **Framework**: Express.js
 - **ORM**: Sequelize
 - **Banco**: PostgreSQL
 - **Características**: JavaScript, grande ecossistema
+- **Performance**: 5,000-8,000 req/s
 - **Porta**: 8083
 - **Documentação**: [backend/nodejs/README.md](nodejs/README.md)
 
-### 6. **Python** (`python/`)
-- **Framework**: FastAPI
-- **ORM**: SQLAlchemy
+### 6. **Go** (`go/`)
+- **Framework**: Gin Web Framework
+- **ORM**: GORM
 - **Banco**: PostgreSQL
-- **Características**: Desenvolvimento rápido, tipagem
+- **Características**: Performance nativa, concorrência, compilado
+- **Performance**: 8,000-12,000 req/s
 - **Porta**: 8084
-- **Documentação**: [backend/python/README.md](python/README.md)
+- **Documentação**: [backend/go/README.md](go/README.md)
 
 ## 🔧 Como Executar
 
