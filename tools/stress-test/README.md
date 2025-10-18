@@ -32,9 +32,61 @@ Este diretório contém scripts e documentação para realizar testes de stress 
 
 ## 📜 Scripts Disponíveis
 
-### 1. **stress-test-reactive.sh** (Localização: `/scripts/`)
+### 1. **comprehensive-stress-test.sh** ⭐ RECOMENDADO
 
-Script completo para teste de stress do backend reativo.
+Script automatizado completo que testa TODOS os 6 backends.
+
+**Características:**
+- ✅ Testa todos os backends automaticamente
+- ✅ 5 cenários de carga (10, 50, 100, 200, 500 usuários)
+- ✅ Usa wrk (ferramenta profissional)
+- ✅ Gera relatório comparativo completo
+- ✅ Métricas detalhadas (RPS, latência, erros)
+- ✅ Warmup automático
+- ✅ Verificação de disponibilidade
+
+**Uso:**
+```bash
+cd tools/stress-test
+chmod +x comprehensive-stress-test.sh
+./comprehensive-stress-test.sh
+```
+
+**Resultados:**
+```
+stress-test-results/
+└── comprehensive_report_YYYYMMDD_HHMMSS.md
+```
+
+---
+
+### 2. **python-stress-test.py** (Alternativa Python)
+
+Script Python usando ThreadPoolExecutor para testes de carga.
+
+**Características:**
+- ✅ Não requer wrk (usa Python puro)
+- ✅ Testa todos os backends
+- ✅ Métricas detalhadas
+- ✅ Fácil de customizar
+
+**Requisitos:**
+```bash
+pip3 install requests
+```
+
+**Uso:**
+```bash
+cd tools/stress-test
+chmod +x python-stress-test.py
+./python-stress-test.py
+```
+
+---
+
+### 3. **stress-test-reactive.sh** (Legacy - Backend Específico)
+
+Script para teste de stress do backend reativo apenas.
 
 **Características:**
 - ✅ Múltiplos cenários de carga (10, 50, 100, 200, 500 usuários)
