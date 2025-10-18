@@ -17,7 +17,7 @@ backend/
 ## 🚀 Backends Disponíveis
 
 ### 1. **Java Tradicional** (`java/`)
-- **Framework**: Spring Boot 2.7.x + Java 11
+- **Framework**: Spring Boot 3.5.4 + Java 21
 - **Arquitetura**: MVC tradicional
 - **Banco**: Cassandra
 - **Características**: Estabilidade, maturidade
@@ -162,7 +162,7 @@ Todos os backends implementam os mesmos endpoints:
 
 | Backend | Linguagem | Framework | Banco | Arquitetura | Performance |
 |---------|-----------|-----------|-------|-------------|-------------|
-| Java | Java 11 | Spring Boot 2.x | Cassandra | MVC | ⭐⭐⭐ |
+| Java | Java 21 | Spring Boot 3.5.4 | Cassandra | MVC | ⭐⭐⭐⭐ |
 | Java Reactive | Java 21 | Spring WebFlux | Cassandra | Reativa | ⭐⭐⭐⭐⭐ |
 | .NET Core | C# | ASP.NET Core | In-Memory | MVC | ⭐⭐⭐⭐ |
 | Go | Go | Gin | PostgreSQL | Concorrente | ⭐⭐⭐⭐⭐ |
