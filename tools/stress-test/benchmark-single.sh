@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Single Backend Benchmark with Full Metrics
 # Usage: ./benchmark-single.sh <backend-key>

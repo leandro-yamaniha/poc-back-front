@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Full Backend Benchmark with Metrics
 # - Recreates database for each backend
