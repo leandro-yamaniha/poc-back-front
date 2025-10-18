@@ -2,187 +2,104 @@
 
 ## 📋 Análise Completa dos Arquivos Docker Compose
 
-### ✅ **Arquivos NECESSÁRIOS (Manter)**
+### ✅ **Nova Estrutura Organizada**
 
-#### 1. **docker-compose.yml** ⭐ PRINCIPAL
-- **Propósito**: Arquivo principal para desenvolvimento completo
-- **Conteúdo**: Frontend + Backend Java + Cassandra
-- **Uso**: `docker-compose up`
-- **Status**: ✅ **MANTER** - Arquivo padrão do projeto
+Cada backend agora possui seu próprio `docker-compose.yml` dentro do seu diretório:
 
-#### 2. **docker-compose-reactive.yml** ⭐ RECOMENDADO
-- **Propósito**: Backend Java Reactive (melhor performance)
-- **Conteúdo**: Backend Java-Reactive + Cassandra + Frontend
-- **Uso**: Produção com alta performance
-- **Status**: ✅ **MANTER** - Backend de melhor performance
+```
+beauty-salon-app/
+├── docker-compose.yml                    # ✅ Desenvolvimento completo (raiz)
+├── docker-compose.test.yml               # ✅ Testes/CI/CD (raiz)
+├── docker-compose-sonarqube.yml          # ✅ Qualidade de código (raiz)
+└── backend/
+    ├── java/
+    │   └── docker-compose.yml            # ✅ Backend Java tradicional
+    ├── java-reactive/
+    │   └── docker-compose.yml            # ✅ Backend Java Reactive (produção)
+    ├── dotnet/
+    │   └── docker-compose.yml            # ✅ Backend .NET Core
+    ├── go/
+    │   └── docker-compose.yml            # ✅ Backend Go
+    ├── nodejs/
+    │   └── docker-compose.yml            # ✅ Backend Node.js
+    └── python/
+        └── docker-compose.yml            # ✅ Backend Python
+```
 
-#### 3. **docker-compose-dotnet.yml**
-- **Propósito**: Backend .NET Core isolado
-- **Conteúdo**: Backend .NET Core 8.0
-- **Uso**: Desenvolvimento/teste específico .NET
-- **Status**: ✅ **MANTER** - Backend alternativo importante
+### 🎯 **Benefícios da Nova Estrutura**
 
-#### 4. **docker-compose-go.yml**
-- **Propósito**: Backend Go isolado
-- **Conteúdo**: Backend Go + PostgreSQL
-- **Uso**: Desenvolvimento/teste específico Go
-- **Status**: ✅ **MANTER** - Backend alternativo
-
-#### 5. **docker-compose-nodejs.yml**
-- **Propósito**: Backend Node.js isolado
-- **Conteúdo**: Backend Node.js + PostgreSQL
-- **Uso**: Desenvolvimento/teste específico Node.js
-- **Status**: ✅ **MANTER** - Backend alternativo
-
-#### 6. **docker-compose-python.yml**
-- **Propósito**: Backend Python isolado
-- **Conteúdo**: Backend Python FastAPI + PostgreSQL
-- **Uso**: Desenvolvimento/teste específico Python
-- **Status**: ✅ **MANTER** - Backend alternativo
-
-#### 7. **docker-compose.test.yml**
-- **Propósito**: Ambiente de testes automatizados
-- **Conteúdo**: Backend + Cassandra para testes
-- **Uso**: CI/CD, testes automatizados
-- **Status**: ✅ **MANTER** - Essencial para CI/CD
-
-#### 8. **docker-compose-sonarqube.yml**
-- **Propósito**: Análise de qualidade de código
-- **Conteúdo**: SonarQube + PostgreSQL
-- **Uso**: Análise estática de código
-- **Status**: ✅ **MANTER** - Qualidade de código
+1. **Independência**: Cada backend é autocontido
+2. **Clareza**: Fácil encontrar o docker-compose de cada backend
+3. **Manutenção**: Mudanças isoladas por backend
+4. **Documentação**: Cada backend tem seu próprio setup
+5. **Portabilidade**: Backends podem ser movidos facilmente
 
 ---
 
-### ❌ **Arquivos REDUNDANTES (Remover)**
+## 🚀 **Como Usar**
 
-#### 1. **docker-compose-custom.yml** ❌
-- **Motivo**: Duplica funcionalidade do docker-compose.yml
-- **Diferença**: Usa Dockerfile customizado para Cassandra
-- **Problema**: Não adiciona valor real, apenas complexidade
-- **Recomendação**: ❌ **REMOVER**
-
-#### 2. **docker-compose-fixed.yml** ❌
-- **Motivo**: Nome genérico, provavelmente arquivo de debug antigo
-- **Diferença**: Similar ao docker-compose.yml com pequenas variações
-- **Problema**: Confunde qual arquivo usar
-- **Recomendação**: ❌ **REMOVER**
-
-#### 3. **docker-compose-reactive-simple.yml** ❌
-- **Motivo**: Duplica docker-compose-reactive.yml
-- **Diferença**: Versão "simplificada" mas praticamente idêntica
-- **Problema**: Dois arquivos para mesmo propósito
-- **Recomendação**: ❌ **REMOVER** (manter apenas docker-compose-reactive.yml)
-
-#### 4. **docker-compose-java.yml** ⚠️
-- **Motivo**: Backend Java tradicional (não-reativo)
-- **Problema**: Temos versão reativa que é superior
-- **Consideração**: Pode ser útil para comparação de performance
-- **Recomendação**: ⚠️ **OPCIONAL** - Remover se não usado para benchmarks
-
----
-
-## 📊 Resumo da Recomendação
-
-### Estrutura Final Recomendada:
-
-```
-docker-compose/
-├── docker-compose.yml                    # ✅ Principal (dev completo)
-├── docker-compose-reactive.yml           # ✅ Produção (Java Reactive)
-├── docker-compose-dotnet.yml             # ✅ Backend .NET
-├── docker-compose-go.yml                 # ✅ Backend Go
-├── docker-compose-nodejs.yml             # ✅ Backend Node.js
-├── docker-compose-python.yml             # ✅ Backend Python
-├── docker-compose.test.yml               # ✅ Testes/CI/CD
-└── docker-compose-sonarqube.yml          # ✅ Qualidade de código
-```
-
-### Arquivos a Remover:
-```
-❌ docker-compose-custom.yml              # Redundante
-❌ docker-compose-fixed.yml               # Debug antigo
-❌ docker-compose-reactive-simple.yml     # Duplicado
-⚠️ docker-compose-java.yml                # Opcional (se não usado)
-```
-
----
-
-## 🎯 Benefícios da Limpeza
-
-### Antes: 12 arquivos
-- ❌ Confusão sobre qual usar
-- ❌ Manutenção duplicada
-- ❌ Documentação inconsistente
-
-### Depois: 8 arquivos
-- ✅ Propósito claro de cada arquivo
-- ✅ Manutenção simplificada
-- ✅ Documentação consistente
-- ✅ Cada backend tem seu arquivo específico
-
----
-
-## 📝 Ações Recomendadas
-
-### 1. **Remover Imediatamente**
+### Desenvolvimento Local Completo (Raiz)
 ```bash
-rm docker-compose-custom.yml
-rm docker-compose-fixed.yml
-rm docker-compose-reactive-simple.yml
-```
-
-### 2. **Avaliar Remoção**
-```bash
-# Verificar se docker-compose-java.yml é usado
-git log --all --oneline -- docker-compose-java.yml
-# Se não usado recentemente, remover
-```
-
-### 3. **Atualizar Documentação**
-- Atualizar DEPLOYMENT_GUIDE.md
-- Atualizar README.md
-- Criar guia de uso dos docker-compose
-
-### 4. **Criar Arquivo de Referência**
-Criar `docker-compose/README.md` explicando cada arquivo
-
----
-
-## 🚀 Uso Recomendado Após Limpeza
-
-### Desenvolvimento Local
-```bash
-docker-compose up                          # Desenvolvimento completo
-```
-
-### Produção (Alta Performance)
-```bash
-docker-compose -f docker-compose-reactive.yml up
+# Na raiz do projeto
+docker-compose up
 ```
 
 ### Backend Específico
 ```bash
-docker-compose -f docker-compose-dotnet.yml up
-docker-compose -f docker-compose-go.yml up
-docker-compose -f docker-compose-nodejs.yml up
-docker-compose -f docker-compose-python.yml up
+# Backend Java Reactive (Produção)
+cd backend/java-reactive
+docker-compose up
+
+# Backend .NET Core
+cd backend/dotnet
+docker-compose up
+
+# Backend Go
+cd backend/go
+docker-compose up
+
+# Backend Node.js
+cd backend/nodejs
+docker-compose up
+
+# Backend Python
+cd backend/python
+docker-compose up
 ```
 
-### Testes/CI/CD
+### Testes/CI/CD (Raiz)
 ```bash
+# Na raiz do projeto
 docker-compose -f docker-compose.test.yml up
 ```
 
-### Análise de Código
+### Análise de Código (Raiz)
 ```bash
+# Na raiz do projeto
 docker-compose -f docker-compose-sonarqube.yml up
 ```
 
 ---
 
-## ✅ Conclusão
+## 📊 **Arquivos por Localização**
 
-**Remover**: 3-4 arquivos redundantes
-**Manter**: 8 arquivos com propósitos claros
-**Resultado**: Projeto mais limpo e profissional
+### **Raiz do Projeto** (3 arquivos)
+- `docker-compose.yml` - Setup completo de desenvolvimento
+- `docker-compose.test.yml` - Ambiente de testes
+- `docker-compose-sonarqube.yml` - Análise de qualidade
+
+### **Backend Específicos** (6 arquivos)
+- `backend/java/docker-compose.yml`
+- `backend/java-reactive/docker-compose.yml`
+- `backend/dotnet/docker-compose.yml`
+- `backend/go/docker-compose.yml`
+- `backend/nodejs/docker-compose.yml`
+- `backend/python/docker-compose.yml`
+
+---
+
+## ✅ **Conclusão**
+
+**Total**: 9 arquivos docker-compose organizados
+**Estrutura**: Hierárquica e autocontida
+**Resultado**: Projeto profissional e fácil de manter
