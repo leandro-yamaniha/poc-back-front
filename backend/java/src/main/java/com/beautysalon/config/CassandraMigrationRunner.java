@@ -109,10 +109,16 @@ public class CassandraMigrationRunner implements ApplicationRunner {
             String cql = readResourceAsString(resource);
             executeCqlBatch(cql);
 
-            // Record as applied
-            session.execute(SimpleStatement.newInstance(
-                    "INSERT INTO " + qualifiedMigrationsTable() + " (version, description, script, installed_on) VALUES (?, ?, ?, toTimestamp(now()))",
-                    version, description, filename));
+            // Wait for schema propagation before recording (increased to 2s)
+            try {
+                log.info("[MIGRATIONS] Waiting for schema propagation before recording (2 seconds)...");
+                Thread.sleep(2000); // 2 seconds delay
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
+            // Record as applied with retry logic
+            recordMigrationWithRetry(version, description, filename, 5);
         
             log.info("[MIGRATIONS] Migration V{} applied successfully.", version);
         }
@@ -128,6 +134,15 @@ public class CassandraMigrationRunner implements ApplicationRunner {
                 "installed_on timestamp" +
                 ")";
         session.execute(SimpleStatement.newInstance(cql));
+        
+        // Wait for schema propagation in Cassandra (increased to 3s)
+        try {
+            log.info("[MIGRATIONS] Waiting for schema propagation (3 seconds)...");
+            Thread.sleep(3000); // 3 seconds delay
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.warn("[MIGRATIONS] Interrupted while waiting for schema propagation");
+        }
     }
 
     private Set<String> fetchAppliedVersions() {
@@ -229,5 +244,55 @@ public class CassandraMigrationRunner implements ApplicationRunner {
         } catch (Exception e) {
             log.warn("[MIGRATIONS] Could not switch to keyspace {}: {}", keyspace, e.getMessage());
         }
+    }
+
+    /**
+     * Record migration with retry logic and exponential backoff
+     */
+    private void recordMigrationWithRetry(String version, String description, String filename, int maxRetries) {
+        int initialDelay = 2000; // 2 seconds
+        int maxDelay = 10000; // 10 seconds
+        Exception lastException = null;
+
+        for (int attempt = 0; attempt < maxRetries; attempt++) {
+            try {
+                session.execute(SimpleStatement.newInstance(
+                        "INSERT INTO " + qualifiedMigrationsTable() + " (version, description, script, installed_on) VALUES (?, ?, ?, toTimestamp(now()))",
+                        version, description, filename));
+                
+                if (attempt > 0) {
+                    log.info("[MIGRATIONS] ✅ Migration V{} recorded successfully after {} retries", version, attempt);
+                }
+                return; // Success!
+                
+            } catch (Exception e) {
+                lastException = e;
+                
+                // If this was the last attempt, throw the error
+                if (attempt == maxRetries - 1) {
+                    log.error("[MIGRATIONS] ❌ Failed to record migration V{} after {} attempts: {}", 
+                            version, maxRetries, e.getMessage());
+                    throw new RuntimeException("Failed to record migration V" + version + " after " + maxRetries + " attempts", e);
+                }
+                
+                // Calculate delay with exponential backoff
+                int delay = (int) Math.min(initialDelay * Math.pow(2, attempt), maxDelay);
+                
+                log.warn("[MIGRATIONS] ⚠️  Failed to record migration V{} (attempt {}/{}): {}", 
+                        version, attempt + 1, maxRetries, e.getMessage());
+                log.info("[MIGRATIONS]    Retrying in {}ms...", delay);
+                
+                // Wait before retrying
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("Interrupted while retrying migration recording", ie);
+                }
+            }
+        }
+        
+        // This should never be reached, but just in case
+        throw new RuntimeException("Failed to record migration V" + version, lastException);
     }
 }

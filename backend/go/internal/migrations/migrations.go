@@ -3,6 +3,7 @@ package migrations
 import (
 	"fmt"
 	"log"
+	"math"
 	"time"
 
 	"github.com/gocql/gocql"
@@ -204,10 +205,12 @@ func (m *Migrator) RunMigrations() error {
 			return fmt.Errorf("failed to apply migration %s: %w", migration.Version, err)
 		}
 
-		// Wait for schema propagation before recording
-		time.Sleep(1 * time.Second)
+		// Wait for schema propagation before recording (increased to 3s)
+		log.Println("Waiting for schema propagation before recording migration (3 seconds)...")
+		time.Sleep(3 * time.Second)
 
-		if err := m.recordMigration(migration); err != nil {
+		// Record migration with retry logic
+		if err := m.recordMigrationWithRetry(migration, 5); err != nil {
 			return fmt.Errorf("failed to record migration %s: %w", migration.Version, err)
 		}
 
@@ -248,8 +251,9 @@ func (m *Migrator) createMigrationTable() error {
 		return fmt.Errorf("failed to create migration table: %w", err)
 	}
 
-	// Wait for schema propagation
-	time.Sleep(2 * time.Second)
+	// Wait for schema propagation (increased to 5s for better reliability)
+	log.Println("Waiting for schema propagation (5 seconds)...")
+	time.Sleep(5 * time.Second)
 
 	return nil
 }
@@ -293,6 +297,45 @@ func (m *Migrator) recordMigration(migration Migration) error {
 	`
 	
 	return m.session.Query(query, migration.Version, migration.Description, time.Now()).Exec()
+}
+
+// recordMigrationWithRetry records migration with retry logic and exponential backoff
+func (m *Migrator) recordMigrationWithRetry(migration Migration, maxRetries int) error {
+	var lastErr error
+	initialDelay := 2 * time.Second
+	maxDelay := 10 * time.Second
+	
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		err := m.recordMigration(migration)
+		if err == nil {
+			if attempt > 0 {
+				log.Printf("✅ Migration recorded successfully after %d retries", attempt)
+			}
+			return nil
+		}
+		
+		lastErr = err
+		
+		// If this was the last attempt, return the error
+		if attempt == maxRetries-1 {
+			log.Printf("❌ Failed to record migration after %d attempts: %v", maxRetries, err)
+			return lastErr
+		}
+		
+		// Calculate delay with exponential backoff
+		delay := time.Duration(math.Min(
+			float64(initialDelay)*math.Pow(2, float64(attempt)),
+			float64(maxDelay),
+		))
+		
+		log.Printf("⚠️  Failed to record migration (attempt %d/%d): %v", attempt+1, maxRetries, err)
+		log.Printf("   Retrying in %v...", delay)
+		
+		// Wait before retrying
+		time.Sleep(delay)
+	}
+	
+	return lastErr
 }
 
 // splitSQL splits a multi-statement SQL string into individual statements

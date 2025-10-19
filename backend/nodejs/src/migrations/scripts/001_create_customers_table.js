@@ -4,6 +4,8 @@
  * Description: Creates the customers table with all required fields
  */
 
+const { executeWithRetry } = require('../utils/retry');
+
 async function up(client) {
   console.log('📋 Criando tabela customers...');
   
@@ -21,12 +23,24 @@ async function up(client) {
   
   await client.execute(createTableQuery);
   
-  // Criar índice secundário para email (para busca por email)
-  const createEmailIndexQuery = `
-    CREATE INDEX IF NOT EXISTS customers_email_idx ON customers (email)
-  `;
+  // Aguardar propagação do schema com delay maior
+  console.log('⏳ Aguardando propagação do schema (3 segundos)...');
+  await new Promise(resolve => setTimeout(resolve, 3000));
   
-  await client.execute(createEmailIndexQuery);
+  // Criar índice com retry logic
+  await executeWithRetry(
+    async () => {
+      const createEmailIndexQuery = `
+        CREATE INDEX IF NOT EXISTS customers_email_idx ON customers (email)
+      `;
+      await client.execute(createEmailIndexQuery);
+    },
+    {
+      maxRetries: 5,
+      initialDelay: 2000,
+      operationName: 'Create customers email index'
+    }
+  );
   
   console.log('✅ Tabela customers criada com sucesso');
 }

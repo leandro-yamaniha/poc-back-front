@@ -4,6 +4,7 @@ Cassandra database connection for Beauty Salon Management System
 
 import os
 import logging
+import asyncio
 from typing import Optional
 from cassandra.cluster import Cluster, Session
 from cassandra.auth import PlainTextAuthProvider
@@ -176,11 +177,18 @@ class DatabaseConnection:
             for table_query in tables:
                 self.session.execute(table_query)
             
-            # Execute index creation queries
-            for index_query in indexes:
-                self.session.execute(index_query)
+            # Wait for schema propagation
+            await asyncio.sleep(1)
+            logger.info("Waiting for schema propagation...")
             
-            logger.info("Database tables and indexes created successfully")
+            # Execute index creation queries with error handling
+            try:
+                for index_query in indexes:
+                    self.session.execute(index_query)
+                logger.info("Database tables and indexes created successfully")
+            except Exception as index_error:
+                logger.warning(f"Some indexes failed to create (non-critical): {index_error}")
+                logger.info("Database tables created successfully (indexes can be created later)")
             
         except Exception as e:
             logger.error(f"Failed to create tables: {e}")
