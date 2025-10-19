@@ -10,7 +10,7 @@ Este guia cobre a instalação do .NET Core 8.0 LTS em diferentes sistemas opera
 curl -fsSL https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.sh | bash
 
 # Ou use nosso script personalizado
-./scripts/install-dotnet.sh
+./backend/dotnet/install-dotnet.sh
 ```
 
 ## 📋 Instalação Manual por Plataforma

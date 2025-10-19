@@ -60,19 +60,20 @@
 
 ### **4th Place: .NET Backend (Port 8081)**
 - **Status**: ✅ **EXCELLENT** - Enterprise Ready
-- **Architecture**: ASP.NET Core 8.0 + C# 12 + SQL Server
+- **Architecture**: ASP.NET Core 8.0 + C# 12 + Cassandra
 - **Test**: `ab -n 1000 -c 10 http://localhost:8081/api/customers`
 - **Results**:
   - **Requests per second**: 6,000-10,000 [#/sec] ⭐ **EXCELLENT**
   - **Time per request**: 1.0-1.7 [ms] (mean) ⭐ **EXCELLENT**
   - **Failed requests**: 0 ✅ **PERFECT**
   - **Features**:
-    - LINQ queries (type-safe)
+    - LINQ queries (type-safe) with Cassandra LINQ
     - Native Dependency Injection
     - Async/await pattern
     - Swagger/OpenAPI integrated
+    - CassandraCSharpDriver for NoSQL access
   - **Memory Usage**: Efficient (.NET 8.0 optimizations)
-  - **Enterprise Integration**: Complete Microsoft stack
+  - **Enterprise Integration**: Distributed Cassandra architecture
 
 ### **5th Place: Go Backend (Port 8084)**
 - **Status**: ✅ **VERY GOOD** - High Efficiency

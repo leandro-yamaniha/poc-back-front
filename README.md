@@ -56,10 +56,10 @@ Este projeto implementa **paridade completa** entre múltiplas tecnologias de ba
 - **Framework**: ASP.NET Core 8.0
 - **Linguagem**: C# 12 (.NET 8.0 LTS)
 - **Performance**: 6,000-10,000 req/s - **EXCELLENT**
-- **Banco de Dados**: SQL Server com Entity Framework Core
+- **Banco de Dados**: Apache Cassandra com CassandraCSharpDriver
 - **Endpoints**: 50+ APIs REST implementadas
 - **Features**: LINQ, Async/await, Dependency Injection, Swagger/OpenAPI
-- **Status**: **Enterprise Ready** - Integração Microsoft completa
+- **Status**: **Enterprise Ready** - Arquitetura distribuída escalável
 - **Instalação**: `backend/dotnet/install-dotnet.sh`
 
 ## 🏆 Conquistas em Qualidade e Testes
@@ -297,7 +297,7 @@ npm start
 docker-compose up cassandra -d
 
 # Conexão manual
-./scripts/connect-cassandra.sh
+./database/connect-cassandra.sh
 ```
 
 ## 📁 Estrutura do Projeto
@@ -334,9 +334,12 @@ beauty-salon-app/
 │   └── main.py                # Entry point
 ├── 🗄️ database/               # Cassandra Configuration
 │   ├── init/                  # Scripts de inicialização
-│   └── migrations/            # Migrações de schema
+│   ├── migrations/            # Migrações de schema
+│   └── connect-cassandra.sh   # Script de conexão
+├── 🔧 tools/                   # Ferramentas de desenvolvimento
+│   ├── sonarqube/             # Análise de código
+│   └── stress-test/           # Testes de performance
 ├── 🐳 docker-compose*.yml      # Configurações Docker
-├── 🛠️ scripts/                # Scripts utilitários
 └── 📚 docs/                   # Documentação geral
 ```
 
@@ -595,7 +598,7 @@ Each service can be run independently for development purposes. See individual R
 - 🐳 **[DOCKER_COMPOSE_GUIDE.md](DOCKER_COMPOSE_GUIDE.md)** - Containerização e orquestração
 
 ### **Recursos de Desenvolvimento**
-- **Scripts**: `scripts/` - Automação de testes e deployment
+- **Tools**: `tools/` - SonarQube, stress tests e ferramentas de análise
 - **Documentação API**: Swagger/OpenAPI em todos os backends
 - **Testes**: Cobertura 100% frontend e backend reativo
 - **Performance**: Benchmarks e otimizações documentadas

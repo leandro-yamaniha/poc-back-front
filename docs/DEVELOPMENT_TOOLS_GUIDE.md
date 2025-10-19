@@ -226,13 +226,13 @@ docker run -d -p 3000:3000 --name cassandra-web \
 #### **Database Scripts**
 ```bash
 # Initialize database
-./scripts/connect-cassandra.sh
+./database/connect-cassandra.sh
 
 # Reset database
 docker-compose down -v
 docker-compose up -d cassandra
 sleep 30
-./scripts/connect-cassandra.sh
+./database/connect-cassandra.sh
 ```
 
 ---
@@ -528,7 +528,7 @@ npm run build
 ./mvnw clean package -DskipTests
 
 # 3. Run performance tests
-./scripts/stress-test-reactive.sh
+./tools/stress-test/stress-test-reactive.sh
 
 # 4. Create release
 git tag v1.0.0

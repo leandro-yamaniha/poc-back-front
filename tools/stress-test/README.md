@@ -23,10 +23,10 @@ Este diretório contém scripts e documentação para realizar testes de stress 
 | Backend | Porta | Tecnologia | Performance Esperada |
 |---------|-------|------------|---------------------|
 | **Java Reactive** | 8085 | Spring WebFlux + Undertow | 🏆 30,000+ RPS |
-| **Node.js** | 8083 | Express + MongoDB | ✅ 5,000-8,000 RPS |
-| **Python** | 8082 | FastAPI + PostgreSQL | ✅ 3,000-5,000 RPS |
 | **Go** | 8084 | Gin + PostgreSQL | ✅ 8,000-12,000 RPS |
-| **.NET** | 8081 | ASP.NET Core + SQL Server | ✅ 6,000-10,000 RPS |
+| **.NET** | 8081 | ASP.NET Core 8.0 + Cassandra | ✅ 6,000-10,000 RPS |
+| **Node.js** | 8083 | Express + Cassandra | ✅ 6,000-8,000 RPS |
+| **Python** | 8082 | FastAPI + Cassandra | ✅ 3,000-5,000 RPS |
 
 ---
 
@@ -96,12 +96,12 @@ Script para teste de stress do backend reativo apenas.
 
 **Localização:**
 ```bash
-/scripts/stress-test-reactive.sh
+tools/stress-test/stress-test-reactive.sh
 ```
 
 **Uso:**
 ```bash
-cd scripts
+cd tools/stress-test
 chmod +x stress-test-reactive.sh
 ./stress-test-reactive.sh
 ```
@@ -170,7 +170,7 @@ curl --version
 docker-compose up -d backend-java-reactive
 
 # 2. Execute o script de stress test
-cd scripts
+cd tools/stress-test
 ./stress-test-reactive.sh
 
 # 3. Aguarde conclusão (pode levar 5-10 minutos)
@@ -426,9 +426,9 @@ wrk -t4 -c100 -d600s http://localhost:8085/api/customers
 |---------|-----|----------------|--------------|--------|
 | **Java Reactive** | 30,000+ | < 20ms | ~2KB | 🏆 Champion |
 | **Go** | 10,000+ | < 30ms | ~5KB | ✅ Excelente |
-| **.NET** | 8,000+ | < 40ms | ~8KB | ✅ Muito Bom |
-| **Node.js** | 6,000+ | < 50ms | ~15KB | ✅ Bom |
-| **Python** | 4,000+ | < 60ms | ~20KB | ✅ Aceitável |
+| **.NET** | 6,000-10,000 | < 1.7ms | ~8KB | ✅ Excelente |
+| **Node.js** | 6,000+ | ~1.6ms | ~15KB | ✅ Excelente |
+| **Python** | ~1,000 | ~11.7ms | ~20KB | ✅ Bom |
 
 ---
 
@@ -510,9 +510,9 @@ cat docs/PERFORMANCE_TEST_RESULTS.md
 
 ### Scripts Relacionados
 
-- `/scripts/stress-test-reactive.sh` - Script principal
-- `/scripts/start-reactive-stack.sh` - Iniciar ambiente
-- `/scripts/connect-cassandra.sh` - Debug do banco
+- `tools/stress-test/stress-test-reactive.sh` - Script principal
+- `tools/stress-test/comprehensive-stress-test.sh` - Teste completo de todos backends
+- `database/connect-cassandra.sh` - Debug do banco
 
 ---
 
@@ -547,7 +547,7 @@ cd /path/to/beauty-salon-app
 docker-compose up -d backend-java-reactive
 
 # 3. Executar teste
-cd scripts
+cd tools/stress-test
 ./stress-test-reactive.sh
 
 # 4. Ver resultados

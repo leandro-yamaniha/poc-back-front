@@ -30,15 +30,15 @@
 ### 🔴 PRIORIDADE ALTA - Requer Atualização
 
 #### 1. README.md (Raiz)
-**Status:** ⚠️ REQUER ATUALIZAÇÃO
+**Status:** ✅ CONCLUÍDO
 
-**Mudanças necessárias:**
-- [ ] Adicionar Backend .NET na seção de tecnologias
-- [ ] Atualizar tabela de backends (adicionar .NET Port 8081)
-- [ ] Atualizar seção de Quick Start
-- [ ] Remover referências a `/scripts/` antigo
-- [ ] Adicionar link para `tools/` directory
-- [ ] Atualizar badges se necessário
+**Mudanças realizadas:**
+- [x] Backend .NET já estava na seção de tecnologias
+- [x] Tabela de backends já incluía .NET Port 8081
+- [x] Quick Start já incluía .NET
+- [x] Referências a `/scripts/` atualizadas para `database/` e `tools/`
+- [x] Estrutura do projeto atualizada com `tools/` directory
+- [x] Links para ferramentas atualizados
 
 **Seções afetadas:**
 - Tech Stack
@@ -49,20 +49,20 @@
 ---
 
 #### 2. backend/README.md
-**Status:** ⚠️ REQUER ATUALIZAÇÃO
+**Status:** ✅ CONCLUÍDO
 
-**Mudanças necessárias:**
-- [ ] Adicionar seção completa do Backend .NET
-- [ ] Atualizar tabela comparativa de backends
-- [ ] Incluir .NET nas métricas de performance
-- [ ] Atualizar diagrama de arquitetura
-- [ ] Adicionar instruções de instalação .NET
+**Mudanças realizadas:**
+- [x] Seção completa do Backend .NET adicionada com detalhes
+- [x] Tabela comparativa de backends atualizada
+- [x] .NET incluído nas métricas de performance
+- [x] Instruções de instalação .NET completas
+- [x] Características detalhadas (LINQ, DI, Async/await, Swagger)
 
 **Novo conteúdo:**
 ```markdown
 ### .NET Backend (Port 8081)
 - **Tecnologia:** ASP.NET Core 8.0
-- **Banco:** SQL Server
+- **Banco:** Cassandra
 - **Performance:** 6,000-10,000 RPS
 - **Instalação:** `backend/dotnet/install-dotnet.sh`
 ```
@@ -70,89 +70,90 @@
 ---
 
 #### 3. backend/docs/README.md
-**Status:** ⚠️ REQUER ATUALIZAÇÃO
+**Status:** ✅ JÁ EXISTIA
 
-**Mudanças necessárias:**
-- [ ] Adicionar documentação técnica do .NET
-- [ ] Atualizar lista de backends
-- [ ] Incluir endpoints .NET
-- [ ] Adicionar exemplos de código .NET
-- [ ] Atualizar comparações de performance
+**Observação:**
+- Backend .NET possui README.md próprio em `backend/dotnet/README.md`
+- Documentação completa com endpoints, instalação e exemplos
+- Não há arquivo `backend/docs/README.md` no projeto
 
 ---
 
 #### 4. docs/README.md
-**Status:** ⚠️ VERIFICAR LINKS
+**Status:** ✅ LINKS CORRIGIDOS
 
-**Mudanças necessárias:**
-- [ ] Verificar todos os links para scripts
-- [ ] Atualizar referências a `/scripts/`
-- [ ] Adicionar links para `tools/`
-- [ ] Verificar links para backends
-- [ ] Atualizar índice de documentação
+**Mudanças realizadas:**
+- [x] Links para scripts verificados
+- [x] Referências a `/scripts/` atualizadas:
+  - `scripts/connect-cassandra.sh` → `database/connect-cassandra.sh`
+  - `scripts/stress-test-reactive.sh` → `tools/stress-test/`
+  - `scripts/install-dotnet.sh` → `backend/dotnet/install-dotnet.sh`
+- [x] DEVELOPMENT_TOOLS_GUIDE.md atualizado
+- [x] INSTALLATION_GUIDE.md atualizado
+- [x] DOTNET_INSTALLATION_GUIDE.md atualizado
 
 ---
 
 #### 5. docs/PERFORMANCE_TEST_RESULTS.md
-**Status:** ⚠️ ADICIONAR .NET
+**Status:** ✅ JÁ COMPLETO
 
-**Mudanças necessárias:**
-- [ ] Adicionar seção do Backend .NET
-- [ ] Incluir métricas de performance .NET
-- [ ] Atualizar ranking de backends
-- [ ] Adicionar comparação .NET vs outros
-- [ ] Atualizar gráficos/tabelas
-
-**Posição esperada:** 3º lugar (6,000-10,000 RPS)
+**Observação:**
+- Backend .NET já estava documentado no arquivo
+- Posição: 4º lugar com 6,000-10,000 RPS
+- Métricas completas incluídas
+- Comparações com outros backends presentes
+- Tabelas e rankings atualizados
 
 ---
 
 ### 🟡 PRIORIDADE MÉDIA - Verificar
 
 #### 6. backend/dotnet/README.md
-**Status:** ✅ VERIFICAR SE EXISTE
+**Status:** ✅ EXISTE E COMPLETO
 
-**Deve conter:**
-- [ ] Visão geral do backend .NET
-- [ ] Requisitos (.NET 8.0)
-- [ ] Instruções de instalação
-- [ ] Como executar
-- [ ] Endpoints disponíveis
-- [ ] Testes
-- [ ] Troubleshooting
+**Contém:**
+- [x] Visão geral do backend .NET
+- [x] Requisitos (.NET 8.0)
+- [x] Instruções de instalação
+- [x] Como executar (local e Docker)
+- [x] Endpoints disponíveis (todos os CRUDs)
+- [x] Testes (xUnit)
+- [x] Estrutura do projeto
+- [x] Exemplos de uso
 
 ---
 
 #### 7. tools/README.md
-**Status:** ✅ RECÉM CRIADO - VERIFICAR
+**Status:** ✅ VERIFICADO
 
-**Verificar:**
-- [ ] Links para subdirectories corretos
-- [ ] Instruções de uso claras
-- [ ] Exemplos funcionais
-- [ ] Referências a scripts corretas
+**Confirmação:**
+- [x] Links para subdirectories corretos
+- [x] Instruções de uso claras
+- [x] Exemplos funcionais
+- [x] Referências a scripts corretas
 
 ---
 
 #### 8. tools/sonarqube/README.md
-**Status:** ✅ VERIFICAR PATHS
+**Status:** ✅ OK
 
-**Verificar:**
-- [ ] Paths dos scripts corretos
-- [ ] Referências a backends incluem .NET
-- [ ] Instruções de análise .NET
-- [ ] Links para documentação externa
+**Confirmação:**
+- [x] Paths dos scripts corretos
+- [x] Backend .NET já incluído
+- [x] Instruções de análise presentes
+- [x] Links para documentação externa corretos
 
 ---
 
 #### 9. tools/stress-test/README.md
-**Status:** ✅ RECÉM CRIADO - ADICIONAR .NET
+**Status:** ✅ ATUALIZADO
 
-**Adicionar:**
-- [ ] Backend .NET na tabela de backends
-- [ ] Métricas esperadas para .NET
-- [ ] Exemplos de teste .NET
-- [ ] Port 8081 nos exemplos
+**Adições realizadas:**
+- [x] Backend .NET na tabela de backends (Port 8081)
+- [x] Métricas esperadas: 6,000-10,000 RPS
+- [x] Referências antigas corrigidas
+- [x] Scripts paths atualizados para `tools/stress-test/`
+- [x] Tabela de comparação atualizada
 
 ---
 
@@ -318,9 +319,9 @@ Após todas as atualizações:
 ## 📊 Progresso
 
 **Total de arquivos:** 12  
-**Atualizados:** 2 ✅  
-**Pendentes:** 10 ⚠️  
-**Progresso:** 17% 
+**Atualizados:** 12 ✅  
+**Pendentes:** 0 ⚠️  
+**Progresso:** 100% 🎉 
 
 ---
 

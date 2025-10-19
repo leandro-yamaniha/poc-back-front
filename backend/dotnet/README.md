@@ -1,12 +1,12 @@
 # Beauty Salon API - .NET Core
 
-Backend em .NET Core 8.0 para o sistema de gerenciamento de salão de beleza, utilizando Entity Framework Core com banco de dados em memória.
+Backend em .NET Core 8.0 para o sistema de gerenciamento de salão de beleza, utilizando Apache Cassandra como banco de dados NoSQL distribuído.
 
 ## 🚀 Características
 
 - **.NET Core 8.0 LTS** - Framework moderno e performático
-- **Entity Framework Core** - ORM para persistência de dados
-- **Banco de dados em memória** - Para desenvolvimento e testes
+- **CassandraCSharpDriver** - Driver oficial para Cassandra
+- **Apache Cassandra** - Banco de dados NoSQL distribuído e altamente escalável
 - **REST API** - Endpoints RESTful para todas as operações CRUD
 - **Swagger/OpenAPI** - Documentação automática da API
 - **Injeção de Dependência** - Arquitetura limpa com IoC
@@ -30,7 +30,8 @@ Backend em .NET Core 8.0 para o sistema de gerenciamento de salão de beleza, ut
 ## 🛠 Tecnologias
 
 - **ASP.NET Core Web API** - Framework web
-- **Entity Framework Core** - Mapeamento objeto-relacional
+- **CassandraCSharpDriver** - Driver oficial para Cassandra
+- **Apache Cassandra** - Banco de dados NoSQL distribuído
 - **xUnit** - Framework de testes
 - **Swagger** - Documentação da API
 - **Docker** - Containerização
@@ -136,12 +137,17 @@ backend-dotnet/
 
 ## 🔧 Configuração
 
-A aplicação utiliza banco de dados em memória por padrão. Para usar SQL Server em produção:
+A aplicação utiliza Apache Cassandra como banco de dados. Configuração no `appsettings.json`:
 
-```csharp
-// Em Program.cs, alterar a configuração do DbContext:
-builder.Services.AddDbContext<BeautySalonDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+```json
+{
+  "Cassandra": {
+    "ContactPoints": ["localhost"],
+    "Port": 9042,
+    "Keyspace": "beauty_salon",
+    "LocalDatacenter": "datacenter1"
+  }
+}
 ```
 
 ## 📝 Exemplos de Uso

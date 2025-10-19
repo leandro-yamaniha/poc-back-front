@@ -35,12 +35,19 @@ backend/
 ### 3. **.NET** (`dotnet/`)
 - **Framework**: ASP.NET Core 8.0
 - **Linguagem**: C# 12 (.NET 8.0 LTS)
-- **ORM**: Entity Framework Core
-- **Banco**: SQL Server
-- **Características**: Enterprise-grade, LINQ, Async/await, DI
+- **ORM**: CassandraCSharpDriver
+- **Banco**: Cassandra
+- **Características**: 
+  - Enterprise-grade architecture
+  - LINQ queries (type-safe) com Cassandra LINQ
+  - Native async/await pattern
+  - Built-in Dependency Injection
+  - Swagger/OpenAPI integration
+  - Cassandra distributed database
 - **Performance**: 6,000-10,000 req/s
 - **Porta**: 8081
 - **Status**: ✅ Enterprise Ready
+- **Instalação**: `backend/dotnet/install-dotnet.sh`
 - **Documentação**: [backend/dotnet/README.md](dotnet/README.md)
 
 ### 4. **Python** (`python/`)
@@ -101,11 +108,19 @@ docker-compose -f docker-compose-reactive.yml up
 
 #### .NET Core
 ```bash
-cd backend/dotnet/BeautySalonAPI
+cd backend/dotnet
+# Instalar .NET (primeira vez)
+./install-dotnet.sh
+
+# Executar localmente
 export PATH="$HOME/.dotnet:$PATH"
+cd BeautySalonAPI
 dotnet run
-# ou
-docker-compose -f docker-compose-dotnet.yml up
+
+# ou via Docker
+docker-compose up -d
+# Acesso: http://localhost:8081
+# Swagger: http://localhost:8081/swagger
 ```
 
 #### Go
@@ -170,7 +185,7 @@ Todos os backends implementam os mesmos endpoints:
 |---------|-----------|-----------|-------|-------------|-------------|
 | Java | Java 21 | Spring Boot 3.5.4 | Cassandra | MVC | ⭐⭐⭐⭐ |
 | Java Reactive | Java 21 | Spring WebFlux | Cassandra | Reativa | ⭐⭐⭐⭐⭐ |
-| .NET Core | C# | ASP.NET Core | In-Memory | MVC | ⭐⭐⭐⭐ |
+| .NET Core | C# 12 | ASP.NET Core 8.0 | Cassandra | MVC + DI | ⭐⭐⭐⭐ |
 | Go | Go | Gin | PostgreSQL | Concorrente | ⭐⭐⭐⭐⭐ |
 | Node.js | JavaScript | Express | PostgreSQL | Event-driven | ⭐⭐⭐ |
 | Python | Python | FastAPI | PostgreSQL | Assíncrona | ⭐⭐⭐⭐ |
@@ -227,7 +242,7 @@ docker-compose -f docker-compose-go.yml up -d
 |---------|-------------|--------------|------------|---------|
 | Java | ~15s | ~400MB | ⭐⭐⭐ | ~50ms |
 | Java Reactive | ~12s | ~350MB | ⭐⭐⭐⭐⭐ | ~10ms |
-| .NET Core | ~3s | ~200MB | ⭐⭐⭐⭐ | ~20ms |
+| .NET Core | ~3s | ~200MB | ⭐⭐⭐⭐ | ~1.0-1.7ms |
 | Go | ~1s | ~50MB | ⭐⭐⭐⭐⭐ | ~5ms |
 | Node.js | ~2s | ~150MB | ⭐⭐⭐ | ~30ms |
 | Python | ~2s | ~100MB | ⭐⭐⭐ | ~40ms |

@@ -168,7 +168,7 @@ cd poc-back-front
 
 # Verify project structure
 ls -la
-# Should show: frontend/, backend-java-reactive/, backend-nodejs/, database/, scripts/
+# Should show: frontend/, backend/, database/, tools/, docs/
 ```
 
 ### **Step 3: Setup Frontend**
@@ -225,7 +225,7 @@ docker ps | grep cassandra
 # Should show running container on port 9042
 
 # Initialize database
-./scripts/connect-cassandra.sh
+./database/connect-cassandra.sh
 ```
 
 ---
@@ -408,12 +408,12 @@ open target/site/jacoco/index.html
 ### **Performance Testing**
 ```bash
 # Run stress test on reactive backend
-./scripts/stress-test-reactive.sh
+./tools/stress-test/stress-test-reactive.sh
 
-# Run simple stress test
-./scripts/simple-stress-test.sh
+# Run comprehensive stress test (all backends)
+./tools/stress-test/comprehensive-stress-test.sh
 
-# Expected: 30,000+ RPS performance
+# Expected: 30,000+ RPS performance (Java Reactive)
 ```
 
 ### **Integration Testing**
