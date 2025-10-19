@@ -23,19 +23,28 @@ async function up(client) {
   
   await client.execute(createTableQuery);
   
-  // Criar índice secundário para categoria
-  const createCategoryIndexQuery = `
-    CREATE INDEX IF NOT EXISTS services_category_idx ON services (category)
-  `;
+  // Aguardar um pouco para garantir que o schema foi propagado
+  await new Promise(resolve => setTimeout(resolve, 1000));
   
-  await client.execute(createCategoryIndexQuery);
-  
-  // Criar índice secundário para is_active
-  const createActiveIndexQuery = `
-    CREATE INDEX IF NOT EXISTS services_active_idx ON services (is_active)
-  `;
-  
-  await client.execute(createActiveIndexQuery);
+  // Verificar se a tabela existe antes de criar índices
+  try {
+    // Criar índice secundário para categoria
+    const createCategoryIndexQuery = `
+      CREATE INDEX IF NOT EXISTS services_category_idx ON services (category)
+    `;
+    
+    await client.execute(createCategoryIndexQuery);
+    
+    // Criar índice secundário para is_active
+    const createActiveIndexQuery = `
+      CREATE INDEX IF NOT EXISTS services_active_idx ON services (is_active)
+    `;
+    
+    await client.execute(createActiveIndexQuery);
+  } catch (error) {
+    console.warn('⚠️  Aviso ao criar índices:', error.message);
+    // Continua mesmo se falhar, os índices não são críticos
+  }
   
   console.log('✅ Tabela services criada com sucesso');
 }

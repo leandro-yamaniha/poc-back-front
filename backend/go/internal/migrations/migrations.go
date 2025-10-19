@@ -204,6 +204,9 @@ func (m *Migrator) RunMigrations() error {
 			return fmt.Errorf("failed to apply migration %s: %w", migration.Version, err)
 		}
 
+		// Wait for schema propagation before recording
+		time.Sleep(1 * time.Second)
+
 		if err := m.recordMigration(migration); err != nil {
 			return fmt.Errorf("failed to record migration %s: %w", migration.Version, err)
 		}
@@ -244,6 +247,9 @@ func (m *Migrator) createMigrationTable() error {
 	if err := m.session.Query(createTable).Exec(); err != nil {
 		return fmt.Errorf("failed to create migration table: %w", err)
 	}
+
+	// Wait for schema propagation
+	time.Sleep(2 * time.Second)
 
 	return nil
 }
