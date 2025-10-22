@@ -70,15 +70,16 @@ CREATE TABLE IF NOT EXISTS beauty_salon.services (
     updated_at TIMESTAMP
 );
 
--- Create staff table
+-- Create staff table (compatible with Node.js schema)
 CREATE TABLE IF NOT EXISTS beauty_salon.staff (
     id UUID PRIMARY KEY,
     name TEXT,
     email TEXT,
     phone TEXT,
     role TEXT,
-    specialties SET<TEXT>,
+    specialties list<text>,
     is_active BOOLEAN,
+    hire_date TIMESTAMP,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -148,15 +149,15 @@ VALUES (uuid(), 'Pedicure', 'Pedicure completa', 60, 30.00, 'Unhas', true, toTim
 INSERT INTO beauty_salon.services (id, name, description, duration, price, category, is_active, created_at, updated_at)
 VALUES (uuid(), 'Limpeza de Pele', 'Limpeza facial profunda', 90, 80.00, 'Estética', true, toTimestamp(now()), toTimestamp(now()));
 
--- Sample staff
-INSERT INTO beauty_salon.staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Maria Silva', 'maria@salao.com', '11999991111', 'Cabeleireira', {'Corte', 'Escova', 'Coloração'}, true, toTimestamp(now()), toTimestamp(now()));
+-- Sample staff (using list syntax instead of set)
+INSERT INTO beauty_salon.staff (id, name, email, phone, role, specialties, is_active, hire_date, created_at, updated_at)
+VALUES (uuid(), 'Maria Silva', 'maria@salao.com', '11999991111', 'Cabeleireira', ['Corte', 'Escova', 'Coloração'], true, toTimestamp(now()), toTimestamp(now()), toTimestamp(now()));
 
-INSERT INTO beauty_salon.staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Ana Santos', 'ana@salao.com', '11999992222', 'Manicure', {'Manicure', 'Pedicure', 'Nail Art'}, true, toTimestamp(now()), toTimestamp(now()));
+INSERT INTO beauty_salon.staff (id, name, email, phone, role, specialties, is_active, hire_date, created_at, updated_at)
+VALUES (uuid(), 'Ana Santos', 'ana@salao.com', '11999992222', 'Manicure', ['Manicure', 'Pedicure', 'Nail Art'], true, toTimestamp(now()), toTimestamp(now()), toTimestamp(now()));
 
-INSERT INTO beauty_salon.staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Carla Oliveira', 'carla@salao.com', '11999993333', 'Esteticista', {'Limpeza de Pele', 'Massagem', 'Depilação'}, true, toTimestamp(now()), toTimestamp(now()));
+INSERT INTO beauty_salon.staff (id, name, email, phone, role, specialties, is_active, hire_date, created_at, updated_at)
+VALUES (uuid(), 'Carla Oliveira', 'carla@salao.com', '11999993333', 'Esteticista', ['Limpeza de Pele', 'Massagem', 'Depilação'], true, toTimestamp(now()), toTimestamp(now()), toTimestamp(now()));
 
 -- Sample customers
 INSERT INTO beauty_salon.customers (id, name, email, phone, address, created_at, updated_at)
@@ -238,12 +239,13 @@ func (m *Migrator) createMigrationTable() error {
 
 	// Note: gocql doesn't support USE statements, keyspace is set in session creation
 
-	// Create migration table in the beauty_salon keyspace
+	// Create migration table in the beauty_salon keyspace (compatible with Node.js schema)
 	createTable := `
 		CREATE TABLE IF NOT EXISTS beauty_salon.schema_migrations (
 			version TEXT PRIMARY KEY,
-			description TEXT,
-			applied_at TIMESTAMP
+			name TEXT,
+			executed_at TIMESTAMP,
+			checksum TEXT
 		)
 	`
 	
@@ -292,11 +294,12 @@ func (m *Migrator) executeMigration(migration Migration) error {
 // recordMigration records that a migration has been applied
 func (m *Migrator) recordMigration(migration Migration) error {
 	query := `
-		INSERT INTO beauty_salon.schema_migrations (version, description, applied_at)
-		VALUES (?, ?, ?)
+		INSERT INTO beauty_salon.schema_migrations (version, name, executed_at, checksum)
+		VALUES (?, ?, ?, ?)
 	`
 	
-	return m.session.Query(query, migration.Version, migration.Description, time.Now()).Exec()
+	// Use empty checksum for now (compatible with Node.js)
+	return m.session.Query(query, migration.Version, migration.Description, time.Now(), "").Exec()
 }
 
 // recordMigrationWithRetry records migration with retry logic and exponential backoff

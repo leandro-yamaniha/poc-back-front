@@ -59,8 +59,9 @@ management:
     cassandra:
       metric-name: cassandra.stats
   tracing:
+    enabled: false  # Disable distributed tracing (Zipkin not configured)
     sampling:
-      probability: 1.0
+      probability: 0.0
 
 logging:
   level:

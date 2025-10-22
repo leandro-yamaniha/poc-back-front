@@ -15,14 +15,15 @@ CREATE TABLE IF NOT EXISTS customers (
 -- Create index for customer email lookup
 CREATE INDEX IF NOT EXISTS ON customers (email);
 
--- Staff table
+-- Staff table (compatible with Node.js schema)
 CREATE TABLE IF NOT EXISTS staff (
     id UUID PRIMARY KEY,
     name TEXT,
     email TEXT,
     phone TEXT,
     role TEXT,
-    specialties SET<TEXT>,
+    specialties list<text>,
+    hire_date TIMESTAMP,
     is_active BOOLEAN,
     created_at TIMESTAMP,
     updated_at TIMESTAMP

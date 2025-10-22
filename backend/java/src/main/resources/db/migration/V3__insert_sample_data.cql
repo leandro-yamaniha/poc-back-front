@@ -17,15 +17,15 @@ VALUES (uuid(), 'Pedicure', 'Pedicure completa', 60, 30.00, 'Unhas', true, toTim
 INSERT INTO services (id, name, description, duration, price, category, is_active, created_at, updated_at)
 VALUES (uuid(), 'Limpeza de Pele', 'Limpeza facial profunda', 90, 80.00, 'Estética', true, toTimestamp(now()), toTimestamp(now()));
 
--- Sample staff
-INSERT INTO staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Maria Silva', 'maria@salao.com', '11999991111', 'Cabeleireira', {'Corte', 'Escova', 'Coloração'}, true, toTimestamp(now()), toTimestamp(now()));
+-- Sample staff (using list syntax [] instead of set {})
+INSERT INTO staff (id, name, email, phone, role, specialties, is_active, hire_date, created_at, updated_at)
+VALUES (uuid(), 'Maria Silva', 'maria@salao.com', '11999991111', 'Cabeleireira', ['Corte', 'Escova', 'Coloração'], true, toTimestamp(now()), toTimestamp(now()), toTimestamp(now()));
 
-INSERT INTO staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Ana Santos', 'ana@salao.com', '11999992222', 'Manicure', {'Manicure', 'Pedicure', 'Nail Art'}, true, toTimestamp(now()), toTimestamp(now()));
+INSERT INTO staff (id, name, email, phone, role, specialties, is_active, hire_date, created_at, updated_at)
+VALUES (uuid(), 'Ana Santos', 'ana@salao.com', '11999992222', 'Manicure', ['Manicure', 'Pedicure', 'Nail Art'], true, toTimestamp(now()), toTimestamp(now()), toTimestamp(now()));
 
-INSERT INTO staff (id, name, email, phone, role, specialties, is_active, created_at, updated_at)
-VALUES (uuid(), 'Carla Oliveira', 'carla@salao.com', '11999993333', 'Esteticista', {'Limpeza de Pele', 'Massagem', 'Depilação'}, true, toTimestamp(now()), toTimestamp(now()));
+INSERT INTO staff (id, name, email, phone, role, specialties, is_active, hire_date, created_at, updated_at)
+VALUES (uuid(), 'Carla Oliveira', 'carla@salao.com', '11999993333', 'Esteticista', ['Limpeza de Pele', 'Massagem', 'Depilação'], true, toTimestamp(now()), toTimestamp(now()), toTimestamp(now()));
 
 -- Sample customers
 INSERT INTO customers (id, name, email, phone, address, created_at, updated_at)

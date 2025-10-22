@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
+    "migrate": "node test-migrations.js",
+    "migrate:check": "node -e \"const c=require('./src/config/cassandra');c.connect().then(()=>c.execute('SELECT * FROM beauty_salon.schema_migrations LIMIT 1')).then(()=>{console.log('Migrations OK');process.exit(0);}).catch(()=>{console.log('No migrations');process.exit(1);}).finally(()=>c.shutdown());\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

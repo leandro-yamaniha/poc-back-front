@@ -13,8 +13,12 @@ RUN npm ci --only=production
 # Copy source code  
 COPY . .
 
-# Install curl for health checks
-RUN apk add --no-cache curl
+# Install dependencies for health checks and entrypoint
+RUN apk add --no-cache curl netcat-openbsd bash
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs
@@ -30,6 +34,9 @@ EXPOSE 8083
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:8083/health || exit 1
+
+# Set entrypoint to run migration check before starting app
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Start the application
 CMD ["node", "src/app.js"]

@@ -53,9 +53,10 @@ public class CassandraMigrationRunner implements ApplicationRunner {
             return;
         }
 
-        // Sort by filename ascending (V1..Vn)
+        // Sort by filename ascending (V1..Vn), filtering out any null filenames
         List<Resource> sorted = Arrays.stream(resources)
-                .sorted(Comparator.comparing(r -> Objects.requireNonNull(r.getFilename())))
+                .filter(r -> r.getFilename() != null)
+                .sorted(Comparator.comparing(Resource::getFilename, Comparator.nullsLast(String::compareTo)))
                 .collect(Collectors.toList());
 
         // Phase 1: If first migration creates keyspace and hasn't been applied yet, run it BEFORE creating migrations table
@@ -65,16 +66,18 @@ public class CassandraMigrationRunner implements ApplicationRunner {
         String earlyDescription = null;
         if (!sorted.isEmpty()) {
             Resource first = sorted.get(0);
-            String filename = Objects.requireNonNull(first.getFilename());
-            String version = extractVersion(filename);
-            String description = extractDescription(filename);
-            String cqlFirst = readResourceAsString(first);
-            if (containsCreateKeyspace(cqlFirst)) {
-                log.info("[MIGRATIONS] Detected keyspace creation in V{} ({}). Applying early before creating migrations table...", version, description);
-                executeCqlBatch(cqlFirst);
-                ranEarlyKeyspace = true;
-                earlyVersion = version;
-                earlyDescription = description;
+            String filename = first.getFilename();
+            if (filename != null) {
+                String version = extractVersion(filename);
+                String description = extractDescription(filename);
+                String cqlFirst = readResourceAsString(first);
+                if (containsCreateKeyspace(cqlFirst)) {
+                    log.info("[MIGRATIONS] Detected keyspace creation in V{} ({}). Applying early before creating migrations table...", version, description);
+                    executeCqlBatch(cqlFirst);
+                    ranEarlyKeyspace = true;
+                    earlyVersion = version;
+                    earlyDescription = description;
+                }
             }
         }
 
@@ -86,17 +89,26 @@ public class CassandraMigrationRunner implements ApplicationRunner {
         Set<String> applied = fetchAppliedVersions();
 
         // If we ran the keyspace migration early, switch to the keyspace and mark it as applied
-        if (ranEarlyKeyspace && earlyVersion != null && !applied.contains(earlyVersion)) {
+        if (ranEarlyKeyspace && earlyVersion != null && !applied.contains(earlyVersion) && !sorted.isEmpty()) {
             useKeyspace(targetKeyspace());
-            session.execute(SimpleStatement.newInstance(
-                    "INSERT INTO " + qualifiedMigrationsTable() + " (version, description, script, installed_on) VALUES (?, ?, ?, toTimestamp(now()))",
-                    earlyVersion, earlyDescription, sorted.get(0).getFilename()));
-            applied.add(earlyVersion);
-            log.info("[MIGRATIONS] Early keyspace migration V{} recorded as applied.", earlyVersion);
+            String firstFilename = sorted.get(0).getFilename();
+            if (firstFilename != null) {
+                // Use Node.js compatible column names: name instead of description, executed_at instead of installed_on
+                session.execute(SimpleStatement.newInstance(
+                        "INSERT INTO " + qualifiedMigrationsTable() + " (version, name, executed_at, checksum) VALUES (?, ?, toTimestamp(now()), '')",
+                        earlyVersion, earlyDescription));
+                applied.add(earlyVersion);
+                log.info("[MIGRATIONS] Early keyspace migration V{} recorded as applied.", earlyVersion);
+            }
         }
 
         for (Resource resource : sorted) {
-            String filename = Objects.requireNonNull(resource.getFilename());
+            String filename = resource.getFilename();
+            if (filename == null) {
+                log.warn("[MIGRATIONS] Skipping resource with null filename");
+                continue;
+            }
+            
             String version = extractVersion(filename); // e.g., 1, 2, 3 ...
             String description = extractDescription(filename);
 
@@ -127,11 +139,12 @@ public class CassandraMigrationRunner implements ApplicationRunner {
     }
 
     private void createMigrationsTableIfNotExists() {
+        // Use Node.js compatible schema: name instead of description, executed_at instead of installed_on
         String cql = "CREATE TABLE IF NOT EXISTS " + qualifiedMigrationsTable() + " (" +
                 "version text PRIMARY KEY, " +
-                "description text, " +
-                "script text, " +
-                "installed_on timestamp" +
+                "name text, " +
+                "executed_at timestamp, " +
+                "checksum text" +
                 ")";
         session.execute(SimpleStatement.newInstance(cql));
         
@@ -256,9 +269,10 @@ public class CassandraMigrationRunner implements ApplicationRunner {
 
         for (int attempt = 0; attempt < maxRetries; attempt++) {
             try {
+                // Use Node.js compatible column names: name instead of description, executed_at instead of installed_on
                 session.execute(SimpleStatement.newInstance(
-                        "INSERT INTO " + qualifiedMigrationsTable() + " (version, description, script, installed_on) VALUES (?, ?, ?, toTimestamp(now()))",
-                        version, description, filename));
+                        "INSERT INTO " + qualifiedMigrationsTable() + " (version, name, executed_at, checksum) VALUES (?, ?, toTimestamp(now()), '')",
+                        version, description));
                 
                 if (attempt > 0) {
                     log.info("[MIGRATIONS] ✅ Migration V{} recorded successfully after {} retries", version, attempt);
