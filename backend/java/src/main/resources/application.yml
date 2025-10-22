@@ -33,6 +33,13 @@ spring:
 server:
   port: 8080
 
+# Rate Limiting Configuration
+app:
+  rate-limit:
+    enabled: false  # Rate limiting disabled by default
+    max-requests-per-minute: 100
+    time-window-ms: 60000
+
 management:
   endpoints:
     web:
@@ -65,8 +72,17 @@ management:
 
 logging:
   level:
+    root: INFO
     com.beautysalon: DEBUG
     org.springframework.data.cassandra: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/beauty-salon-backend.log
+    max-size: 10MB
+    max-history: 30
 
 ---
 spring:
@@ -80,6 +96,46 @@ spring:
     keyspace-name: ~
   flyway:
     enabled: false
+
+logging:
+  level:
+    root: INFO
+    com.beautysalon: INFO
+    org.springframework.data.cassandra: WARN
+    org.springframework.web: WARN
+
+app:
+  rate-limit:
+    enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+  cassandra:
+    contact-points: cassandra
+    port: 9042
+    local-datacenter: datacenter1
+    keyspace-name: beauty_salon
+  flyway:
+    enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.beautysalon: INFO
+    org.springframework.data.cassandra: ERROR
+    org.springframework.web: ERROR
+  file:
+    name: /var/log/beauty-salon/application.log
+
+# Enable rate limiting in production
+app:
+  rate-limit:
+    enabled: true  # Enabled in production
+    max-requests-per-minute: 100
+    time-window-ms: 60000
 
 ---
 spring:
