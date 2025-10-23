@@ -41,6 +41,13 @@ public record Appointment(
     }
 
     public Appointment withUpdatedFields(LocalDateTime appointmentDate, String status, String notes) {
+        // Ensure updatedAt is strictly greater than the previous value to avoid flakiness
+        // where LocalDateTime.now() could return the same instant as the previous updatedAt.
+        LocalDateTime candidateUpdatedAt = LocalDateTime.now();
+        LocalDateTime ensuredUpdatedAt = candidateUpdatedAt.isAfter(this.updatedAt)
+            ? candidateUpdatedAt
+            : this.updatedAt.plusNanos(1);
+
         return new Appointment(
             this.id,
             this.customerId,
@@ -50,7 +57,7 @@ public record Appointment(
             status != null ? status : this.status,
             notes != null ? notes : this.notes,
             this.createdAt,
-            LocalDateTime.now()
+            ensuredUpdatedAt
         );
     }
 
