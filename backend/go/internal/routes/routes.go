@@ -55,11 +55,11 @@ func SetupRoutes(
 		})
 	}
 
-	// API v1 routes
-	v1 := router.Group("/api/v1")
+	// API routes (padronizado com outros backends)
+	api := router.Group("/api")
 	{
 		// Customer routes
-		customers := v1.Group("/customers")
+		customers := api.Group("/customers")
 		{
 			customers.POST("", customerHandler.CreateCustomer)
 			customers.GET("", customerHandler.GetAllCustomers)
@@ -72,7 +72,7 @@ func SetupRoutes(
 		}
 
 		// Service routes
-		services := v1.Group("/services")
+		services := api.Group("/services")
 		{
 			services.POST("", serviceHandler.CreateService)
 			services.GET("", serviceHandler.GetAllServices)
@@ -88,7 +88,7 @@ func SetupRoutes(
 		}
 
 		// Staff routes
-		staff := v1.Group("/staff")
+		staff := api.Group("/staff")
 		{
 			staff.POST("", staffHandler.CreateStaff)
 			staff.GET("", staffHandler.GetAllStaff)
@@ -106,7 +106,7 @@ func SetupRoutes(
 		}
 
 		// Appointment routes
-		appointments := v1.Group("/appointments")
+		appointments := api.Group("/appointments")
 		{
 			appointments.POST("", appointmentHandler.CreateAppointment)
 			appointments.GET("", appointmentHandler.GetAllAppointments)
@@ -136,10 +136,10 @@ func SetupRoutes(
 			"status":  "running",
 			"endpoints": gin.H{
 				"health":       cfg.Health.Endpoint,
-				"customers":    "/api/v1/customers",
-				"services":     "/api/v1/services",
-				"staff":        "/api/v1/staff",
-				"appointments": "/api/v1/appointments",
+				"customers":    "/api/customers",
+				"services":     "/api/services",
+				"staff":        "/api/staff",
+				"appointments": "/api/appointments",
 			},
 		})
 	})

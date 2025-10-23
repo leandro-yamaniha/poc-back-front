@@ -1,11 +1,9 @@
-version: '3.8'
-
-name: beauty-salon-go-react
+name: beauty-salon-go-backend-only
 
 services:
   cassandra:
     image: cassandra:4.1
-    container_name: beauty-salon-cassandra-go
+    container_name: beauty-salon-cassandra-go-test
     ports:
       - "9047:9042"
     environment:
@@ -14,9 +12,9 @@ services:
       - CASSANDRA_RACK=rack1
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
     volumes:
-      - cassandra_data_go:/var/lib/cassandra
+      - cassandra_data_go_test:/var/lib/cassandra
     networks:
-      - beauty-salon-go
+      - beauty-salon-go-test
     healthcheck:
       test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
       interval: 30s
@@ -28,9 +26,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-go
+    container_name: beauty-salon-backend-go-test
     ports:
-      - "${BACKEND_HOST_PORT:-10005}:10005"
+      - "10005:10005"
     environment:
       - SERVER_PORT=10005
       - SERVER_HOST=0.0.0.0
@@ -41,7 +39,7 @@ services:
       cassandra:
         condition: service_healthy
     networks:
-      - beauty-salon-go
+      - beauty-salon-go-test
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:10005/health || exit 1"]
       interval: 30s
@@ -49,27 +47,9 @@ services:
       retries: 3
       start_period: 40s
 
-  frontend:
-    build:
-      context: ../../frontend
-      dockerfile: Dockerfile
-      args:
-        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10005}/api}
-    container_name: beauty-salon-frontend-go
-    ports:
-      - "${FRONTEND_HOST_PORT:-3005}:3000"
-    environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10005}/api}
-      - REACT_APP_BACKEND_TYPE=go
-    depends_on:
-      backend-go:
-        condition: service_healthy
-    networks:
-      - beauty-salon-go
-
 volumes:
-  cassandra_data_go:
+  cassandra_data_go_test:
 
 networks:
-  beauty-salon-go:
+  beauty-salon-go-test:
     driver: bridge
