@@ -1,11 +1,9 @@
-version: '3.8'
-
-name: beauty-salon-java-react
+name: beauty-salon-java-backend-only
 
 services:
   cassandra:
     image: cassandra:4.1
-    container_name: beauty-salon-cassandra-java
+    container_name: beauty-salon-cassandra-java-test
     ports:
       - "9043:9042"
     environment:
@@ -14,10 +12,9 @@ services:
       - CASSANDRA_RACK=rack1
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
     volumes:
-      - cassandra_data_java:/var/lib/cassandra
-      - ./database/init:/docker-entrypoint-initdb.d
+      - cassandra_data_java_test:/var/lib/cassandra
     networks:
-      - beauty-salon-java
+      - beauty-salon-java-test
     healthcheck:
       test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
       interval: 30s
@@ -28,9 +25,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-java
+    container_name: beauty-salon-backend-java-test
     ports:
-      - "${BACKEND_HOST_PORT:-10001}:10001"
+      - "10001:10001"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SERVER_PORT=10001
@@ -44,35 +41,17 @@ services:
       cassandra:
         condition: service_healthy
     networks:
-      - beauty-salon-java
+      - beauty-salon-java-test
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:10001/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10001}/api}
-    container_name: beauty-salon-frontend-java
-    ports:
-      - "${FRONTEND_HOST_PORT:-3001}:${FRONTEND_HOST_PORT:-3001}"
-    environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10001}/api}
-      - REACT_APP_BACKEND_TYPE=java
-      - PORT=${FRONTEND_HOST_PORT:-3001}
-    depends_on:
-      backend-java:
-        condition: service_healthy
-    networks:
-      - beauty-salon-java
+      start_period: 60s
 
 volumes:
-  cassandra_data_java:
+  cassandra_data_java_test:
 
 networks:
-  beauty-salon-java:
+  beauty-salon-java-test:
     driver: bridge
