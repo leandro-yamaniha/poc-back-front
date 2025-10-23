@@ -1,11 +1,9 @@
-version: '3.8'
-
-name: beauty-salon-dotnet-react
+name: beauty-salon-dotnet-backend-only
 
 services:
   cassandra:
     image: cassandra:4.1
-    container_name: beauty-salon-cassandra-dotnet
+    container_name: beauty-salon-cassandra-dotnet-test
     ports:
       - "9044:9042"
     environment:
@@ -14,9 +12,9 @@ services:
       - CASSANDRA_RACK=rack1
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
     volumes:
-      - cassandra_data_dotnet:/var/lib/cassandra
+      - cassandra_data_dotnet_test:/var/lib/cassandra
     networks:
-      - beauty-salon-dotnet
+      - beauty-salon-dotnet-test
     healthcheck:
       test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
       interval: 30s
@@ -27,9 +25,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-dotnet
+    container_name: beauty-salon-backend-dotnet-test
     ports:
-      - "${BACKEND_HOST_PORT:-10002}:10002"
+      - "10002:10002"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:10002
@@ -41,7 +39,7 @@ services:
       cassandra:
         condition: service_healthy
     networks:
-      - beauty-salon-dotnet
+      - beauty-salon-dotnet-test
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:10002/health"]
       interval: 30s
@@ -49,27 +47,9 @@ services:
       retries: 5
       start_period: 40s
 
-  frontend:
-    build:
-      context: ../../frontend
-      dockerfile: Dockerfile
-      args:
-        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10002}/api}
-    container_name: beauty-salon-frontend-dotnet
-    ports:
-      - "${FRONTEND_HOST_PORT:-3002}:3000"
-    environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10002}/api}
-      - REACT_APP_BACKEND_TYPE=dotnet
-    depends_on:
-      backend-dotnet:
-        condition: service_healthy
-    networks:
-      - beauty-salon-dotnet
-
 volumes:
-  cassandra_data_dotnet:
+  cassandra_data_dotnet_test:
 
 networks:
-  beauty-salon-dotnet:
+  beauty-salon-dotnet-test:
     driver: bridge

@@ -1,22 +1,20 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+# Dockerfile otimizado - usa artefatos pré-buildados
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
-# Copy csproj and restore as distinct layers
-COPY ["BeautySalonAPI/BeautySalonAPI.csproj", "BeautySalonAPI/"]
-COPY ["BeautySalonAPI.Tests/BeautySalonAPI.Tests.csproj", "BeautySalonAPI.Tests/"]
-RUN dotnet restore "BeautySalonAPI/BeautySalonAPI.csproj"
+# Install curl for health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-# Copy everything else and build
-COPY . .
-WORKDIR "/src/BeautySalonAPI"
-RUN dotnet build "BeautySalonAPI.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "BeautySalonAPI.csproj" -c Release -o /app/publish
-
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-EXPOSE 8080
+
+# Copy pre-built artifacts
+COPY ./publish .
+
+# Expose port
+EXPOSE 10002
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:10002/health || exit 1
+
+# Run the application
 ENTRYPOINT ["dotnet", "BeautySalonAPI.dll"]
