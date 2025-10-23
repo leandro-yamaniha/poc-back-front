@@ -24,43 +24,43 @@ services:
       timeout: 10s
       retries: 5
 
-  backend/python:
+  backend-python:
     build:
-      context: ./backend/python
+      context: .
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend/python
+    container_name: beauty-salon-backend-python
     ports:
-      - "8081:8081"
+      - "${BACKEND_HOST_PORT:-10003}:10003"
     environment:
       - CASSANDRA_HOSTS=cassandra
       - CASSANDRA_PORT=9042
       - CASSANDRA_KEYSPACE=beauty_salon
-      - PYTHONPATH=/app
-      - UVICORN_HOST=0.0.0.0
-      - UVICORN_PORT=8081
     depends_on:
       cassandra:
         condition: service_healthy
     networks:
       - beauty-salon-python
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8081/api/customers/ || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:10003/api/customers || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 40s
 
   frontend:
     build:
-      context: ./frontend
+      context: ../../frontend
       dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10003}/api}
     container_name: beauty-salon-frontend-python
     ports:
-      - "3003:3000"
+      - "${FRONTEND_HOST_PORT:-3003}:3000"
     environment:
-      - REACT_APP_API_URL=http://localhost:8081/api
+      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10003}/api}
       - REACT_APP_BACKEND_TYPE=python
     depends_on:
-      backend/python:
+      backend-python:
         condition: service_healthy
     networks:
       - beauty-salon-python

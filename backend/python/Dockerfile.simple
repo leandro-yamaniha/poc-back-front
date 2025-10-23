@@ -1,4 +1,3 @@
-# Dockerfile otimizado - usa artefatos pré-buildados
 FROM python:3.11-slim
 
 # Install runtime dependencies
@@ -8,9 +7,11 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-# Copy pre-installed virtual environment
-COPY ./venv ./venv
-COPY ./requirements.txt ./
+# Copy requirements and install dependencies
+COPY ./requirements-fixed.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
 COPY ./main.py ./
 COPY ./app ./app
 
@@ -20,15 +21,12 @@ RUN useradd -m -u 1000 appuser && \
 
 USER appuser
 
-# Use virtual environment
-ENV PATH="/app/venv/bin:$PATH"
-
 # Expose port
 EXPOSE 10003
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:10003/ || exit 1
+    CMD curl -f http://localhost:10003/api/customers || exit 1
 
 # Run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10003"]

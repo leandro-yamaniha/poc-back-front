@@ -1,0 +1,52 @@
+name: beauty-salon-python-backend-only
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-python-test
+    ports:
+      - "9045:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    volumes:
+      - cassandra_data_python_test:/var/lib/cassandra
+    networks:
+      - beauty-salon-python-test
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-python:
+    build:
+      context: .
+      dockerfile: Dockerfile.simple
+    container_name: beauty-salon-backend-python-test
+    ports:
+      - "10003:10003"
+    environment:
+      - CASSANDRA_HOSTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-python-test
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:10003/api/customers || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+volumes:
+  cassandra_data_python_test:
+
+networks:
+  beauty-salon-python-test:
+    driver: bridge

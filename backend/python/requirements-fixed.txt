@@ -1,0 +1,7 @@
+# Fixed requirements for compatibility (works with Python 3.11-3.13)
+fastapi==0.100.1
+uvicorn[standard]==0.23.2
+cassandra-driver==3.28.0
+python-dotenv==1.0.0
+# Using older pydantic that doesn't need Rust compilation
+pydantic[email]==1.10.12
