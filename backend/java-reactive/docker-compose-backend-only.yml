@@ -1,22 +1,22 @@
 version: '3.8'
 
-name: beauty-salon-reactive-react
+name: beauty-salon-reactive-backend-only
 
 services:
   cassandra:
     image: cassandra:4.1
-    container_name: beauty-salon-cassandra-reactive
+    container_name: beauty-salon-cassandra-reactive-test
     ports:
-      - "9048:9042"
+      - "9049:9042"
     environment:
       - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
       - CASSANDRA_DC=datacenter1
       - CASSANDRA_RACK=rack1
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
     volumes:
-      - cassandra_data_reactive:/var/lib/cassandra
+      - cassandra_data_reactive_test:/var/lib/cassandra
     networks:
-      - beauty-salon-reactive
+      - beauty-salon-reactive-test
     healthcheck:
       test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces' || exit 1"]
       interval: 30s
@@ -28,9 +28,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: beauty-salon-backend-reactive
+    container_name: beauty-salon-backend-reactive-test
     ports:
-      - "${BACKEND_HOST_PORT:-10006}:10006"
+      - "10006:10006"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SERVER_PORT=10006
@@ -42,7 +42,7 @@ services:
       cassandra:
         condition: service_healthy
     networks:
-      - beauty-salon-reactive
+      - beauty-salon-reactive-test
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:10006/actuator/health || exit 1"]
       interval: 30s
@@ -50,27 +50,9 @@ services:
       retries: 5
       start_period: 40s
 
-  frontend:
-    build:
-      context: ../../frontend
-      dockerfile: Dockerfile
-      args:
-        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10006}/api}
-    container_name: beauty-salon-frontend-reactive
-    ports:
-      - "${FRONTEND_HOST_PORT:-3006}:3000"
-    environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10006}/api}
-      - REACT_APP_BACKEND_TYPE=reactive
-    depends_on:
-      backend-java-reactive:
-        condition: service_healthy
-    networks:
-      - beauty-salon-reactive
-
 volumes:
-  cassandra_data_reactive:
+  cassandra_data_reactive_test:
 
 networks:
-  beauty-salon-reactive:
+  beauty-salon-reactive-test:
     driver: bridge

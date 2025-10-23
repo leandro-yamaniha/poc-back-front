@@ -56,13 +56,11 @@ public class CustomerController {
                 log.info("Customer found: id={}, name={}", customer.id(), customer.name());
                 return ResponseEntity.ok(customer);
             })
-            .doOnSuccess(response -> {
-                if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-                    log.warn("Customer not found with ID: {}", id);
-                }
-            })
             .doOnError(error -> log.error("Error retrieving customer by ID {}: {}", id, error.getMessage(), error))
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+            .switchIfEmpty(Mono.fromSupplier(() -> {
+                log.warn("Customer not found with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }));
     }
 
     @PostMapping

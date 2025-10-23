@@ -6,6 +6,8 @@ spring:
       - org.springframework.boot.autoconfigure.data.cassandra.CassandraReactiveDataAutoConfiguration
   main:
     allow-bean-definition-overriding: true
+  cassandra:
+    enabled: false
 
 logging:
   level:

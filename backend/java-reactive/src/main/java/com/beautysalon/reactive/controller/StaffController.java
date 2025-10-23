@@ -58,13 +58,11 @@ public class StaffController {
                 log.info("Staff found: id={}, name={}, role={}", staff.id(), staff.name(), staff.role());
                 return ResponseEntity.ok(staff);
             })
-            .doOnSuccess(response -> {
-                if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-                    log.warn("Staff not found with ID: {}", id);
-                }
-            })
             .doOnError(error -> log.error("Error retrieving staff by ID {}: {}", id, error.getMessage(), error))
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+            .switchIfEmpty(Mono.fromSupplier(() -> {
+                log.warn("Staff not found with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }));
     }
 
     @PostMapping

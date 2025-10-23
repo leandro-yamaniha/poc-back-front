@@ -52,13 +52,11 @@ public class AppointmentController {
                         appointment.id(), appointment.customerId(), appointment.staffId(), appointment.status());
                 return ResponseEntity.ok(appointment);
             })
-            .doOnSuccess(response -> {
-                if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-                    log.warn("Appointment not found with ID: {}", id);
-                }
-            })
             .doOnError(error -> log.error("Error retrieving appointment by ID {}: {}", id, error.getMessage(), error))
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+            .switchIfEmpty(Mono.fromSupplier(() -> {
+                log.warn("Appointment not found with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }));
     }
 
     @PostMapping
@@ -90,13 +88,11 @@ public class AppointmentController {
                         updatedAppointment.serviceId(), updatedAppointment.appointmentDate(), updatedAppointment.status());
                 return ResponseEntity.ok(updatedAppointment);
             })
-            .doOnSuccess(response -> {
-                if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-                    log.warn("Appointment not found for update with ID: {}", id);
-                }
-            })
             .doOnError(error -> log.error("Error updating appointment with ID {}: {}", id, error.getMessage(), error))
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+            .switchIfEmpty(Mono.fromSupplier(() -> {
+                log.warn("Appointment not found for update with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }));
     }
 
     @DeleteMapping("/{id}")
@@ -111,13 +107,11 @@ public class AppointmentController {
                     .doOnSuccess(unused -> log.info("Appointment deleted successfully: id={}", id))
                     .then(Mono.just(ResponseEntity.noContent().<Void>build()));
             })
-            .doOnSuccess(response -> {
-                if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-                    log.warn("Appointment not found for deletion with ID: {}", id);
-                }
-            })
             .doOnError(error -> log.error("Error deleting appointment with ID {}: {}", id, error.getMessage(), error))
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+            .switchIfEmpty(Mono.fromSupplier(() -> {
+                log.warn("Appointment not found for deletion with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }));
     }
 
     @GetMapping("/customer/{customerId}")

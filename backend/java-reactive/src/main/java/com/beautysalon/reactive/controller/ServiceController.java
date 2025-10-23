@@ -58,13 +58,11 @@ public class ServiceController {
                 log.info("Service found: id={}, name={}", service.id(), service.name());
                 return ResponseEntity.ok(service);
             })
-            .doOnSuccess(response -> {
-                if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-                    log.warn("Service not found with ID: {}", id);
-                }
-            })
             .doOnError(error -> log.error("Error retrieving service by ID {}: {}", id, error.getMessage(), error))
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+            .switchIfEmpty(Mono.fromSupplier(() -> {
+                log.warn("Service not found with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }));
     }
 
     @PostMapping

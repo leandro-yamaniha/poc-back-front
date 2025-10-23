@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 10006
   undertow:
     threads:
       io: 16
@@ -46,8 +46,6 @@ management:
   health:
     cassandra:
       enabled: true
-  server:
-    port: 9085
 
 logging:
   level:

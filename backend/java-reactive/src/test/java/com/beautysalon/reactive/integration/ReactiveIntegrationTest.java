@@ -178,6 +178,8 @@ class ReactiveIntegrationTest {
         // Mock repository calls
         when(appointmentRepository.findAll()).thenReturn(Flux.just(appointment));
         when(appointmentRepository.save(any(Appointment.class))).thenReturn(Mono.just(appointment));
+        when(appointmentRepository.findByAppointmentDateBetween(any(LocalDateTime.class), any(LocalDateTime.class)))
+            .thenReturn(Flux.just(appointment));
 
         // Test GET all appointments
         webTestClient.get()
