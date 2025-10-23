@@ -1,0 +1,55 @@
+name: beauty-salon-nodejs-backend-only
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-nodejs-test
+    ports:
+      - "9046:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    volumes:
+      - cassandra_data_nodejs_test:/var/lib/cassandra
+    networks:
+      - beauty-salon-nodejs-test
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend-nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile.simple
+    container_name: beauty-salon-backend-nodejs-test
+    ports:
+      - "10004:10004"
+    environment:
+      - NODE_ENV=production
+      - PORT=10004
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - CASSANDRA_LOCAL_DATACENTER=datacenter1
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-nodejs-test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+volumes:
+  cassandra_data_nodejs_test:
+
+networks:
+  beauty-salon-nodejs-test:
+    driver: bridge

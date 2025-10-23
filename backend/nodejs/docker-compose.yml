@@ -1,56 +1,75 @@
 version: '3.8'
 
-services:
-  backend/nodejs:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - PORT=3000
-      - CASSANDRA_CONTACT_POINTS=cassandra
-      - CASSANDRA_PORT=9042
-      - CASSANDRA_KEYSPACE=beauty_salon
-      - CASSANDRA_LOCAL_DATACENTER=datacenter1
-      - CACHE_TTL=600000
-      - CACHE_MAX_KEYS=1000
-      - RATE_LIMIT_WINDOW_MS=900000
-      - RATE_LIMIT_MAX_REQUESTS=100
-      - CORS_ORIGIN=*
-    depends_on:
-      cassandra:
-        condition: service_healthy
-    restart: unless-stopped
-    networks:
-      - beauty-salon-network
+name: beauty-salon-nodejs-react
 
+services:
   cassandra:
     image: cassandra:4.1
+    container_name: beauty-salon-cassandra-nodejs
     ports:
-      - "9042:9042"
+      - "9046:9042"
     environment:
-      - CASSANDRA_CLUSTER_NAME=beauty_salon_cluster
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
       - CASSANDRA_DC=datacenter1
       - CASSANDRA_RACK=rack1
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-      - CASSANDRA_NUM_TOKENS=256
     volumes:
-      - cassandra_data:/var/lib/cassandra
+      - cassandra_data_nodejs:/var/lib/cassandra
+    networks:
+      - beauty-salon-nodejs
     healthcheck:
       test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 60s
-    restart: unless-stopped
-    networks:
-      - beauty-salon-network
 
-    
+  backend-nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: beauty-salon-backend-nodejs
+    ports:
+      - "${BACKEND_HOST_PORT:-10004}:10004"
+    environment:
+      - NODE_ENV=production
+      - PORT=10004
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - CASSANDRA_LOCAL_DATACENTER=datacenter1
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-nodejs
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:10004/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10004}/api}
+    container_name: beauty-salon-frontend-nodejs
+    ports:
+      - "${FRONTEND_HOST_PORT:-3004}:3000"
+    environment:
+      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:${BACKEND_HOST_PORT:-10004}/api}
+      - REACT_APP_BACKEND_TYPE=nodejs
+    depends_on:
+      backend-nodejs:
+        condition: service_healthy
+    networks:
+      - beauty-salon-nodejs
+
 volumes:
-  cassandra_data:
-    driver: local
+  cassandra_data_nodejs:
 
 networks:
-  beauty-salon-network:
+  beauty-salon-nodejs:
     driver: bridge

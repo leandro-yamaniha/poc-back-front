@@ -19,7 +19,7 @@ const appointmentRoutes = require('./routes/appointmentRoutes');
 const monitoringRoutes = require('./routes/monitoringRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 10004;
 
 // Security middleware
 app.use(helmet());
