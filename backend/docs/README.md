@@ -544,3 +544,78 @@ class CustomerControllerTest {
 ---
 
 **🏆 O Backend Java Reactive representa o estado da arte em performance e qualidade, estabelecendo um novo padrão para aplicações de alta carga!**
+
+---
+
+**📚 Backend Documentation**
+
+Este diretório contém toda a documentação técnica dos backends do sistema de gerenciamento de salão de beleza.
+
+## 📋 **Índice de Documentação**
+
+### 🚀 **Guias Principais**
+- [📖 **README Principal**](../README.md) - Visão geral de todos os backends
+- [🔧 **Guia de Build**](guides/BUILD_GUIDE.md) - Como buildar todos os backends
+- [📜 **Guia de Scripts**](guides/BUILD_SCRIPTS_GUIDE.md) - Scripts automatizados disponíveis
+
+### ⚙️ **Configuração**
+- [🔌 **Configuração de Portas**](configuration/PORT_CONFIGURATION_SUMMARY.md) - Resumo das portas utilizadas
+- [📊 **Padronização de Portas**](configuration/PORT_STANDARDIZATION.md) - Padrões de porta por backend
+
+### 🐳 **Deploy e Infraestrutura**
+- [🐳 **Migração Dockerfile**](deployment/DOCKERFILE_MIGRATION.md) - Otimizações de Docker realizadas
+
+### 🔧 **Correções e Melhorias**
+- [✅ **Correções Aplicadas**](FIXES_APPLIED.md) - Histórico de correções realizadas
+
+## 🏗️ **Documentação por Backend**
+
+### **Java Tradicional** (`java/`)
+- [📖 **README**](../java/README.md) - Spring Boot 3.5.4 + Java 21
+- [🧪 **Estratégia de Testes**](../java/TESTING_STRATEGY.md) - Guia completo de testes
+- [📋 **Perfis de Teste**](../java/TEST_PROFILES_GUIDE.md) - Configuração de perfis
+- [🔬 **Testes de Mutação**](../java/MUTATION_TESTING_PLAN.md) - Plano de mutation testing
+- [⚡ **Análise de Performance**](../java/STANDARD_VS_VIRTUAL_THREADS_G1GC_ANALYSIS.md) - Threads virtuais vs padrão
+- [🚦 **Rate Limiting**](../java/RATE_LIMIT_FEATURE_TOGGLE.md) - Feature toggle de rate limit
+- [📈 **Stress Tests**](../java/STRESS_TEST_GUIDE.md) - Guia de testes de carga
+- [📊 **Resultados Stress**](../java/STRESS_TEST_RESULTS.md) - Resultados dos testes
+- [🎯 **Resultados Fase 2**](../java/PHASE_2_RESULTS.md) - Resultados da segunda fase
+
+### **Java Reactive** (`java-reactive/`)
+- [📖 **README**](../java-reactive/README.md) - Spring WebFlux + Reactive Streams
+
+### **.NET** (`dotnet/`)
+- [📖 **README**](../dotnet/README.md) - ASP.NET Core 8.0
+- [🔄 **Migração Cassandra**](../dotnet/CASSANDRA_MIGRATION_GUIDE.md) - Guia de migração
+
+### **Go** (`go/`)
+- [📖 **README**](../go/README.md) - Go nativo
+- [🚀 **Deploy**](../go/DEPLOYMENT.md) - Guia de deployment
+- [📝 **Resumo Implementação**](../go/IMPLEMENTATION_SUMMARY.md) - Resumo técnico
+
+### **Node.js** (`nodejs/`)
+- [📖 **README**](../nodejs/README.md) - Express.js
+- [🔄 **Guia de Migrações**](../nodejs/MIGRATIONS_GUIDE.md) - Sistema de migrações
+- [📋 **Resumo Migrações**](../nodejs/MIGRATION_SYSTEM_SUMMARY.md) - Resumo do sistema
+
+### **Python** (`python/`)
+- [📖 **README**](../python/README.md) - FastAPI + Uvicorn
+
+## 📊 **Benchmarks e Performance**
+- [📈 **Resumo Docker Compose**](../benchmarks/DOCKER_COMPOSE_SUMMARY.md) - Análise de performance
+
+## 🔍 **Como Navegar**
+
+1. **Iniciantes**: Comece pelo [README Principal](../README.md)
+2. **Desenvolvimento**: Consulte os [Guias](guides/)
+3. **Configuração**: Veja [Configuração](configuration/)
+4. **Deploy**: Consulte [Deployment](deployment/)
+5. **Backend Específico**: Acesse a documentação individual de cada backend
+
+## 📝 **Contribuindo**
+
+Para adicionar nova documentação:
+1. Coloque arquivos gerais em `docs/`
+2. Use subdiretórios por categoria: `guides/`, `configuration/`, `deployment/`
+3. Mantenha READMEs específicos nos diretórios dos backends
+4. Atualize este índice quando adicionar novos documentos

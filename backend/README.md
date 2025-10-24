@@ -16,137 +16,143 @@ backend/
 
 ## 🚀 Backends Disponíveis
 
-### 1. **Java Tradicional** (`java/`)
+### 1. **Java Tradicional** (`java/`) ✅
 - **Framework**: Spring Boot 3.5.4 + Java 21
-- **Arquitetura**: MVC tradicional
-- **Banco**: Cassandra
-- **Características**: Estabilidade, maturidade
-- **Porta**: 8081
+- **Arquitetura**: MVC tradicional com Spring Boot Actuator
+- **Banco**: Cassandra (porta 9043)
+- **Características**: Estabilidade, maturidade, dados de exemplo completos
+- **Porta**: 10001
+- **Health Check**: `/actuator/health`
+- **Status**: ✅ 100% Operacional
 - **Documentação**: [backend/java/README.md](java/README.md)
 
-### 2. **Java Reactive** (`java-reactive/`)
-- **Framework**: Spring Boot 3.5.4 + Java 21
-- **Arquitetura**: WebFlux (Reactive Streams)
-- **Banco**: Cassandra Reactive
-- **Características**: Não-bloqueante, alta concorrência
-- **Porta**: 8085
+### 2. **Java Reactive** (`java-reactive/`) ✅
+- **Framework**: Spring Boot 3.5.4 + Java 21 + WebFlux
+- **Arquitetura**: Reactive Streams (Mono/Flux)
+- **Banco**: Cassandra Reactive (porta 9048)
+- **Características**: Não-bloqueante, alta concorrência, Undertow
+- **Porta**: 10006
+- **Health Check**: `/actuator/health`
+- **Status**: ✅ 100% Operacional
 - **Documentação**: [backend/java-reactive/README.md](java-reactive/README.md)
 
-### 3. **.NET** (`dotnet/`)
+### 3. **.NET** (`dotnet/`) ✅
 - **Framework**: ASP.NET Core 8.0
 - **Linguagem**: C# 12 (.NET 8.0 LTS)
-- **ORM**: CassandraCSharpDriver
-- **Banco**: Cassandra
+- **Driver**: Cassandra C# Driver
+- **Banco**: Cassandra (porta 9044)
 - **Características**: 
   - Enterprise-grade architecture
-  - LINQ queries (type-safe) com Cassandra LINQ
   - Native async/await pattern
   - Built-in Dependency Injection
-  - Swagger/OpenAPI integration
+  - Health endpoint integration
   - Cassandra distributed database
-- **Performance**: 6,000-10,000 req/s
-- **Porta**: 8081
-- **Status**: ✅ Enterprise Ready
-- **Instalação**: `backend/dotnet/install-dotnet.sh`
+- **Porta**: 10002
+- **Health Check**: `/health`
+- **Status**: ✅ 100% Operacional
 - **Documentação**: [backend/dotnet/README.md](dotnet/README.md)
 
-### 4. **Python** (`python/`)
-- **Framework**: FastAPI
-- **ORM**: SQLAlchemy
-- **Banco**: PostgreSQL
-- **Características**: Desenvolvimento rápido, tipagem, async/await
-- **Performance**: 3,000-5,000 req/s
-- **Porta**: 8082
+### 4. **Python** (`python/`) ✅
+- **Framework**: FastAPI + Uvicorn
+- **Driver**: Cassandra Python Driver
+- **Banco**: Cassandra (porta 9045)
+- **Características**: Desenvolvimento rápido, tipagem, async/await, Swagger UI
+- **Porta**: 10003
+- **Health Check**: Simplificado (sem psutil)
+- **API Docs**: `/api/docs` (Swagger UI)
+- **Status**: ✅ 100% Operacional
 - **Documentação**: [backend/python/README.md](python/README.md)
 
-### 5. **Node.js** (`nodejs/`)
+### 5. **Node.js** (`nodejs/`) ✅
 - **Framework**: Express.js
-- **ORM**: Sequelize
-- **Banco**: PostgreSQL
-- **Características**: JavaScript, grande ecossistema
-- **Performance**: 5,000-8,000 req/s
-- **Porta**: 8083
+- **Driver**: Cassandra Node.js Driver
+- **Banco**: Cassandra (porta 9046)
+- **Características**: JavaScript, grande ecossistema, dados de exemplo
+- **Porta**: 10004
+- **Health Check**: `/health`
+- **Status**: ✅ 100% Operacional
 - **Documentação**: [backend/nodejs/README.md](nodejs/README.md)
 
-### 6. **Go** (`go/`)
-- **Framework**: Gin Web Framework
-- **ORM**: GORM
-- **Banco**: PostgreSQL
-- **Características**: Performance nativa, concorrência, compilado
-- **Performance**: 8,000-12,000 req/s
-- **Porta**: 8084
+### 6. **Go** (`go/`) ✅
+- **Framework**: Go nativo com HTTP server
+- **Driver**: Cassandra Go Driver
+- **Banco**: Cassandra (porta 9047)
+- **Características**: Performance nativa, concorrência, dados de exemplo
+- **Porta**: 10005
+- **Health Check**: `/health`
+- **Status**: ✅ 100% Operacional
 - **Documentação**: [backend/go/README.md](go/README.md)
 
 ## 🔧 Como Executar
 
-### Todos os Backends
-```bash
-# Usando Docker Compose (recomendado)
-docker-compose up -d
+### 🚀 Scripts Automatizados (Recomendado)
 
-# Todos os backends iniciam automaticamente
-# Cada um na sua porta específica
+```bash
+# Testar builds de todos os backends
+./test-backends-quick.sh
+
+# Buildar todos os backends
+./build-all.sh
+
+# Testar startup completo (sequencial)
+./test-backends-sequential.sh
 ```
 
-### Backend Específico
+### 🐳 Backend Específico (Docker Isolado)
 
-#### Java Tradicional
+#### Java Tradicional (Porta 10001)
 ```bash
 cd backend/java
-./mvnw spring-boot:run
-# ou
-docker-compose -f docker-compose-java.yml up
+./build.sh
+docker-compose -f docker-compose-backend-only.yml up -d
+# Health: http://localhost:10001/actuator/health
+# API: http://localhost:10001/api/customers
 ```
 
-#### Java Reactive
+#### Java Reactive (Porta 10006)
 ```bash
 cd backend/java-reactive
-./mvnw spring-boot:run
-# ou
-docker-compose -f docker-compose-reactive.yml up
+./build.sh
+docker-compose -f docker-compose-backend-only.yml up -d
+# Health: http://localhost:10006/actuator/health
+# API: http://localhost:10006/api/customers
 ```
 
-#### .NET Core
+#### .NET (Porta 10002)
 ```bash
 cd backend/dotnet
-# Instalar .NET (primeira vez)
-./install-dotnet.sh
-
-# Executar localmente
-export PATH="$HOME/.dotnet:$PATH"
-cd BeautySalonAPI
-dotnet run
-
-# ou via Docker
-docker-compose up -d
-# Acesso: http://localhost:8081
-# Swagger: http://localhost:8081/swagger
+./build.sh
+docker-compose -f docker-compose-backend-only.yml up -d
+# Health: http://localhost:10002/health
+# API: http://localhost:10002/api/customers
 ```
 
-#### Go
-```bash
-cd backend/go
-go run main.go
-# ou
-docker-compose -f docker-compose-go.yml up
-```
-
-#### Node.js
-```bash
-cd backend/nodejs
-npm install
-npm start
-# ou
-docker-compose -f docker-compose-nodejs.yml up
-```
-
-#### Python
+#### Python (Porta 10003)
 ```bash
 cd backend/python
-pip install -r requirements.txt
-python main.py
-# ou
-docker-compose -f docker-compose-python.yml up
+./build.sh
+docker-compose -f docker-compose-backend-only.yml up -d
+# Health: Simplificado
+# API: http://localhost:10003/api/customers/
+# Docs: http://localhost:10003/api/docs
+```
+
+#### Node.js (Porta 10004)
+```bash
+cd backend/nodejs
+./build.sh
+docker-compose -f docker-compose-backend-only.yml up -d
+# Health: http://localhost:10004/health
+# API: http://localhost:10004/api/customers
+```
+
+#### Go (Porta 10005)
+```bash
+cd backend/go
+./build.sh
+docker-compose -f docker-compose-backend-only.yml up -d
+# Health: http://localhost:10005/health
+# API: http://localhost:10005/api/customers
 ```
 
 ## 🔗 Endpoints Comuns
@@ -286,12 +292,21 @@ Para contribuir com qualquer backend:
 - **Recomendado**: Go ou .NET Core
 - **Motivo**: Baixo consumo de memória, startup rápido
 
-## 📚 Recursos Adicionais
+## 📚 **Documentação Completa**
 
-- **Documentação Geral**: [../README.md](../README.md)
-- **Guia de Deploy**: [../DEPLOYMENT_GUIDE.md](../DEPLOYMENT_GUIDE.md)
-- **Comparação de Backends**: [../BACKEND_COMPARISON.md](../BACKEND_COMPARISON.md)
-- **Testes de Performance**: [../PERFORMANCE_TEST_RESULTS.md](../PERFORMANCE_TEST_RESULTS.md)
+Para documentação detalhada, consulte o **[📖 Índice de Documentação](docs/README.md)** que contém:
+
+### 🚀 **Guias e Tutoriais**
+- [🔧 Guia de Build](docs/guides/BUILD_GUIDE.md) - Como buildar todos os backends
+- [📜 Guia de Scripts](docs/guides/BUILD_SCRIPTS_GUIDE.md) - Scripts automatizados
+
+### ⚙️ **Configuração e Deploy**
+- [🔌 Configuração de Portas](docs/configuration/PORT_CONFIGURATION_SUMMARY.md)
+- [🐳 Migração Dockerfile](docs/deployment/DOCKERFILE_MIGRATION.md)
+
+### 📋 **Documentação por Backend**
+- **Java**: [Tradicional](java/README.md) | [Reactive](java-reactive/README.md)
+- **Outros**: [.NET](dotnet/README.md) | [Go](go/README.md) | [Node.js](nodejs/README.md) | [Python](python/README.md)
 
 ---
 
