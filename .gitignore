@@ -409,6 +409,8 @@ backend/python/**/*.egg
 backend/python/**/*.egg-info/
 backend/python/dist/
 backend/python/build/
+backend/python/pip-log.txt
+backend/python/pip-delete-this-directory.txt
 
 # Build logs from parallel builds
 backend/build-logs-*/
