@@ -17,6 +17,11 @@ Este diretório contém toda a documentação detalhada do projeto Beauty Salon 
 - **[DEVELOPMENT_TOOLS_GUIDE.md](DEVELOPMENT_TOOLS_GUIDE.md)** - Ferramentas de desenvolvimento
 - **[copilot-instructions.md](copilot-instructions.md)** - Instruções para GitHub Copilot
 
+### 📋 **Documentação e Índices**
+- **[DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md)** - Índice central de documentação
+- **[DOCUMENTATION_REVIEW_CHECKLIST.md](DOCUMENTATION_REVIEW_CHECKLIST.md)** - Checklist de revisão
+- **[QUICK_START_ENTRYPOINT.md](QUICK_START_ENTRYPOINT.md)** - Guia de início rápido
+
 ### 📊 **Qualidade e Performance**
 - **[PERFORMANCE_TEST_RESULTS.md](PERFORMANCE_TEST_RESULTS.md)** - Resultados de testes de performance
 

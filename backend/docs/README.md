@@ -569,6 +569,10 @@ Este diretório contém toda a documentação técnica dos backends do sistema d
 ### 🔧 **Correções e Melhorias**
 - [✅ **Correções Aplicadas**](FIXES_APPLIED.md) - Histórico de correções realizadas
 
+### 📊 **Análises e Relatórios**
+- [📈 **Análise de Scripts**](SCRIPTS_ANALYSIS.md) - Análise completa dos scripts do backend
+- [🔍 **Análise SonarQube**](SONARQUBE_SCRIPTS_ANALYSIS.md) - Análise dos scripts SonarQube
+
 ## 🏗️ **Documentação por Backend**
 
 ### **Java Tradicional** (`java/`)
