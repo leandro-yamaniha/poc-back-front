@@ -20,6 +20,7 @@ Esta pasta contém todos os scripts automatizados para gerenciamento dos backend
 - [`test-all-sequential.sh`](#test-all-sequentialsh) - Teste completo sequencial
 - [`test-all-compose.sh`](#test-all-composesh) - Teste com Docker Compose
 - [`test-compose-with-build.sh`](#test-compose-with-buildsh) - Teste com build Docker
+- [`test-memory-limits.sh`](#test-memory-limitssh) - Teste de limites de memória
 
 ### 🚀 **Scripts de Deploy**
 - [`start-all-compose.sh`](#start-all-composesh) - Iniciar todos os backends
@@ -264,6 +265,36 @@ docker-compose --version
 # Limpar containers
 docker system prune -f
 ```
+
+### `test-memory-limits.sh`
+**Propósito**: Teste de limites mínimos de memória para todos os backends  
+**Tempo**: ~15-20 minutos (dependendo da máquina)  
+**Uso**: `./scripts/test-memory-limits.sh`
+
+#### Funcionalidades:
+- **Teste de 4 configurações**: minimal (256m), low (512m), medium (1g), high (2g)
+- **Todos os backends**: Java, Java Reactive, .NET, Node.js, Python, Go
+- **Verificações completas**: Build, startup, health check
+- **Limpeza automática**: Remove containers e imagens de teste
+- **Relatório detalhado**: Mostra quais configurações funcionam
+
+#### Exemplo de saída:
+```bash
+=== JAVA TRADITIONAL MEMORY TESTS ===
+▶ Testing java with minimal memory (256m max, 128m min)
+✅ Build successful for java with minimal memory
+❌ Java container crashed with minimal memory
+
+▶ Testing java with low memory (512m max, 256m min)  
+✅ Build successful for java with low memory
+✅ Java container running successfully with low memory
+✅ Java health check passed with low memory
+```
+
+#### Como interpretar os resultados:
+- **✅ Build + Container + Health**: Configuração recomendada
+- **✅ Build + Container, ⚠️ Health**: Configuração limítrofe
+- **❌ Container crash**: Memória insuficiente
 
 ## 📝 **Contribuindo**
 

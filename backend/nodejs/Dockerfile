@@ -12,6 +12,13 @@ COPY ./package*.json ./
 COPY ./src ./src
 COPY ./docker-entrypoint.sh ./
 
+# Memory configuration with build args
+ARG NODE_MAX_MEMORY=1024
+ARG NODE_MAX_OLD_SPACE_SIZE=1024
+
+# Set Node.js memory environment variables
+ENV NODE_OPTIONS="--max-old-space-size=${NODE_MAX_OLD_SPACE_SIZE}"
+
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001 && \

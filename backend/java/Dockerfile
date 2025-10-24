@@ -16,6 +16,11 @@ EXPOSE 10001
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:10001/actuator/health || exit 1
 
+# Memory configuration with build args
+ARG JAVA_MAX_MEMORY=1g
+ARG JAVA_MIN_MEMORY=512m
+ARG JAVA_OPTS=""
+
 # Run the application
 ENTRYPOINT ["java"]
-CMD ["-jar", "-Xmx1g", "-Xms512m", "app.jar"]
+CMD ["-jar", "-Xmx${JAVA_MAX_MEMORY}", "-Xms${JAVA_MIN_MEMORY}", "${JAVA_OPTS}", "app.jar"]

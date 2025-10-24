@@ -14,6 +14,10 @@ COPY ./requirements.txt ./
 COPY ./main.py ./
 COPY ./app ./app
 
+# Memory configuration with build args
+ARG PYTHON_MAX_MEMORY=1g
+ARG UVICORN_WORKERS=1
+
 # Create non-root user
 RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app
@@ -22,6 +26,7 @@ USER appuser
 
 # Use virtual environment
 ENV PATH="/app/venv/bin:$PATH"
+ENV UVICORN_WORKERS=${UVICORN_WORKERS}
 
 # Expose port
 EXPOSE 10003

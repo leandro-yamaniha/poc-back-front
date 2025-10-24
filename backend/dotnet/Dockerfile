@@ -9,6 +9,16 @@ WORKDIR /app
 # Copy pre-built artifacts
 COPY ./publish .
 
+# Memory configuration with build args
+ARG DOTNET_MAX_MEMORY=1g
+ARG DOTNET_GC_SERVER=1
+ARG DOTNET_GC_CONCURRENT=1
+
+# Set .NET runtime environment variables
+ENV DOTNET_GCHeapHardLimit=${DOTNET_MAX_MEMORY}
+ENV DOTNET_gcServer=${DOTNET_GC_SERVER}
+ENV DOTNET_gcConcurrent=${DOTNET_GC_CONCURRENT}
+
 # Expose port
 EXPOSE 10002
 

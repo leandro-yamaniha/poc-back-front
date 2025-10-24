@@ -565,6 +565,7 @@ Este diretório contém toda a documentação técnica dos backends do sistema d
 
 ### 🐳 **Deploy e Infraestrutura**
 - [🐳 **Migração Dockerfile**](deployment/DOCKERFILE_MIGRATION.md) - Otimizações de Docker realizadas
+- [🧠 **Otimização de Memória**](MEMORY_OPTIMIZATION_GUIDE.md) - Parametrização e testes de memória
 
 ### 🔧 **Correções e Melhorias**
 - [✅ **Correções Aplicadas**](FIXES_APPLIED.md) - Histórico de correções realizadas
