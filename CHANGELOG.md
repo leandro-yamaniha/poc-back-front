@@ -7,6 +7,74 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added - Project Organization & Documentation Restructure (2025-10-23)
+
+#### Project Structure Improvements
+- **Enhanced .gitignore Coverage**
+  - Added comprehensive IntelliJ IDEA file patterns (*.iml, *.ipr, *.iws, .idea/)
+  - Added JetBrains Rider and Fleet editor support
+  - Removed all tracked IntelliJ files from git index (16 files)
+  - Added missing Python pip patterns (pip-log.txt, pip-delete-this-directory.txt)
+  - Centralized all ignore patterns in root .gitignore
+
+- **Documentation Reorganization**
+  - Moved general documentation to `docs/`:
+    - DOCUMENTATION_INDEX.md - Central documentation index
+    - DOCUMENTATION_REVIEW_CHECKLIST.md - Documentation review checklist
+    - QUICK_START_ENTRYPOINT.md - Quick start guide
+    - copilot-instructions.md - GitHub Copilot instructions
+  - Moved backend-specific documentation to `backend/docs/`:
+    - SCRIPTS_ANALYSIS.md - Backend scripts analysis
+    - SONARQUBE_SCRIPTS_ANALYSIS.md - SonarQube scripts analysis
+  - Updated documentation indices with proper cross-references
+
+- **Backend Scripts Organization**
+  - Created `backend/scripts/` directory for all automation scripts (13 scripts)
+  - Moved all .sh files from backend root to `scripts/` subdirectory
+  - Created comprehensive `scripts/README.md` with detailed documentation:
+    - Usage examples for all 13 scripts
+    - Performance metrics and recommended use cases
+    - Workflow examples for different scenarios (development, testing, CI/CD)
+    - Troubleshooting guide and contribution guidelines
+
+#### Project Cleanup
+- **Removed Unnecessary Files**
+  - Removed empty `pom.xml` from backend root (0 bytes)
+  - Removed log files: `jmeter.log`, `full-test.log`, `test-after-fixes.log`, `test-run.log`
+  - Removed empty directories: `logs/`, `target/` (root and backend)
+  - Removed redundant .gitignore files (backend/.gitignore, backend/nodejs/.gitignore)
+
+#### Documentation Enhancements
+- **Updated README Files**
+  - Updated backend/README.md with new script paths and documentation links
+  - Enhanced docs/README.md with new documentation sections
+  - Updated backend/docs/README.md with analysis and reports section
+
+### Removed - Project Cleanup (2025-10-23)
+- **Redundant Configuration Files**
+  - backend/.gitignore (42 lines) - patterns moved to root .gitignore
+  - backend/nodejs/.gitignore (153 lines) - Node.js patterns already covered globally
+  - backend/pom.xml (empty file) - unnecessary in backend root
+- **Temporary and Log Files**
+  - jmeter.log (2.6KB) - old performance test log
+  - backend/full-test.log (13KB) - temporary test output
+  - backend/test-after-fixes.log (14KB) - temporary test output
+  - backend/test-run.log (3.7KB) - temporary test output
+- **Empty Directories**
+  - logs/ directory (empty)
+  - target/ directories (backend root and project root)
+- **IntelliJ IDEA Files**
+  - All .idea/ files and *.iml files from git tracking (16 files total)
+
+### Changed - Improved Organization (2025-10-23)
+- **Script Execution Paths**
+  - All backend scripts now use `./scripts/` prefix
+  - Updated documentation to reflect new script locations
+- **Documentation Structure**
+  - Centralized documentation in appropriate directories
+  - Improved navigation with updated indices
+  - Clear separation between general and backend-specific docs
+
 ### Added - Backend Stabilization (2025-10-19)
 
 #### Node.js Backend
