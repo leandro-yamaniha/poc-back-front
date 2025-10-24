@@ -555,6 +555,7 @@ Este diretório contém toda a documentação técnica dos backends do sistema d
 
 ### 🚀 **Guias Principais**
 - [📖 **README Principal**](../README.md) - Visão geral de todos os backends
+- [🔧 **Scripts Automatizados**](../scripts/README.md) - Todos os scripts organizados
 - [🔧 **Guia de Build**](guides/BUILD_GUIDE.md) - Como buildar todos os backends
 - [📜 **Guia de Scripts**](guides/BUILD_SCRIPTS_GUIDE.md) - Scripts automatizados disponíveis
 

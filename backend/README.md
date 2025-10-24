@@ -85,18 +85,20 @@ backend/
 
 ## 🔧 Como Executar
 
-### 🚀 Scripts Automatizados (Recomendado)
+### 🚀 **Scripts Automatizados (Recomendado)**
 
 ```bash
 # Testar builds de todos os backends
-./test-backends-quick.sh
+./scripts/test-backends-quick.sh
 
 # Buildar todos os backends
-./build-all.sh
+./scripts/build-all.sh
 
 # Testar startup completo (sequencial)
-./test-backends-sequential.sh
+./scripts/test-backends-sequential.sh
 ```
+
+**📜 Para todos os scripts disponíveis, consulte: [scripts/README.md](scripts/README.md)**
 
 ### 🐳 Backend Específico (Docker Isolado)
 
