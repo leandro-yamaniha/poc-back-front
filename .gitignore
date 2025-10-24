@@ -114,6 +114,49 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
+# Additional IntelliJ IDEA files
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+atlassian-ide-plugin.xml
+
+# IntelliJ IDEA workspace files (additional coverage)
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/dataSources.xml
+.idea/dataSources/
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/gradle.xml
+.idea/libraries/
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/encodings.xml
+.idea/scopes/
+.idea/inspectionProfiles/
+.idea/codeStyles/
+.idea/runConfigurations/
+.idea/artifacts/
+.idea/deploymentTargetDropDown.xml
+.idea/render.experimental.xml
+.idea/navEditor.xml
+
+# JetBrains Rider
+.idea/.idea.*/
+.idea/.idea.*/.idea/
+*.sln.iml
+
+# Fleet editor
+.fleet/
+
 ### Java ###
 # Compiled class file
 *.class
@@ -334,3 +377,41 @@ build/
 
 # Debug files
 debug-*.js
+
+### Backend Build Artifacts ###
+# .NET build artifacts
+backend/dotnet/publish/
+backend/dotnet/bin/
+backend/dotnet/obj/
+
+# Java build artifacts
+backend/java/target/
+backend/java-reactive/target/
+
+# Go build artifacts
+backend/go/bin/
+backend/go/*.exe
+
+# Node.js build artifacts
+backend/nodejs/node_modules/
+backend/nodejs/dist/
+
+# Python build artifacts
+backend/python/venv/
+backend/python/__pycache__/
+backend/python/**/__pycache__/
+backend/python/**/*.pyc
+backend/python/**/*.pyo
+backend/python/**/*.pyd
+backend/python/.Python
+backend/python/**/*.so
+backend/python/**/*.egg
+backend/python/**/*.egg-info/
+backend/python/dist/
+backend/python/build/
+
+# Build logs from parallel builds
+backend/build-logs-*/
+
+# Docker artifacts (optional)
+backend/**/Dockerfile.backup
