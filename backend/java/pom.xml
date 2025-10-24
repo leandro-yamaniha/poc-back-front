@@ -18,6 +18,9 @@
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <graalvm.version>23.1.1</graalvm.version>
+        <native-buildtools.version>0.10.3</native-buildtools.version>
+        <spring-native.version>0.12.2</spring-native.version>
     </properties>
     
     <dependencies>
@@ -157,6 +160,53 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>
+                        --enable-preview
+                    </jvmArguments>
+                </configuration>
+            </plugin>
+            
+            <!-- GraalVM Native Build Tools -->
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>${native-buildtools.version}</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>test-native</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-native</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>compile-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <fallback>false</fallback>
+                    <verbose>true</verbose>
+                    <buildArgs>
+                        <buildArg>--no-fallback</buildArg>
+                        <buildArg>--install-exit-handlers</buildArg>
+                        <buildArg>--enable-url-protocols=http,https</buildArg>
+                        <buildArg>--enable-all-security-services</buildArg>
+                        <buildArg>--allow-incomplete-classpath</buildArg>
+                        <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                        <buildArg>-H:+AddAllCharsets</buildArg>
+                        <buildArg>-H:IncludeResources=.*\.properties$</buildArg>
+                        <buildArg>-H:IncludeResources=.*\.yml$</buildArg>
+                        <buildArg>-H:IncludeResources=.*\.yaml$</buildArg>
+                        <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                        <buildArg>-H:+UseVirtualThread</buildArg>
+                    </buildArgs>
+                </configuration>
             </plugin>
             
             <!-- JaCoCo Plugin for Code Coverage -->

@@ -1,0 +1,65 @@
+# Multi-stage build for GraalVM Native Image - Reactive Backend
+# Stage 1: Build the native executable
+FROM ghcr.io/graalvm/graalvm-community:21 AS builder
+
+# Install native-image
+RUN gu install native-image
+
+# Set working directory
+WORKDIR /app
+
+# Copy Maven wrapper and pom.xml
+COPY .mvn/ .mvn/
+COPY mvnw pom.xml ./
+
+# Download dependencies (this layer will be cached)
+RUN ./mvnw dependency:go-offline -B
+
+# Copy source code
+COPY src/ src/
+
+# Build the native executable with reactive optimizations
+RUN ./mvnw clean native:compile -Pnative -DskipTests
+
+# Stage 2: Create the runtime image
+FROM ubuntu:22.04
+
+# Install required runtime libraries
+RUN apt-get update && \
+    apt-get install -y \
+        ca-certificates \
+        libstdc++6 \
+        tzdata \
+        zlib1g \
+    && rm -rf /var/lib/apt/lists/* && \
+    groupadd -r appuser && useradd -r -g appuser appuser
+
+# Set working directory
+WORKDIR /app
+
+# Copy the native executable from builder stage
+COPY --from=builder /app/target/beauty-salon-reactive ./beauty-salon-reactive
+
+# Change ownership to non-root user
+RUN chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8085
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8085/actuator/health || exit 1
+
+# Set JVM options for optimal performance with Virtual Threads and Reactive
+ENV JAVA_OPTS="-XX:+UseVirtualThreads \
+               -XX:+UnlockExperimentalVMOptions \
+               -XX:MaxRAMPercentage=75.0 \
+               -XX:+UseG1GC \
+               -XX:+UseStringDeduplication \
+               -Dreactor.schedulers.defaultBoundedElasticOnVirtualThreads=true"
+
+# Run the native executable
+ENTRYPOINT ["./beauty-salon-reactive"]

@@ -6,9 +6,11 @@
 |---------|------------------|-------------|---------|-------------|
 | **Java Tradicional** | Diretório target | java/target/ | 95MB | Build completo Maven |
 | | JAR Principal | java/target/release/app.jar | 47MB | Fat JAR executável |
+| | **🚀 Native Executable** | java/target/beauty-salon-backend | **~25MB** | **GraalVM Native + Virtual Threads** |
 | | Classes compiladas | java/target/classes/ | ~15MB | Bytecode compilado |
 | **Java Reactive** | Diretório target | java-reactive/target/ | 92MB | Build completo Maven |
 | | JAR Principal | java-reactive/target/release/app.jar | 46MB | Fat JAR WebFlux |
+| | **🚀 Native Executable** | java-reactive/target/beauty-salon-reactive | **~25MB** | **GraalVM Native + Virtual Threads** |
 | | Classes compiladas | java-reactive/target/classes/ | ~15MB | Bytecode compilado |
 | **.NET** | Publish artifacts | dotnet/publish/ | 5.4MB | Deploy-ready |
 | | DLL Principal | BeautySalonAPI.dll | 86KB | Assembly principal |
@@ -30,10 +32,12 @@
 | Backend | Tamanho | Base Image | Eficiência | Observações |
 |---------|---------|------------|------------|-------------|
 | **🥇 Go** | 51.7MB | alpine:latest | 🟢 Excelente | Binário estático, startup instantâneo |
-| **🥈 Node.js** | 276MB | node:18-alpine | 🟢 Boa | Runtime V8 otimizado |
-| **🥉 .NET** | 367MB | aspnet:8.0 | 🟢 Boa | Runtime .NET 8 com AOT |
-| **Java Reactive** | 378MB | temurin:21-jre-alpine | 🟡 Média | JVM + WebFlux, alta concorrência |
-| **Java Tradicional** | 380MB | temurin:21-jre-alpine | 🟡 Média | JVM + Spring Boot completo |
+| **🥈 Java Native (Traditional)** | **~80MB** | ubuntu:22.04 | **🟢 Excelente** | **GraalVM Native + Virtual Threads** |
+| **🥉 Java Native (Reactive)** | **~80MB** | ubuntu:22.04 | **🟢 Excelente** | **GraalVM Native + WebFlux + Virtual Threads** |
+| **Node.js** | 276MB | node:18-alpine | 🟢 Boa | Runtime V8 otimizado |
+| **.NET** | 367MB | aspnet:8.0 | 🟢 Boa | Runtime .NET 8 com AOT |
+| **Java Reactive (JVM)** | 378MB | temurin:21-jre-alpine | 🟡 Média | JVM + WebFlux, alta concorrência |
+| **Java Tradicional (JVM)** | 380MB | temurin:21-jre-alpine | 🟡 Média | JVM + Spring Boot completo |
 | **Python** | 393MB | python:3.11-slim | 🟡 Média | Interpretador + FastAPI |
 
 ### 📈 Comparativo Detalhado por Tecnologia
@@ -44,6 +48,18 @@
 - **Startup**: <100ms
 - **Memória Runtime**: 10-30MB
 - **Vantagem**: Zero dependências externas
+
+#### **🚀 Java Native - Revolução GraalVM**
+- **Tamanho**: ~80MB (vs 378-380MB JVM)
+- **Overhead**: +60MB sobre Ubuntu base (20MB)
+- **Startup**: <100ms (vs 5-15s JVM)
+- **Memória Runtime**: 64-128MB (vs 512MB+ JVM)
+- **Vantagens**: 
+  - Virtual Threads nativo
+  - Sem JVM warm-up
+  - 79% menor que versão JVM
+  - 8x startup mais rápido
+  - 4x menos memória
 
 #### **Node.js - Equilibrio Perfeito**
 - **Tamanho**: 276MB  

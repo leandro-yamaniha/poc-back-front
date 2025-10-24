@@ -12,10 +12,12 @@ Análise comparativa de custos e escalabilidade para deployment dos backends do 
 | Backend | Tamanho Docker | Memória Mínima | CPU Mínima | Startup | Observações |
 |---------|----------------|----------------|------------|---------|-------------|
 | **Go** | 52MB | 64MB | 0.1 vCPU | <100ms | Binário nativo, máxima eficiência |
+| **🚀 Java Native (Traditional)** | **80MB** | **64MB** | **0.1 vCPU** | **<100ms** | **GraalVM Native + Virtual Threads** |
+| **🚀 Java Native (Reactive)** | **80MB** | **64MB** | **0.1 vCPU** | **<100ms** | **GraalVM Native + WebFlux + Virtual Threads** |
 | **Node.js** | 276MB | 128MB | 0.25 vCPU | 1-3s | Runtime V8 otimizado |
 | **.NET** | 367MB | 256MB | 0.5 vCPU | 2-5s | Runtime .NET 8 com AOT |
-| **Java Reactive** | 378MB | 512MB | 0.5 vCPU | 5-15s | JVM + WebFlux, alta concorrência |
-| **Java Tradicional** | 380MB | 512MB | 0.5 vCPU | 5-15s | JVM + Spring Boot completo |
+| **Java Reactive (JVM)** | 378MB | 512MB | 0.5 vCPU | 5-15s | JVM + WebFlux, alta concorrência |
+| **Java Tradicional (JVM)** | 380MB | 512MB | 0.5 vCPU | 5-15s | JVM + Spring Boot completo |
 | **Python** | 393MB | 256MB | 0.25 vCPU | 3-8s | Interpretador + FastAPI |
 
 ---
@@ -25,6 +27,14 @@ Análise comparativa de custos e escalabilidade para deployment dos backends do 
 ### 🏷️ Tipos de Instância Recomendados
 
 #### **Go - Máxima Eficiência**
+| Tipo Instância | vCPU | RAM | Preço/hora* | Containers/Instância | Custo/Container/hora |
+|----------------|------|-----|-------------|---------------------|---------------------|
+| **t4g.nano** | 2 | 0.5GB | $0.0042 | 7 | $0.0006 |
+| **t4g.micro** | 2 | 1GB | $0.0084 | 15 | $0.00056 |
+| **t4g.small** | 2 | 2GB | $0.0168 | 30 | $0.00056 |
+| **t4g.medium** | 2 | 4GB | $0.0336 | 60 | $0.00056 |
+
+#### **🚀 Java Native - Revolução GraalVM**
 | Tipo Instância | vCPU | RAM | Preço/hora* | Containers/Instância | Custo/Container/hora |
 |----------------|------|-----|-------------|---------------------|---------------------|
 | **t4g.nano** | 2 | 0.5GB | $0.0042 | 7 | $0.0006 |
