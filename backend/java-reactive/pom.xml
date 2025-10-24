@@ -173,47 +173,6 @@
                 </executions>
             </plugin>
             
-            <!-- GraalVM Native Build Tools -->
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-                <version>${native-buildtools.version}</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>test-native</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>build-native</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>compile-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <fallback>false</fallback>
-                    <verbose>true</verbose>
-                    <buildArgs>
-                        <buildArg>--no-fallback</buildArg>
-                        <buildArg>--install-exit-handlers</buildArg>
-                        <buildArg>--enable-url-protocols=http,https</buildArg>
-                        <buildArg>--enable-all-security-services</buildArg>
-                        <buildArg>--allow-incomplete-classpath</buildArg>
-                        <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-                        <buildArg>-H:+AddAllCharsets</buildArg>
-                        <buildArg>-H:IncludeResources=.*\.properties$</buildArg>
-                        <buildArg>-H:IncludeResources=.*\.yml$</buildArg>
-                        <buildArg>-H:IncludeResources=.*\.yaml$</buildArg>
-                        <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
-                        <buildArg>-H:+UseVirtualThread</buildArg>
-                    </buildArgs>
-                </configuration>
-            </plugin>
             
             <!-- SonarQube Maven Plugin -->
             <plugin>

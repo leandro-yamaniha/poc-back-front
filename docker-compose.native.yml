@@ -1,0 +1,154 @@
+version: '3.8'
+
+services:
+  # Cassandra Database
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-native
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_NUM_TOKENS=128
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    ports:
+      - "9042:9042"
+      - "7000:7000"
+      - "7001:7001"
+      - "7199:7199"
+      - "9160:9160"
+    volumes:
+      - cassandra_data_native:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-native
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Java Traditional with Virtual Threads Backend
+  java-traditional-vthreads:
+    build:
+      context: ./backend/java
+      dockerfile: Dockerfile.vthreads
+    image: beauty-salon-java-vthreads:latest
+    container_name: beauty-salon-java-traditional-native
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_CASSANDRA_CONTACT_POINTS=cassandra
+      - SPRING_CASSANDRA_PORT=9042
+      - SPRING_CASSANDRA_KEYSPACE_NAME=beauty_salon
+      - SPRING_CASSANDRA_LOCAL_DATACENTER=datacenter1
+      - JAVA_OPTS=-XX:+UseVirtualThreads -XX:MaxRAMPercentage=75.0
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-native
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.5'
+        reservations:
+          memory: 64M
+          cpus: '0.1'
+
+  # Java Reactive with Virtual Threads Backend
+  java-reactive-vthreads:
+    build:
+      context: ./backend/java-reactive
+      dockerfile: Dockerfile.vthreads
+    image: beauty-salon-java-reactive-vthreads:latest
+    container_name: beauty-salon-java-reactive-native
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_CASSANDRA_CONTACT_POINTS=cassandra
+      - SPRING_DATA_CASSANDRA_PORT=9042
+      - SPRING_DATA_CASSANDRA_KEYSPACE_NAME=beauty_salon
+      - SPRING_DATA_CASSANDRA_LOCAL_DATACENTER=datacenter1
+      - JAVA_OPTS=-XX:+UseVirtualThreads -XX:MaxRAMPercentage=75.0 -Dreactor.schedulers.defaultBoundedElasticOnVirtualThreads=true
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-native
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.5'
+        reservations:
+          memory: 64M
+          cpus: '0.1'
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: beauty-salon-frontend:latest
+    container_name: beauty-salon-frontend-native
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+      - REACT_APP_REACTIVE_API_URL=http://localhost:8085
+    depends_on:
+      - java-traditional-vthreads
+      - java-reactive-vthreads
+    networks:
+      - beauty-salon-native
+    restart: unless-stopped
+
+  # Nginx Load Balancer (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: beauty-salon-nginx-native
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - java-traditional-vthreads
+      - java-reactive-vthreads
+      - frontend
+    networks:
+      - beauty-salon-native
+    restart: unless-stopped
+
+volumes:
+  cassandra_data_native:
+    driver: local
+
+networks:
+  beauty-salon-native:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

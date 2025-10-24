@@ -1,9 +1,6 @@
 # Multi-stage build for GraalVM Native Image
 # Stage 1: Build the native executable
-FROM ghcr.io/graalvm/graalvm-community:21 AS builder
-
-# Install native-image
-RUN gu install native-image
+FROM ghcr.io/graalvm/native-image-community:21 AS builder
 
 # Set working directory
 WORKDIR /app

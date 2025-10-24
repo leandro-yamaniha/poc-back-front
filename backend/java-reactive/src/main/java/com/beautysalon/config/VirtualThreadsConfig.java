@@ -29,8 +29,8 @@ public class VirtualThreadsConfig {
     public ReactiveWebServerFactory reactiveWebServerFactory() {
         UndertowReactiveWebServerFactory factory = new UndertowReactiveWebServerFactory();
         
-        // Configure Undertow to use Virtual Threads for worker threads
-        factory.addServerCustomizers(builder -> {
+        // Configure Undertow worker options for better performance
+        factory.addBuilderCustomizers(builder -> {
             builder.setWorkerOption(org.xnio.Options.WORKER_TASK_CORE_THREADS, 1);
             builder.setWorkerOption(org.xnio.Options.WORKER_TASK_MAX_THREADS, 1000);
             builder.setWorkerOption(org.xnio.Options.WORKER_TASK_KEEPALIVE, 60000);
