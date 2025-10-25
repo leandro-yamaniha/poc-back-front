@@ -53,16 +53,74 @@ fi
 print_success "Docker está rodando"
 
 # Check if Cassandra is running
-if ! docker ps | grep -q "beauty-salon-cassandra-aot"; then
-    print_step "Iniciando Cassandra..."
+CASSANDRA_CONTAINER="beauty-salon-cassandra-aot"
+if ! docker ps | grep -q "$CASSANDRA_CONTAINER"; then
+    print_step "Iniciando Cassandra com health check..."
     cd "$BASE_DIR"
     docker-compose -f docker-compose.aot-native.yml up -d cassandra
     
-    print_step "Aguardando Cassandra inicializar (30 segundos)..."
-    sleep 30
+    print_step "Aguardando Cassandra ficar saudável (usando Docker health check)..."
+    COUNTER=0
+    MAX_WAIT=120
+    
+    while [ $COUNTER -lt $MAX_WAIT ]; do
+        HEALTH_STATUS=$(docker inspect --format='{{.State.Health.Status}}' $CASSANDRA_CONTAINER 2>/dev/null || echo "starting")
+        
+        if [ "$HEALTH_STATUS" = "healthy" ]; then
+            print_success "Cassandra está saudável!"
+            break
+        fi
+        
+        echo -n "."
+        sleep 2
+        COUNTER=$((COUNTER + 2))
+    done
+    
+    echo ""
+    
+    if [ $COUNTER -ge $MAX_WAIT ]; then
+        print_error "Cassandra não ficou saudável no tempo esperado"
+        docker logs --tail 50 $CASSANDRA_CONTAINER
+        exit 1
+    fi
+    
+    # Aguardar schema ser criado
+    print_step "Aguardando criação do schema..."
+    sleep 5
+else
+    print_step "Cassandra já está rodando, verificando health check..."
+    HEALTH_STATUS=$(docker inspect --format='{{.State.Health.Status}}' $CASSANDRA_CONTAINER 2>/dev/null || echo "unknown")
+    
+    if [ "$HEALTH_STATUS" = "healthy" ]; then
+        print_success "Cassandra está saudável"
+    else
+        print_warning "Cassandra não está saudável (status: $HEALTH_STATUS), aguardando..."
+        COUNTER=0
+        MAX_WAIT=60
+        
+        while [ $COUNTER -lt $MAX_WAIT ]; do
+            HEALTH_STATUS=$(docker inspect --format='{{.State.Health.Status}}' $CASSANDRA_CONTAINER 2>/dev/null || echo "unknown")
+            
+            if [ "$HEALTH_STATUS" = "healthy" ]; then
+                print_success "Cassandra ficou saudável!"
+                break
+            fi
+            
+            echo -n "."
+            sleep 2
+            COUNTER=$((COUNTER + 2))
+        done
+        
+        echo ""
+        
+        if [ $COUNTER -ge $MAX_WAIT ]; then
+            print_error "Cassandra não ficou saudável"
+            exit 1
+        fi
+    fi
 fi
 
-print_success "Cassandra está rodando"
+print_success "Cassandra está pronto para uso"
 
 # Start native application in background
 print_step "Iniciando aplicação nativa em background..."
