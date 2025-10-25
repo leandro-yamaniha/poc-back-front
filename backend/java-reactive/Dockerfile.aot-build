@@ -1,0 +1,61 @@
+# Dockerfile for AOT Build in Linux Container
+# Ensures native executable is built for Linux target
+
+FROM ghcr.io/graalvm/native-image-community:21 AS builder
+
+# Install Maven
+RUN microdnf install -y maven
+
+# Set working directory
+WORKDIR /app
+
+# Copy Maven wrapper and pom.xml
+COPY .mvn/ .mvn/
+COPY mvnw pom.xml ./
+
+# Download dependencies (this layer will be cached)
+RUN ./mvnw dependency:go-offline -B
+
+# Copy source code
+COPY src/ src/
+
+# Build the native executable with AOT processing
+RUN ./mvnw clean compile spring-boot:process-aot -Pnative -DskipTests
+
+# Build native image
+RUN ./mvnw native:compile -Pnative -DskipTests
+
+# Runtime image with Alpine Linux
+FROM alpine:3.19
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    libstdc++ \
+    zlib \
+    ca-certificates \
+    tzdata \
+    && addgroup -g 1001 -S appuser \
+    && adduser -u 1001 -S appuser -G appuser
+
+# Set working directory
+WORKDIR /app
+
+# Copy the native executable from builder stage
+COPY --from=builder /app/target/beauty-salon-reactive ./beauty-salon-reactive
+
+# Make executable and set ownership
+RUN chmod +x ./beauty-salon-reactive && \
+    chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8085
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:8085/actuator/health || exit 1
+
+# Default command (can be overridden)
+CMD ["--server.port=8085", "--spring.profiles.active=docker"]

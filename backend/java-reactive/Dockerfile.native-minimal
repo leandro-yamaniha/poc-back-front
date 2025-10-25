@@ -1,0 +1,39 @@
+# Dockerfile for GraalVM Native Image - Minimal Size
+# Uses pre-built native executable with minimal base image
+# Similar to Go's scratch/alpine approach
+
+# Option 1: Alpine Linux (smallest with shell access)
+FROM alpine:3.19
+
+# Install only essential runtime libraries
+RUN apk add --no-cache \
+    libstdc++ \
+    zlib \
+    ca-certificates \
+    tzdata \
+    && addgroup -g 1001 -S appuser \
+    && adduser -u 1001 -S appuser -G appuser
+
+# Set working directory
+WORKDIR /app
+
+# Copy the pre-built native executable
+COPY target/beauty-salon-reactive ./beauty-salon-reactive
+
+# Make executable
+RUN chmod +x ./beauty-salon-reactive && \
+    chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8085
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:8085/actuator/health || exit 1
+
+# Run the native executable
+ENTRYPOINT ["./beauty-salon-reactive"]
+CMD ["--server.port=8085", "--spring.profiles.active=docker"]

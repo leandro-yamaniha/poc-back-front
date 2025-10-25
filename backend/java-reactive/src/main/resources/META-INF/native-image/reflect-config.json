@@ -1,0 +1,155 @@
+[
+  {
+    "name": "org.reactivestreams.Publisher",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "com.fasterxml.jackson.core.JsonParser",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "com.fasterxml.jackson.databind.ObjectMapper",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "com.beautysalon.reactive.model.Customer",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allPublicFields": true
+  },
+  {
+    "name": "com.beautysalon.reactive.model.Service",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allPublicFields": true
+  },
+  {
+    "name": "com.beautysalon.reactive.model.Staff",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allPublicFields": true
+  },
+  {
+    "name": "com.beautysalon.reactive.model.Appointment",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true,
+    "allPublicFields": true
+  },
+  {
+    "name": "org.springframework.data.cassandra.core.mapping.CassandraType",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "com.datastax.oss.driver.api.core.cql.Row",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "reactor.core.publisher.Mono",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "reactor.core.publisher.Flux",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  }
+,
+  {
+    "name": "io.netty.util.internal.shaded.org.jctools.queues.unpadded.MpscUnpaddedArrayQueueProducerIndexField",
+    "fields": [
+      { "name": "producerIndex" }
+    ],
+    "allPublicFields": true,
+    "allDeclaredFields": true,
+    "allPublicMethods": true,
+    "allDeclaredMethods": true,
+    "allPublicConstructors": true
+  },
+  {
+    "name": "io.netty.util.internal.shaded.org.jctools.queues.unpadded.MpscUnpaddedArrayQueue",
+    "allPublicFields": true,
+    "allDeclaredFields": true,
+    "allPublicMethods": true,
+    "allDeclaredMethods": true,
+    "allPublicConstructors": true
+  },
+  {
+    "name": "io.netty.util.internal.shaded.org.jctools.util.UnsafeAccess",
+    "fields": [
+      { "name": "UNSAFE" }
+    ],
+    "methods": [
+      { "name": "fieldOffset", "parameterTypes": ["java.lang.Class", "java.lang.String"] },
+      { "name": "<clinit>", "parameterTypes": [] }
+    ],
+    "allPublicFields": true,
+    "allDeclaredFields": true,
+    "allPublicMethods": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "io.netty.util.internal.PlatformDependent",
+    "methods": [
+      { "name": "newFixedMpscUnpaddedQueue", "parameterTypes": ["int"] }
+    ],
+    "allPublicFields": true,
+    "allDeclaredFields": true,
+    "allPublicMethods": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "io.netty.buffer.PoolThreadCache$MemoryRegionCache",
+    "allPublicFields": true,
+    "allDeclaredFields": true,
+    "allPublicMethods": true,
+    "allDeclaredMethods": true,
+    "allPublicConstructors": true
+  },
+  {
+    "name": "io.netty.buffer.PoolThreadCache$SubPageMemoryRegionCache",
+    "allPublicFields": true,
+    "allDeclaredFields": true,
+    "allPublicMethods": true,
+    "allDeclaredMethods": true,
+    "allPublicConstructors": true
+  },
+  {
+    "name": "io.netty.buffer.PoolThreadCache",
+    "allPublicFields": true,
+    "allDeclaredFields": true,
+    "allPublicMethods": true,
+    "allDeclaredMethods": true,
+    "allPublicConstructors": true
+  }
+]

@@ -1,0 +1,105 @@
+version: '3.8'
+
+# Docker Compose for GraalVM Native AOT Image
+# Optimized for production deployment with minimal resources
+
+services:
+  # Cassandra Database
+  cassandra:
+    image: cassandra:5.0
+    container_name: beauty-salon-cassandra-aot
+    hostname: cassandra
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_NUM_TOKENS=128
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra_data_aot:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - beauty-salon-aot
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+  # Java Reactive Native AOT (Production - Ubuntu)
+  api-native-production:
+    image: beauty-salon-reactive:native-final
+    container_name: beauty-salon-api-native-production
+    hostname: api-native
+    ports:
+      - "8085:8085"
+    environment:
+      # Spring Boot Configuration
+      - SPRING_PROFILES_ACTIVE=docker
+      
+      # Cassandra Configuration
+      - SPRING_DATA_CASSANDRA_CONTACT_POINTS=cassandra
+      - SPRING_DATA_CASSANDRA_PORT=9042
+      - SPRING_DATA_CASSANDRA_KEYSPACE_NAME=beauty_salon
+      - SPRING_DATA_CASSANDRA_LOCAL_DATACENTER=datacenter1
+      - SPRING_DATA_CASSANDRA_SCHEMA_ACTION=CREATE_IF_NOT_EXISTS
+      
+      # Server Configuration
+      - SERVER_PORT=8085
+      - SERVER_COMPRESSION_ENABLED=true
+      
+      # Logging
+      - LOGGING_LEVEL_ROOT=INFO
+      - LOGGING_LEVEL_COM_BEAUTYSALON=DEBUG
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-aot
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8085/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+    profiles:
+      - debug
+
+volumes:
+  cassandra_data_aot:
+    driver: local
+    name: beauty_salon_cassandra_aot
+
+networks:
+  beauty-salon-aot:
+    driver: bridge
+    name: beauty_salon_aot_network
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/16
+          gateway: 172.25.0.1

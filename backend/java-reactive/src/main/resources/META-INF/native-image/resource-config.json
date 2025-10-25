@@ -1,0 +1,62 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": "\\Qapplication.yml\\E"
+      },
+      {
+        "pattern": "\\Qapplication-docker.yml\\E"
+      },
+      {
+        "pattern": "\\Qapplication-test.yml\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/spring.factories\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/spring/org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration.imports\\E"
+      },
+      {
+        "pattern": "\\Qorg/springframework/boot/logging/.*\\E"
+      },
+      {
+        "pattern": "\\Qorg/springframework/boot/actuator/.*\\E"
+      },
+      {
+        "pattern": "\\Qreactor/.*\\E"
+      },
+      {
+        "pattern": "\\Qcom/datastax/.*\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/native/.*\\E"
+      },
+      {
+        "pattern": "\\Qio/netty/internal/tcnative/.*\\E"
+      },
+      {
+        "pattern": "\\Qio/netty/internal/native/.*\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/io.netty.versions.properties\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/io.grpc.*\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/reactor.*\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/java.*\\E"
+      }
+    ]
+  },
+  "bundles": [
+    {
+      "name": "messages"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.beautysalon.reactive.model;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Table("staff")
+@RegisterReflectionForBinding
 public record Staff(
     @PrimaryKey @Id UUID id,
     @NotBlank(message = "Name is required") String name,
