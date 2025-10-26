@@ -1,0 +1,280 @@
+version: '3.8'
+
+services:
+  # Cassandra Database (shared by all backends)
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra-loadtest
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - loadtest-network
+
+  # Java Traditional JVM
+  java-jvm:
+    build:
+      context: ./backend/java
+      dockerfile: Dockerfile.jvm
+    container_name: java-jvm-loadtest
+    ports:
+      - "10001:10001"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_CASSANDRA_CONTACT_POINTS=cassandra
+      - SERVER_PORT=10001
+      - JAVA_OPTS=-Xmx384m -Xms256m
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10001/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    networks:
+      - loadtest-network
+
+  # Java Traditional Native
+  java-native:
+    build:
+      context: ./backend/java
+      dockerfile: Dockerfile.native-prebuilt
+    container_name: java-native-loadtest
+    ports:
+      - "10002:10001"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_CASSANDRA_CONTACT_POINTS=cassandra
+      - SERVER_PORT=10001
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10001/actuator/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - loadtest-network
+
+  # Java Reactive JVM
+  java-reactive-jvm:
+    build:
+      context: ./backend/java-reactive
+      dockerfile: Dockerfile.jvm
+    container_name: java-reactive-jvm-loadtest
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_CASSANDRA_CONTACT_POINTS=cassandra
+      - SERVER_PORT=8085
+      - JAVA_OPTS=-Xmx384m -Xms256m
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8085/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    networks:
+      - loadtest-network
+
+  # Java Reactive Native
+  java-reactive-native:
+    build:
+      context: ./backend/java-reactive
+      dockerfile: Dockerfile.native-prebuilt
+    container_name: java-reactive-native-loadtest
+    ports:
+      - "8086:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_CASSANDRA_CONTACT_POINTS=cassandra
+      - SERVER_PORT=8085
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/actuator/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - loadtest-network
+
+  # Go Backend
+  go-backend:
+    build:
+      context: ./backend/go
+      dockerfile: Dockerfile
+    container_name: go-loadtest
+    ports:
+      - "8080:8080"
+    environment:
+      - CASSANDRA_HOSTS=cassandra
+      - PORT=8080
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - loadtest-network
+
+  # Node.js Backend
+  nodejs-backend:
+    build:
+      context: ./backend/nodejs
+      dockerfile: Dockerfile
+    container_name: nodejs-loadtest
+    ports:
+      - "3000:3000"
+    environment:
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - PORT=3000
+      - NODE_ENV=production
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - loadtest-network
+
+  # Python Backend
+  python-backend:
+    build:
+      context: ./backend/python
+      dockerfile: Dockerfile
+    container_name: python-loadtest
+    ports:
+      - "8000:8000"
+    environment:
+      - CASSANDRA_HOSTS=cassandra
+      - PORT=8000
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - loadtest-network
+
+  # .NET Core Backend
+  dotnet-backend:
+    build:
+      context: ./backend/dotnet
+      dockerfile: Dockerfile
+    container_name: dotnet-loadtest
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - ASPNETCORE_URLS=http://+:5000
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - loadtest-network
+
+networks:
+  loadtest-network:
+    driver: bridge
