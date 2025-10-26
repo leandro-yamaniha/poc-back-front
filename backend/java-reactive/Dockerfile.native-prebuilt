@@ -1,0 +1,40 @@
+# Dockerfile for Pre-built Native Executable
+# Uses already compiled native binary - fastest deployment option
+# Build native executable first with: ./mvnw package -Pnative -DskipTests
+
+FROM ubuntu:22.04
+
+# Install minimal runtime dependencies
+RUN apt-get update && \
+    apt-get install -y \
+        ca-certificates \
+        libstdc++6 \
+        zlib1g \
+        curl \
+        && rm -rf /var/lib/apt/lists/* && \
+        groupadd -r appuser && useradd -r -g appuser appuser
+
+# Set working directory
+WORKDIR /app
+
+# Copy pre-built native executable from local target directory
+# Make sure to build it first: ./mvnw package -Pnative -DskipTests
+COPY target/beauty-salon-reactive ./beauty-salon-reactive
+
+# Set permissions
+RUN chmod +x ./beauty-salon-reactive && \
+    chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8085
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8085/actuator/health || exit 1
+
+# Run the application
+ENTRYPOINT ["./beauty-salon-reactive"]
+CMD ["--server.port=8085", "--spring.profiles.active=docker"]

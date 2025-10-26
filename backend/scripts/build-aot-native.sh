@@ -56,22 +56,14 @@ check_prerequisites() {
 
 # Step 1: Compile and Process AOT
 process_aot() {
-    print_step "Step 1: Compiling and Processing Spring Boot AOT..."
+    print_step "Step 1: Compiling and Processing Spring Boot AOT with Native Profile..."
     cd "$REACTIVE_DIR"
     
-    # First compile the application
-    ./mvnw clean compile -DskipTests
-    
-    if [ $? -ne 0 ]; then
-        print_error "Compilation failed"
-        exit 1
-    fi
-    
-    # Then process AOT
-    ./mvnw spring-boot:process-aot -DskipTests
+    # Build with Native profile (includes AOT processing)
+    ./mvnw clean compile spring-boot:process-aot -Pnative -DskipTests
     
     if [ $? -eq 0 ]; then
-        print_success "AOT processing completed"
+        print_success "AOT processing completed with Native profile"
     else
         print_error "AOT processing failed"
         exit 1
@@ -80,16 +72,17 @@ process_aot() {
 
 # Step 2: Build Native Image
 build_native() {
-    print_step "Step 2: Building Native Image with AOT..."
+    print_step "Step 2: Building Native Image with Native Profile..."
     cd "$REACTIVE_DIR"
     
     # Set memory for native-image build
     export NATIVE_IMAGE_OPTS="-J-Xmx8g -J-Xms4g"
     
-    ./mvnw -Pnative native:compile -DskipTests
+    # Use Maven Native profile which includes all native configuration
+    ./mvnw package -Pnative -DskipTests
     
     if [ $? -eq 0 ]; then
-        print_success "Native image built successfully!"
+        print_success "Native image built successfully with Native profile!"
     else
         print_error "Native image build failed"
         exit 1

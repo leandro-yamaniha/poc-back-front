@@ -1,5 +1,6 @@
 #!/bin/bash
-# Native Build Script for Java Backends with GraalVM and Virtual Threads
+# Native Build Script using Maven Native Profile
+# Simplified build process with profile configuration
 
 set -e
 
@@ -10,7 +11,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 echo "================================================"
-echo "  Beauty Salon - Native Build with GraalVM"
+echo "  Building with Native Profile (GraalVM)"
 echo "================================================"
 echo ""
 
