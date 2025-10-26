@@ -1,0 +1,41 @@
+# Dockerfile for Native Profile
+# GraalVM Native Image compilation and execution
+
+# Stage 1: Build with GraalVM
+FROM ghcr.io/graalvm/native-image:21 AS builder
+
+WORKDIR /app
+
+# Install Maven
+RUN microdnf install -y wget tar gzip && \
+    wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz && \
+    tar xzf apache-maven-3.9.6-bin.tar.gz && \
+    ln -s /app/apache-maven-3.9.6/bin/mvn /usr/local/bin/mvn && \
+    rm apache-maven-3.9.6-bin.tar.gz
+
+# Copy pom.xml and download dependencies
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Copy source code
+COPY src ./src
+
+# Build with Native profile
+RUN mvn clean package -Pnative -DskipTests
+
+# Stage 2: Runtime with minimal distroless image
+FROM gcr.io/distroless/base-debian12:latest
+
+WORKDIR /app
+
+# Copy native executable from builder
+COPY --from=builder /app/target/beauty-salon-reactive /app/beauty-salon-reactive
+
+# Expose port
+EXPOSE 8085
+
+# No health check in distroless (use external monitoring)
+# Health check will be done by Kubernetes/Docker Compose
+
+# Run native application
+ENTRYPOINT ["/app/beauty-salon-reactive"]
