@@ -566,51 +566,77 @@
             </build>
         </profile>
 
-        <!-- Native Profile - Optimized for GraalVM Native Image -->
+        <!-- ========================================= -->
+        <!-- BUILD PROFILES: JVM vs Native             -->
+        <!-- ========================================= -->
+        
+        <!-- Profile 1: JVM Traditional (default) -->
+        <profile>
+            <id>jvm</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <spring-boot.build-image.skip>true</spring-boot.build-image.skip>
+            </properties>
+            <build>
+                <finalName>beauty-salon-jvm</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <mainClass>com.beautysalon.BeautySalonApplication</mainClass>
+                            <classifier>jvm</classifier>
+                            <jvmArguments>--enable-preview</jvmArguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Profile 2: GraalVM Native Image -->
         <profile>
             <id>native</id>
-            <dependencies>
-                <!-- Exclude problematic dependencies for native build -->
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-cassandra</artifactId>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.flywaydb</groupId>
-                            <artifactId>flyway-core</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.flywaydb</groupId>
-                            <artifactId>flyway-database-cassandra</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
+            <properties>
+                <spring-boot.build-image.skip>false</spring-boot.build-image.skip>
+            </properties>
             <build>
+                <finalName>beauty-salon-native</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
                         <version>${native-buildtools.version}</version>
                         <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
                         <configuration>
-                            <fallback>false</fallback>
-                            <verbose>true</verbose>
+                            <imageName>beauty-salon</imageName>
+                            <mainClass>com.beautysalon.BeautySalonApplication</mainClass>
                             <buildArgs>
                                 <buildArg>--no-fallback</buildArg>
                                 <buildArg>--install-exit-handlers</buildArg>
                                 <buildArg>--enable-url-protocols=http,https</buildArg>
-                                <buildArg>--enable-all-security-services</buildArg>
-                                <buildArg>--allow-incomplete-classpath</buildArg>
                                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
                                 <buildArg>-H:+AddAllCharsets</buildArg>
-                                <buildArg>-H:IncludeResources=.*\.properties$</buildArg>
-                                <buildArg>-H:IncludeResources=.*\.yml$</buildArg>
-                                <buildArg>-H:IncludeResources=.*\.yaml$</buildArg>
+                                <buildArg>--initialize-at-run-time=io.netty</buildArg>
+                                <buildArg>--initialize-at-run-time=ch.qos.logback</buildArg>
+                                <buildArg>--initialize-at-run-time=org.slf4j</buildArg>
+                                <buildArg>--allow-incomplete-classpath</buildArg>
+                                <buildArg>--report-unsupported-elements-at-runtime</buildArg>
+                                <buildArg>--initialize-at-run-time=com.datastax.oss.driver</buildArg>
+                                <buildArg>--initialize-at-run-time=io.netty.channel.epoll</buildArg>
+                                <buildArg>--initialize-at-run-time=io.netty.channel.unix</buildArg>
                                 <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
                                 <buildArg>-H:+UseVirtualThread</buildArg>
-                                <buildArg>--initialize-at-build-time=org.slf4j</buildArg>
-                                <buildArg>--initialize-at-run-time=io.netty</buildArg>
                             </buildArgs>
                         </configuration>
                     </plugin>
