@@ -13,8 +13,8 @@ RUN mvn dependency:go-offline -B
 # Copy source code
 COPY src ./src
 
-# Build with JVM profile (default)
-RUN mvn clean package -Pjvm -DskipTests
+# Build with Spring Boot (without specific profile for now)
+RUN mvn clean package -DskipTests
 
 # Stage 2: Runtime
 FROM eclipse-temurin:21-jre-alpine
@@ -25,8 +25,8 @@ WORKDIR /app
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 
-# Copy JAR from builder
-COPY --from=builder /app/target/beauty-salon-reactive-jvm.jar app.jar
+# Copy JAR from builder (use wildcard to find the JAR)
+COPY --from=builder /app/target/*.jar app.jar
 
 # Expose port
 EXPOSE 8085

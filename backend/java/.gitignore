@@ -1,0 +1,50 @@
+# Build Artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+# Native Executable
+beauty-salon-backend
+beauty-salon-backend.exe
+
+# Local Test Results
+jmeter-results/
+stress-test-results/
+*.jtl
+
+# Performance Test Reports
+JMETER_*.md
+*_STRESS_TEST.md
+*_PERFORMANCE_REPORT.md
+beauty-salon-api-stress-test.jmx
+beauty-salon-results.jtl
+docker-jmeter-test.sh
+generate-jmeter-report.sh
+run-jmeter-stress-test.sh
+
+# Database
+database/
+
+# Local Build Scripts
+build-native.sh
+init.cql
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

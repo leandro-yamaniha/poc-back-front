@@ -76,7 +76,7 @@ build_native() {
     cd "$REACTIVE_DIR"
     
     # Set memory for native-image build
-    export NATIVE_IMAGE_OPTS="-J-Xmx8g -J-Xms4g"
+    export NATIVE_IMAGE_OPTS="-J-Xmx1g -J-Xms512m"
     
     # Use Maven Native profile which includes all native configuration
     ./mvnw package -Pnative -DskipTests

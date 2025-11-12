@@ -1,0 +1,51 @@
+# Native Image Build Artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+# Native Executable
+beauty-salon-reactive
+beauty-salon-reactive.exe
+
+# Temporary Documentation (Status Reports)
+NATIVE_*.md
+!NATIVE_SUCCESS_FINAL.md
+
+# Local Test Results
+stress-test-results/
+jmeter-results/
+*.jtl
+
+# Performance Test Reports
+JMETER_*.md
+*_STRESS_TEST.md
+*_PERFORMANCE_REPORT.md
+beauty-salon-api-stress-test.jmx
+beauty-salon-results.jtl
+docker-jmeter-test.sh
+generate-jmeter-report.sh
+run-jmeter-stress-test.sh
+
+# Local Build Scripts
+build-native.sh
+test-native-startup.sh
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

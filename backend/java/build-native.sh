@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🔨 Building Java Reactive Backend..."
+echo "🔨 Building Java Backend..."
 echo "================================"
 
 # Limpar builds anteriores
@@ -10,12 +10,12 @@ echo "🧹 Cleaning previous builds..."
 
 # Build
 echo "🏗️  Building with Maven..."
-./mvnw package -DskipTests
+./mvnw package -Pnative -DskipTests
 
 # Copy artifact to standard location
 mkdir -p ./target/release
-cp target/*-reactive-jvm.jar ./target/release/app.jar
+cp target/beauty-salon ./target/release/beauty-salon
 
-echo "✅ Java Reactive Backend build completed!"
-echo "📁 Artifact: ./target/release/app.jar"
+echo "✅ Java Backend build completed!"
+echo "📁 Artifact: ./target/release/beauty-salon.jar"
 ls -lh ./target/release/

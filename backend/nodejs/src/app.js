@@ -25,17 +25,25 @@ const PORT = process.env.PORT || 10004;
 app.use(helmet());
 app.use(compression());
 
-// Rate limiting - More permissive for development
-const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 1 * 60 * 1000, // 1 minute
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 1000, // 1000 requests per minute
-  message: 'Too many requests from this IP, please try again later.',
-  skip: (req) => {
-    // Skip rate limiting for development environment
-    return process.env.NODE_ENV === 'development';
-  }
-});
-app.use(limiter);
+// Rate limiting - Disabled for load testing
+// To enable, set ENABLE_RATE_LIMIT=true
+const ENABLE_RATE_LIMIT = process.env.ENABLE_RATE_LIMIT === 'true';
+
+if (ENABLE_RATE_LIMIT) {
+  const limiter = rateLimit({
+    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 1 * 60 * 1000, // 1 minute
+    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100000, // 100k requests per minute for load testing
+    message: 'Too many requests from this IP, please try again later.',
+    skip: (req) => {
+      // Skip rate limiting for development environment
+      return process.env.NODE_ENV === 'development';
+    }
+  });
+  app.use(limiter);
+  console.log('⚠️  Rate limiting ENABLED');
+} else {
+  console.log('✅ Rate limiting DISABLED for load testing');
+}
 
 // Security and middleware with Swagger UI exceptions
 app.use(helmet({

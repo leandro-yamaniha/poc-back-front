@@ -1,0 +1,26 @@
+[
+  {
+    "name": "io.netty.util.internal.shaded.org.jctools.queues.unpadded.MpscUnpaddedArrayQueue",
+    "allDeclaredFields": true,
+    "queryAllDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "io.netty.util.internal.shaded.org.jctools.queues.unpadded.MpscUnpaddedArrayQueueProducerIndexField",
+    "allDeclaredFields": true,
+    "queryAllDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "io.netty.util.internal.shaded.org.jctools.queues.unpadded.MpscUnpaddedArrayQueueProducerLimitField",
+    "allDeclaredFields": true,
+    "queryAllDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "io.netty.util.internal.shaded.org.jctools.queues.unpadded.MpscUnpaddedArrayQueueConsumerIndexField",
+    "allDeclaredFields": true,
+    "queryAllDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  }
+]

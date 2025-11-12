@@ -636,7 +636,9 @@
                                 <buildArg>--initialize-at-run-time=io.netty.channel.epoll</buildArg>
                                 <buildArg>--initialize-at-run-time=io.netty.channel.unix</buildArg>
                                 <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
-                                <buildArg>-H:+UseVirtualThread</buildArg>
+                                <buildArg>--enable-all-security-services</buildArg>
+                                <buildArg>-H:ReflectionConfigurationFiles=src/main/resources/META-INF/native-image/com.beautysalon/beauty-salon-backend/reflect-config.json</buildArg>
+                                <buildArg>-H:ResourceConfigurationFiles=src/main/resources/META-INF/native-image/com.beautysalon/beauty-salon-backend/resource-config.json</buildArg>
                             </buildArgs>
                         </configuration>
                     </plugin>

@@ -13,9 +13,9 @@ spring:
   
   cassandra:
     keyspace-name: beauty_salon
-    contact-points: localhost
-    port: 9042
-    local-datacenter: datacenter1
+    contact-points: ${CASSANDRA_CONTACT_POINTS:localhost}
+    port: ${CASSANDRA_PORT:9042}
+    local-datacenter: ${CASSANDRA_LOCAL_DATACENTER:datacenter1}
     schema-action: create-if-not-exists
     request:
       timeout: 10s

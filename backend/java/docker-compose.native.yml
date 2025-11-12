@@ -1,0 +1,82 @@
+version: '3.8'
+
+name: beauty-salon-java-native
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-java-native
+    ports:
+      - "9043:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    volumes:
+      - cassandra_data_java_native:/var/lib/cassandra
+      - ./init.cql:/docker-entrypoint-initdb.d/init.cql
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-java-native
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  backend-java-native:
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: Dockerfile.native
+    container_name: beauty-salon-backend-java-native
+    ports:
+      - "${SERVER_PORT:-8081}:${SERVER_PORT:-8081}"
+    environment:
+      - SERVER_PORT=${SERVER_PORT:-8081}
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - CASSANDRA_LOCAL_DATACENTER=datacenter1
+      - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=0.0
+      - MANAGEMENT_ZIPKIN_TRACING_ENABLED=false
+      - SPRING_PROFILES_ACTIVE=docker
+    command: >
+      /app/beauty-salon
+      --spring.data.cassandra.contact-points=cassandra
+      --spring.data.cassandra.port=9042
+      --spring.data.cassandra.local-datacenter=datacenter1
+      --spring.data.cassandra.keyspace-name=beauty_salon
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-java-native
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:${SERVER_PORT:-8081}/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+volumes:
+  cassandra_data_java_native:
+    driver: local
+
+networks:
+  beauty-salon-java-native:
+    driver: bridge

@@ -27,8 +27,7 @@ spring:
     simple:
       spec: maximumSize=1000,expireAfterWrite=10m
 
-  profiles:
-    active: local
+  profiles: {}
 
 server:
   port: 10001
@@ -41,6 +40,9 @@ app:
     time-window-ms: 60000
 
 management:
+  health:
+    cassandra:
+      enabled: false
   endpoints:
     web:
       exposure:

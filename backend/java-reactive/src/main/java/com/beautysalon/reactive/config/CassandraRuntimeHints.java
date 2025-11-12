@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  * Runtime Hints for Cassandra Driver
  * Ensures Cassandra classes are available for reflection in native image
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ImportRuntimeHints(CassandraRuntimeHints.CassandraHintsRegistrar.class)
 public class CassandraRuntimeHints {
 

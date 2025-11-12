@@ -1,0 +1,77 @@
+version: '3.8'
+
+name: beauty-salon-java-jvm
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-java-jvm
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    volumes:
+      - cassandra_data_java_jvm:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-java-jvm
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  backend-java-jvm:
+    image: eclipse-temurin:21-jre-alpine
+    container_name: beauty-salon-backend-java-jvm
+    ports:
+      - "${SERVER_PORT:-8080}:${SERVER_PORT:-8080}"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=${SERVER_PORT:-8080}
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - CASSANDRA_LOCAL_DATACENTER=datacenter1
+      - JAVA_OPTS=-Xmx512m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+      - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=0.0
+      - MANAGEMENT_ZIPKIN_TRACING_ENABLED=false
+    volumes:
+      - ./target/beauty-salon-jvm.jar:/app/beauty-salon.jar:ro
+    working_dir: /app
+    command: java ${JAVA_OPTS} -jar beauty-salon.jar
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-java-jvm
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:${SERVER_PORT:-8080}/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+          cpus: '1.0'
+        reservations:
+          memory: 384M
+          cpus: '0.5'
+
+volumes:
+  cassandra_data_java_jvm:
+    driver: local
+
+networks:
+  beauty-salon-java-jvm:
+    driver: bridge

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuração centralizada de hints para Native Image
  * Fornece metadados de compilação AOT para GraalVM
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @RegisterReflectionForBinding({
     // Domain Models - Registra para reflexão completa
     Customer.class,

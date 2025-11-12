@@ -12,7 +12,7 @@ import org.springframework.data.cassandra.core.cql.keyspace.KeyspaceOption;
 import java.util.Collections;
 import java.util.List;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(name = "com.datastax.oss.driver.api.core.CqlSession")
 @ConditionalOnProperty(name = "spring.cassandra.enabled", havingValue = "true", matchIfMissing = true)
 public class CassandraConfig extends AbstractReactiveCassandraConfiguration {

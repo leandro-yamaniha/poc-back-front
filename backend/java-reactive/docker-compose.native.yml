@@ -1,0 +1,75 @@
+version: '3.8'
+
+name: beauty-salon-java-reactive-native
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-reactive-native
+    ports:
+      - "9045:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    volumes:
+      - cassandra_data_reactive_native:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-reactive-native
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  backend-reactive-native:
+    image: alpine:3.19
+    container_name: beauty-salon-backend-reactive-native
+    ports:
+      - "${SERVER_PORT:-8086}:${SERVER_PORT:-8086}"
+    environment:
+      - SERVER_PORT=${SERVER_PORT:-8086}
+      - CASSANDRA_CONTACT_POINTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - CASSANDRA_LOCAL_DATACENTER=datacenter1
+      - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=0.0
+      - MANAGEMENT_ZIPKIN_TRACING_ENABLED=false
+    volumes:
+      - ./target/beauty-salon-reactive:/app/beauty-salon-reactive:ro
+    working_dir: /app
+    command: ./beauty-salon-reactive
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-reactive-native
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:${SERVER_PORT:-8086}/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+volumes:
+  cassandra_data_reactive_native:
+    driver: local
+
+networks:
+  beauty-salon-reactive-native:
+    driver: bridge

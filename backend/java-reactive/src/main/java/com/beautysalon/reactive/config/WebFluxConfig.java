@@ -2,15 +2,21 @@ package com.beautysalon.reactive.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.validation.Validator;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.reactive.DispatcherHandler;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
+import org.springframework.web.server.WebHandler;
 
 import java.util.Arrays;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebFluxConfig implements WebFluxConfigurer {
 
     @Bean

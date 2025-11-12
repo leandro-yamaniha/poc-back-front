@@ -1,0 +1,26 @@
+# Stress Test Results
+stress-test-results/
+
+# Performance Test Results
+jmeter-results/
+*.jtl
+
+# Build Artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml

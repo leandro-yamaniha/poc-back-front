@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  * Native Runtime Hints Configuration for GraalVM Native Image
  * Registers reflection and resource hints for AOT compilation
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ImportRuntimeHints(NativeRuntimeHints.BeautySalonRuntimeHints.class)
 public class NativeRuntimeHints {
 

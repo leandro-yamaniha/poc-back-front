@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  * Runtime Hints for Project Reactor and Netty
  * Ensures reactive types are available for reflection in native image
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ImportRuntimeHints(ReactorRuntimeHints.ReactorHintsRegistrar.class)
 public class ReactorRuntimeHints {
 
