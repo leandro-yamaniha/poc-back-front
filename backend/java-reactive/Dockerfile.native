@@ -28,6 +28,7 @@ RUN apt-get update && \
         libstdc++6 \
         tzdata \
         zlib1g \
+        wget \
     && rm -rf /var/lib/apt/lists/* && \
     groupadd -r appuser && useradd -r -g appuser appuser
 
@@ -43,20 +44,15 @@ RUN chown -R appuser:appuser /app
 # Switch to non-root user
 USER appuser
 
+# Set environment variable for server port
+ENV SERVER_PORT=8085
+
 # Expose port
-EXPOSE 8085
+EXPOSE ${SERVER_PORT}
 
-# Health check
+# Health check (using environment variable)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8085/actuator/health || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://localhost:${SERVER_PORT}/actuator/health || exit 1
 
-# Set JVM options for optimal performance with Virtual Threads and Reactive
-ENV JAVA_OPTS="-XX:+UseVirtualThreads \
-               -XX:+UnlockExperimentalVMOptions \
-               -XX:MaxRAMPercentage=75.0 \
-               -XX:+UseG1GC \
-               -XX:+UseStringDeduplication \
-               -Dreactor.schedulers.defaultBoundedElasticOnVirtualThreads=true"
-
-# Run the native executable
-ENTRYPOINT ["./beauty-salon-reactive"]
+# Run the native executable with server port configuration
+CMD ["sh", "-c", "./beauty-salon-reactive --server.port=${SERVER_PORT}"]

@@ -1,0 +1,74 @@
+version: '3.8'
+
+name: beauty-salon-dotnet
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-dotnet
+    ports:
+      - "9049:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    volumes:
+      - cassandra_data_dotnet:/var/lib/cassandra
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - beauty-salon-dotnet
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  backend-dotnet:
+    image: mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+    container_name: beauty-salon-backend-dotnet
+    ports:
+      - "${PORT:-5001}:${PORT:-5001}"
+    environment:
+      - ASPNETCORE_URLS=http://+:${PORT:-5001}
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Cassandra__ContactPoints__0=cassandra
+      - Cassandra__Port=9042
+      - Cassandra__Keyspace=beauty_salon
+      - Cassandra__LocalDatacenter=datacenter1
+    volumes:
+      - ./bin/Release/net8.0/publish:/app:ro
+    working_dir: /app
+    command: dotnet BeautySalon.dll
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-dotnet
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:${PORT:-5001}/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+
+volumes:
+  cassandra_data_dotnet:
+    driver: local
+
+networks:
+  beauty-salon-dotnet:
+    driver: bridge

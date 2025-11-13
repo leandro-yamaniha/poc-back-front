@@ -1,0 +1,1041 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1762828980194,51,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,45,0,36
+1762828980246,9,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,9,0,0
+1762828980194,61,GET Services (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,61,0,35
+1762828980255,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828980260,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762828980255,10,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,10,0,0
+1762828980265,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762828980270,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828980265,8,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,8,0,0
+1762828980273,1,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828980271,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828980276,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762828980274,6,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,0
+1762828980280,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,6,0,0
+1762828980280,7,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,6,0,0
+1762828980287,5,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,5,0,0
+1762828980287,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,0
+1762828980293,2,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828980293,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828980298,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828980296,5,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828980301,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,5,0,0
+1762828980302,5,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762828980307,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828980308,2,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828980311,1,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828980311,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828980312,4,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828980314,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828980318,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828980316,4,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762828980321,3,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828980320,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828980325,1,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828980324,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828980326,3,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762828980329,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762828980329,4,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762828980333,4,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828980337,1,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828980333,18,GET Services (Heavy),200,,Heavy Load - 50 Users 2-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,18,0,0
+1762828980338,13,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,2,http://localhost:8081/api/services,13,0,0
+1762828980351,8,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,1,http://localhost:8081/api/staff,8,0,0
+1762828980359,3,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828980362,1,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828980364,4,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828980368,3,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828980371,3,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828980374,1,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828980375,2,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828980377,3,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828980380,3,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828980383,0,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828980383,4,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828980387,3,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828980390,3,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828980393,0,GET Customers,200,,Light Load - 10 Users 1-1,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828980393,3,GET Services,200,,Light Load - 10 Users 1-1,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828980396,2,GET Staff,200,,Light Load - 10 Users 1-1,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828980398,3,GET Appointments,200,,Light Load - 10 Users 1-1,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828981342,7,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,7,0,3
+1762828981351,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828981357,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828981362,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828981364,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828981366,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828981371,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828981375,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828981380,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828981385,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828981391,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828981397,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828981398,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828981403,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828981407,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828981408,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828981413,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828981417,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828981422,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828981426,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828982543,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,1
+1762828982551,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828982553,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828982557,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828982562,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828982566,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828982570,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828982574,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828982578,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828982584,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828982588,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828982591,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828982596,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828982600,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828982603,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828982606,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828982607,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828982610,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828982612,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828982616,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828983133,3,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,1
+1762828983136,4,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828983141,5,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828983146,4,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828983150,1,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828983151,5,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828983156,5,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828983161,4,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828983165,1,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828983166,5,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828983171,3,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983174,3,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983177,1,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828983178,4,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828983182,3,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983185,4,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828983189,1,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828983190,3,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828983193,3,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983196,3,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983199,0,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828983199,3,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828983202,3,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983205,3,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983208,1,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828983209,3,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828983212,3,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983220,3,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983223,1,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828983224,2,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828983226,2,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828983228,3,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983231,0,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828983231,2,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828983233,2,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828983235,3,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983238,0,GET Customers,200,,Light Load - 10 Users 1-2,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828983238,2,GET Services,200,,Light Load - 10 Users 1-2,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828983240,3,GET Staff,200,,Light Load - 10 Users 1-2,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983243,3,GET Appointments,200,,Light Load - 10 Users 1-2,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983744,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762828983750,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828983756,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828983760,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828983764,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828983768,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828983773,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828983777,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828983781,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828983785,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983788,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983791,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828983793,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983796,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983799,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983802,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828983806,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828983809,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828983811,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828983814,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828984940,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,2
+1762828984947,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828984952,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828984958,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828984963,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828984966,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828984967,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828984971,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828984975,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828984976,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828984981,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828984986,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828984990,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828984991,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828984993,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828984996,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828984999,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828985002,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828985005,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828985007,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828986139,3,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,2,http://localhost:8081/api/customers,3,0,1
+1762828986141,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1107,183,1,2,http://localhost:8081/api/staff,6,0,1
+1762828986143,4,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828986148,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,263,190,1,2,http://localhost:8081/api/appointments,5,0,0
+1762828986148,6,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,2,http://localhost:8081/api/staff,6,0,0
+1762828986154,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1107,183,1,2,http://localhost:8081/api/staff,6,0,0
+1762828986154,6,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,2,http://localhost:8081/api/appointments,6,0,0
+1762828986160,2,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828986160,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1107,183,1,2,http://localhost:8081/api/staff,7,0,0
+1762828986162,7,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,2,http://localhost:8081/api/services,7,0,0
+1762828986168,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1107,183,1,2,http://localhost:8081/api/staff,7,0,0
+1762828986170,5,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762828986176,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828986176,5,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,2,http://localhost:8081/api/appointments,5,0,0
+1762828986182,2,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828986182,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,263,190,1,2,http://localhost:8081/api/appointments,5,0,0
+1762828986188,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828986184,6,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,0
+1762828986190,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828986190,5,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762828986195,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828986197,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828986195,4,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828986199,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828986199,2,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828986201,10,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,2,http://localhost:8081/api/services,10,0,0
+1762828986201,10,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1107,183,1,2,http://localhost:8081/api/staff,10,0,0
+1762828986211,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,263,190,1,2,http://localhost:8081/api/appointments,6,0,0
+1762828986211,8,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,2,http://localhost:8081/api/staff,8,0,0
+1762828986218,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828986219,3,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828986222,1,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828986222,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828986223,2,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762828986225,21,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,1107,183,1,2,http://localhost:8081/api/staff,21,0,0
+1762828986246,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828986225,22,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,2,http://localhost:8081/api/staff,22,0,0
+1762828986247,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828986247,2,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828986249,1,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828986249,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-6,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828986250,4,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828986254,3,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828986257,4,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828986261,1,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828986262,3,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828986265,3,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828986268,3,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828986271,0,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828986271,3,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828986274,3,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828986277,2,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828986279,0,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828986279,2,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828986281,2,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828986283,2,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828986285,1,GET Customers,200,,Light Load - 10 Users 1-3,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828986286,3,GET Services,200,,Light Load - 10 Users 1-3,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828986289,3,GET Staff,200,,Light Load - 10 Users 1-3,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828986292,3,GET Appointments,200,,Light Load - 10 Users 1-3,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828987346,9,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,9,0,1
+1762828987356,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,0
+1762828987363,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828987370,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828987374,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828987379,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828987383,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828987387,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828987391,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828987394,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828987396,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828987398,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828987400,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828987403,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828987406,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828987407,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828987410,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828987412,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828987415,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828987417,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828988544,8,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,8,0,1
+1762828988553,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762828988560,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828988563,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828988566,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828988572,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828988579,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828988585,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,0
+1762828988592,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,0
+1762828988600,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828988603,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828988609,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828988614,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828988619,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828988620,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828988625,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828988628,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828988631,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828988636,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828988639,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989140,4,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,4,0,1
+1762828989144,5,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828989149,5,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828989155,3,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828989158,2,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828989160,4,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828989164,4,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828989169,4,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828989173,1,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989174,5,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828989180,4,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828989184,5,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828989189,3,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,0
+1762828989192,6,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828989198,6,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762828989204,3,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828989208,2,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828989210,5,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828989216,4,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828989220,4,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828989225,1,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989226,4,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828989230,5,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828989235,3,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828989238,1,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989239,4,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828989243,3,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828989246,3,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828989249,1,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989250,3,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828989253,3,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828989256,2,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828989258,0,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828989258,3,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828989261,3,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828989264,2,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828989278,1,GET Customers,200,,Light Load - 10 Users 1-4,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989279,2,GET Services,200,,Light Load - 10 Users 1-4,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828989281,3,GET Staff,200,,Light Load - 10 Users 1-4,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828989284,2,GET Appointments,200,,Light Load - 10 Users 1-4,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828989742,8,GET Services (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,7,0,1
+1762828989750,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,0
+1762828989758,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828989764,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828989780,3,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,0
+1762828989783,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828989785,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828989789,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828989791,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762828989797,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828989799,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828989804,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828989806,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989807,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828989811,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828989814,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828989818,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828989822,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828989822,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828989823,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828990938,7,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,7,0,2
+1762828990945,8,GET Services (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,8,0,0
+1762828990954,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828990956,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828990958,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828990960,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828990966,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,0
+1762828990974,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828990980,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828990986,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,0
+1762828990992,8,GET Services (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,8,0,0
+1762828991000,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,0
+1762828991007,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,0
+1762828991015,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828991020,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828991022,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828991024,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828991028,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828991031,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828991034,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828992139,3,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,2,http://localhost:8081/api/customers,3,0,1
+1762828992138,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,263,190,1,2,http://localhost:8081/api/appointments,6,0,1
+1762828992144,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,0
+1762828992143,7,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,2,http://localhost:8081/api/services,7,0,0
+1762828992151,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828992151,5,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762828992154,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828992157,5,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,2,http://localhost:8081/api/appointments,5,0,0
+1762828992159,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762828992162,2,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828992164,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828992167,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828992164,5,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828992169,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828992170,4,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762828992174,5,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,2,http://localhost:8081/api/appointments,5,0,0
+1762828992174,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828992180,1,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828992180,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828992181,4,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762828992184,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828992186,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762828992185,4,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762828992190,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828992190,3,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828992191,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762828992193,2,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828992194,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828992195,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828992197,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762828992195,4,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828992199,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762828992199,3,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762828992202,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828992202,2,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828992204,0,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762828992203,1,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-11,text,true,,263,190,1,2,http://localhost:8081/api/appointments,1,0,0
+1762828992204,4,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828992208,3,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828992211,2,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828992213,0,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828992213,3,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828992216,2,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828992218,3,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828992221,0,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828992221,3,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828992224,3,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828992227,2,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828992229,0,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828992229,4,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828992233,3,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828992236,3,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828992239,0,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828992239,2,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828992241,3,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828992244,2,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828992246,0,GET Customers,200,,Light Load - 10 Users 1-5,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828992246,2,GET Services,200,,Light Load - 10 Users 1-5,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828992248,3,GET Staff,200,,Light Load - 10 Users 1-5,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828992251,1,GET Appointments,200,,Light Load - 10 Users 1-5,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828993343,8,GET Services (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1490,186,1,1,http://localhost:8081/api/services,8,0,1
+1762828993351,3,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,0
+1762828993355,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828993362,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828993367,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828993373,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,0
+1762828993381,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,0
+1762828993387,7,GET Services (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1490,186,1,1,http://localhost:8081/api/services,7,0,0
+1762828993395,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828993397,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828993402,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828993408,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828993409,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828993410,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828993414,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828993419,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828993420,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828993424,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828993427,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828993430,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-12,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828994542,3,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,1
+1762828994545,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828994546,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828994548,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828994549,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828994550,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828994553,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828994554,34,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828994588,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828994592,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828994596,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828994599,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828994603,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828994607,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828994609,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828994612,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828994612,1,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828994614,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828994616,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828994618,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-13,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828995137,3,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,0
+1762828995140,4,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828995144,5,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828995149,5,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828995154,1,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828995155,5,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828995160,5,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828995165,4,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828995169,2,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828995171,4,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828995175,4,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828995179,5,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828995184,2,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828995186,4,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828995190,4,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828995194,4,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828995198,1,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828995199,5,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828995204,5,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828995210,3,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995213,1,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828995214,4,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828995219,4,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828995223,3,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995226,1,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828995227,4,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762828995232,5,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828995237,3,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995240,1,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828995241,7,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,7,0,0
+1762828995249,4,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828995253,3,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995256,0,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828995256,2,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828995258,4,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828995262,3,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995265,0,GET Customers,200,,Light Load - 10 Users 1-6,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828995265,3,GET Services,200,,Light Load - 10 Users 1-6,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828995268,3,GET Staff,200,,Light Load - 10 Users 1-6,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828995271,3,GET Appointments,200,,Light Load - 10 Users 1-6,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995746,8,GET Services (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1490,186,1,1,http://localhost:8081/api/services,8,0,1
+1762828995755,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828995757,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828995763,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828995765,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828995771,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828995777,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828995784,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828995789,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828995792,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828995798,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828995804,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,0
+1762828995827,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995831,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828995835,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828995836,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762828995839,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828995842,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828995845,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828995849,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-14,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828996943,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,1
+1762828996950,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762828996957,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,0
+1762828996963,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,0
+1762828996970,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828996976,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828996981,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762828996985,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828996988,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828996991,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828996994,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828996996,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828996998,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828997001,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828997004,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828997006,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828997008,1,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828997009,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828997011,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762828997013,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-15,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828998139,4,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,2,http://localhost:8081/api/customers,4,0,1
+1762828998143,7,GET Services (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,1
+1762828998144,6,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,2,http://localhost:8081/api/services,5,0,0
+1762828998150,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1107,183,1,2,http://localhost:8081/api/staff,6,0,0
+1762828998150,6,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,2,http://localhost:8081/api/staff,6,0,0
+1762828998157,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828998157,4,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828998161,2,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762828998161,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828998163,2,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762828998166,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762828998166,3,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762828998169,4,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828998169,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762828998173,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828998173,1,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828998174,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828998175,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762828998175,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1107,183,1,2,http://localhost:8081/api/staff,2,0,0
+1762828998174,3,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762828998177,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828998177,2,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,2,http://localhost:8081/api/staff,2,0,0
+1762828998179,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762828998180,3,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828998183,0,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762828998183,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828998183,3,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762828998186,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762828998186,2,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,2,http://localhost:8081/api/staff,2,0,0
+1762828998188,3,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828998188,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762828998191,0,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762828998191,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1107,183,1,2,http://localhost:8081/api/staff,2,0,0
+1762828998191,2,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762828998193,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762828998194,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828998193,3,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762828998196,3,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762828998196,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762828998199,0,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762828998199,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-16,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762828998199,2,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762828998201,3,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828998205,1,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828998206,1,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828998207,3,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828998210,3,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762828998213,1,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828998215,0,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762828998215,3,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828998218,2,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828998220,1,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828998221,1,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828998222,3,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762828998225,2,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828998227,1,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828998228,1,GET Customers,200,,Light Load - 10 Users 1-7,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828998229,2,GET Services,200,,Light Load - 10 Users 1-7,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762828998231,2,GET Staff,200,,Light Load - 10 Users 1-7,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762828998233,1,GET Appointments,200,,Light Load - 10 Users 1-7,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762828999341,7,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,263,190,1,1,http://localhost:8081/api/appointments,7,0,2
+1762828999348,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828999350,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828999356,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828999358,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828999363,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828999365,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828999369,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828999375,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828999377,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828999381,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828999386,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762828999392,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762828999398,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762828999400,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762828999404,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828999409,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762828999414,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762828999419,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762828999420,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-17,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829000544,8,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,1
+1762829000552,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829000558,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829000563,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829000569,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829000571,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829000575,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829000576,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829000580,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829000583,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829000583,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829000585,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829000585,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829000589,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829000592,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829000593,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829000596,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829000596,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829000599,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829000601,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-18,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829001138,4,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,4,0,1
+1762829001143,5,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829001149,6,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829001155,6,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,0
+1762829001162,1,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001164,4,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829001168,6,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829001174,5,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829001179,1,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001180,5,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829001185,5,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829001190,4,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829001194,1,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001195,5,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829001200,4,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829001204,3,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829001207,1,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001208,4,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829001212,3,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829001215,3,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829001218,1,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001219,2,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762829001221,2,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829001223,3,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829001226,0,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829001226,3,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829001229,3,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829001232,2,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829001234,1,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001235,3,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829001238,2,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829001240,3,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829001243,0,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829001243,3,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829001246,3,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829001249,1,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762829001250,1,GET Customers,200,,Light Load - 10 Users 1-8,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001251,3,GET Services,200,,Light Load - 10 Users 1-8,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829001254,1,GET Staff,200,,Light Load - 10 Users 1-8,text,true,,1107,183,1,1,http://localhost:8081/api/staff,1,0,0
+1762829001256,0,GET Appointments,200,,Light Load - 10 Users 1-8,text,true,,263,190,1,1,http://localhost:8081/api/appointments,0,0,0
+1762829001745,7,GET Services (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1490,186,1,1,http://localhost:8081/api/services,7,0,1
+1762829001752,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829001754,7,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,263,190,1,1,http://localhost:8081/api/appointments,7,0,0
+1762829001761,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829001768,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829001772,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829001776,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829001780,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829001783,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829001788,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829001792,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829001797,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001798,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829001800,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829001805,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829001810,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829001814,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829001818,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829001821,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829001822,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-19,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829002939,4,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,4,0,1
+1762829002944,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829002948,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829002953,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829002956,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829002958,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829002959,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829002964,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829002966,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829002972,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829002978,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829002983,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829002990,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829002995,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829002999,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829003001,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829003003,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829003003,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829003005,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829003005,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-20,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829004139,5,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,2,http://localhost:8081/api/customers,5,0,1
+1762829004141,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1107,183,1,2,http://localhost:8081/api/staff,6,0,1
+1762829004145,6,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,0
+1762829004147,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762829004151,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762829004151,5,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,2,http://localhost:8081/api/staff,5,0,0
+1762829004156,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762829004158,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762829004156,6,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,2,http://localhost:8081/api/appointments,6,0,0
+1762829004162,2,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,2,http://localhost:8081/api/customers,2,0,0
+1762829004162,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,263,190,1,2,http://localhost:8081/api/appointments,6,0,0
+1762829004165,6,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,0
+1762829004169,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1490,186,1,2,http://localhost:8081/api/services,6,0,0
+1762829004171,4,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762829004175,4,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762829004175,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762829004179,1,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762829004179,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762829004181,2,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762829004183,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762829004183,3,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762829004186,4,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,2,http://localhost:8081/api/appointments,4,0,0
+1762829004186,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1490,186,1,2,http://localhost:8081/api/services,4,0,0
+1762829004190,1,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762829004190,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1107,183,1,2,http://localhost:8081/api/staff,3,0,0
+1762829004191,2,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762829004194,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762829004194,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1490,186,1,2,http://localhost:8081/api/services,2,0,0
+1762829004194,2,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,2,http://localhost:8081/api/staff,2,0,0
+1762829004196,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762829004196,2,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,2,http://localhost:8081/api/appointments,2,0,0
+1762829004198,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762829004198,0,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,2,http://localhost:8081/api/customers,0,0,0
+1762829004198,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,943,187,1,2,http://localhost:8081/api/customers,1,0,0
+1762829004199,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1107,183,1,2,http://localhost:8081/api/staff,2,0,0
+1762829004198,3,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762829004201,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762829004201,4,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,2,http://localhost:8081/api/staff,4,0,0
+1762829004205,3,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,2,http://localhost:8081/api/appointments,3,0,0
+1762829004205,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-21,text,true,,1490,186,1,2,http://localhost:8081/api/services,3,0,0
+1762829004208,0,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829004208,3,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829004211,3,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829004214,3,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829004217,0,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829004217,3,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829004220,3,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829004223,3,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829004226,0,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829004226,3,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829004229,3,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829004232,3,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829004235,0,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829004235,2,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762829004237,2,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829004239,2,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829004242,0,GET Customers,200,,Light Load - 10 Users 1-9,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829004242,2,GET Services,200,,Light Load - 10 Users 1-9,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762829004244,3,GET Staff,200,,Light Load - 10 Users 1-9,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829004247,3,GET Appointments,200,,Light Load - 10 Users 1-9,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829005340,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,1
+1762829005348,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829005353,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829005358,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829005362,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829005363,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829005366,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829005369,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829005372,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829005372,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829005397,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829005398,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829005400,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829005403,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829005404,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829005404,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829005405,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829005408,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829005411,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829005414,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-22,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829006538,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,1
+1762829006544,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829006549,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829006555,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829006561,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829006566,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829006569,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829006574,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829006580,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829006583,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829006588,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829006594,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829006601,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829006602,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829006608,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829006613,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829006616,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829006621,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829006625,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829006627,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-23,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829007140,3,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,1
+1762829007144,4,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829007148,6,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829007154,4,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829007159,1,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007160,5,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829007165,5,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829007170,5,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829007175,2,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829007177,4,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829007182,5,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829007187,5,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829007192,1,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007194,5,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829007200,4,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829007204,4,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829007208,1,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007209,5,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829007215,4,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829007219,5,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829007224,2,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829007226,6,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829007233,6,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829007239,4,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829007244,2,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829007246,5,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829007252,3,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829007256,2,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829007258,1,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007259,3,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829007262,3,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829007265,2,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829007267,0,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829007267,3,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829007270,3,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829007273,2,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829007276,0,GET Customers,200,,Light Load - 10 Users 1-10,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829007276,2,GET Services,200,,Light Load - 10 Users 1-10,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762829007278,3,GET Staff,200,,Light Load - 10 Users 1-10,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829007281,3,GET Appointments,200,,Light Load - 10 Users 1-10,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829007743,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,1
+1762829007750,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829007757,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829007763,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829007767,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829007772,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829007777,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829007780,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829007783,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829007786,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007787,2,GET Services (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,1490,186,1,1,http://localhost:8081/api/services,2,0,0
+1762829007789,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007790,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829007790,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007791,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829007791,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829007792,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829007792,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829007793,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829007793,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-24,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829008940,4,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,1
+1762829008944,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829008948,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829008949,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829008954,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829008960,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829008962,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829008967,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829008969,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829008976,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829008982,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829008988,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829008993,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829008995,11,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,11,0,0
+1762829009006,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829009013,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829009018,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829009023,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829009026,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829009030,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-25,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829010143,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,2
+1762829010149,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829010155,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829010161,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829010163,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829010164,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829010165,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829010170,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829010170,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829010175,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829010180,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829010183,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829010184,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829010188,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829010192,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829010196,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829010199,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829010202,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829010203,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829010207,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-26,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829011339,7,GET Services (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1490,186,1,1,http://localhost:8081/api/services,7,0,1
+1762829011347,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829011348,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829011354,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829011359,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829011363,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829011365,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829011369,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829011373,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829011376,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829011379,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829011382,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829011387,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829011390,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829011392,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829011393,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829011398,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829011403,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829011409,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829011413,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-27,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829012542,7,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1107,183,1,1,http://localhost:8081/api/staff,7,0,2
+1762829012550,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829012553,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829012559,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829012564,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829012569,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829012575,6,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1107,183,1,1,http://localhost:8081/api/staff,6,0,0
+1762829012581,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829012584,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829012585,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829012591,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829012597,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829012599,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829012600,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829012604,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829012609,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829012614,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829012616,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829012620,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829012624,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-28,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829013741,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,1
+1762829013747,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829013753,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829013759,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829013763,3,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,943,187,1,1,http://localhost:8081/api/customers,3,0,0
+1762829013766,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829013772,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829013779,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829013780,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829013782,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829013788,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829013794,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829013800,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829013806,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829013809,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829013810,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829013813,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829013813,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829013814,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829013815,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-29,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829014942,6,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,263,190,1,1,http://localhost:8081/api/appointments,6,0,1
+1762829014949,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829014954,5,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,263,190,1,1,http://localhost:8081/api/appointments,5,0,0
+1762829014959,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829014965,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829014971,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,0
+1762829014975,6,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,6,0,0
+1762829014981,2,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,943,187,1,1,http://localhost:8081/api/customers,2,0,0
+1762829014984,14,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1107,183,1,1,http://localhost:8081/api/staff,14,0,0
+1762829014999,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829015004,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829015006,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829015009,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829015012,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829015014,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829015017,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829015021,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829015026,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829015029,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829015032,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-30,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829016142,4,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,263,190,1,1,http://localhost:8081/api/appointments,4,0,1
+1762829016146,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829016150,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829016151,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829016156,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829016157,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829016161,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829016164,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829016167,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829016169,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829016173,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829016176,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829016179,2,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,263,190,1,1,http://localhost:8081/api/appointments,2,0,0
+1762829016181,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829016184,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829016185,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829016188,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829016190,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829016193,1,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,263,190,1,1,http://localhost:8081/api/appointments,1,0,0
+1762829016195,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-31,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829017339,5,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1107,183,1,1,http://localhost:8081/api/staff,5,0,0
+1762829017344,3,GET Services (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1490,186,1,1,http://localhost:8081/api/services,3,0,0
+1762829017348,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829017348,2,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1107,183,1,1,http://localhost:8081/api/staff,2,0,0
+1762829017351,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829017351,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829017352,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829017353,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
+1762829017357,3,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1107,183,1,1,http://localhost:8081/api/staff,3,0,0
+1762829017360,0,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,0,0,0
+1762829017360,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829017361,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829017362,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829017365,1,GET Customers (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,943,187,1,1,http://localhost:8081/api/customers,1,0,0
+1762829017366,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829017370,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829017374,4,GET Staff (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1107,183,1,1,http://localhost:8081/api/staff,4,0,0
+1762829017378,3,GET Appointments (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,263,190,1,1,http://localhost:8081/api/appointments,3,0,0
+1762829017381,5,GET Services (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1490,186,1,1,http://localhost:8081/api/services,5,0,0
+1762829017386,4,GET Services (Heavy),200,,Heavy Load - 50 Users 2-32,text,true,,1490,186,1,1,http://localhost:8081/api/services,4,0,0
