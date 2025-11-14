@@ -57,11 +57,11 @@ services:
     deploy:
       resources:
         limits:
-          memory: 768M
-          cpus: '1.0'
-        reservations:
-          memory: 384M
+          memory: 135M
           cpus: '0.5'
+        reservations:
+          memory: 70M
+          cpus: '0.25'
 
 volumes:
   cassandra_data_nodejs:

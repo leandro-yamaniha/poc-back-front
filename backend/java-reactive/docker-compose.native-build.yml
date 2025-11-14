@@ -44,6 +44,10 @@ services:
       - CASSANDRA_LOCAL_DATACENTER=datacenter1
       - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=0.0
       - MANAGEMENT_ZIPKIN_TRACING_ENABLED=false
+      # GraalVM Native Image GC options (Serial GC is default, G1 available)
+      - JAVA_OPTS=-XX:+UseSerialGC -XX:MaxRAMPercentage=75.0 -XX:+PrintGC
+      # Note: Virtual Threads require build-time configuration in pom.xml
+      # Note: ZGC is NOT available in Native Image (JVM only)
     depends_on:
       cassandra:
         condition: service_healthy
@@ -59,10 +63,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 135M
           cpus: '0.5'
         reservations:
-          memory: 128M
+          memory: 70M
           cpus: '0.25'
 
 volumes:
