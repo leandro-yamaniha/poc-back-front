@@ -1,0 +1,140 @@
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║          BEAUTY SALON - RESUMO EXECUTIVO STRESS TEST                ║
+║                  Comparação de 5 Backends                            ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+DATA: 2025-11-13
+CONFIGURAÇÃO: 100 conexões, 4 threads, 30 segundos por backend
+ENDPOINT: /api/customers (GET)
+
+═══════════════════════════════════════════════════════════════════════
+                         TABELA COMPARATIVA
+═══════════════════════════════════════════════════════════════════════
+
+┌────────────────┬──────────┬──────────┬─────────┬──────────┬────────┐
+│ BACKEND        │ REQ/S    │ LATÊNCIA │ P99     │ MEMÓRIA  │ CPU    │
+├────────────────┼──────────┼──────────┼─────────┼──────────┼────────┤
+│ 🥇 Python      │ 15,535   │  6.57ms  │ 10.25ms │  75 MiB  │ 0.21%  │
+│ 🥈 Go          │ 14,138   │ 10.66ms  │ 51.20ms │  16 MiB  │ 0.19%  │
+│ 🥉 Node.js     │  3,518   │ 28.89ms  │ 73.10ms │ 136 MiB  │ 0.05%  │
+│ 4️⃣  Java JVM    │  2,814   │ 45.07ms  │236.97ms │ 275 MiB  │ 0.19%  │
+│ 5️⃣  Java Native │  1,954   │ 52.27ms  │147.57ms │ 112 MiB  │ 0.06%  │
+└────────────────┴──────────┴──────────┴─────────┴──────────┴────────┘
+
+═══════════════════════════════════════════════════════════════════════
+                            VENCEDORES
+═══════════════════════════════════════════════════════════════════════
+
+🏆 THROUGHPUT (Req/s):          🐍 Python (15,535)
+🏆 LATÊNCIA MÉDIA:              🐍 Python (6.57ms)
+🏆 LATÊNCIA P99:                🐍 Python (10.25ms)
+🏆 USO DE MEMÓRIA:              🔵 Go (16 MiB) ⭐
+🏆 USO DE CPU:                  🟢 Node.js (0.05%)
+🏆 CUSTO-BENEFÍCIO:             🔵 Go
+
+═══════════════════════════════════════════════════════════════════════
+                      ANÁLISE DE PERFORMANCE
+═══════════════════════════════════════════════════════════════════════
+
+PYTHON vs GO:
+  • Throughput: Python 10% mais rápido
+  • Latência: Python 38% menor
+  • Memória: Go usa 79% MENOS (16 vs 76 MiB) 🏆
+  • Conclusão: Python = Performance | Go = Eficiência
+
+PYTHON vs NODE.JS:
+  • Throughput: Python 4.4x mais rápido
+  • Latência: Python 4.4x menor
+  • Memória: Python 44% menos
+  • Conclusão: Python MUITO superior
+
+GO vs NODE.JS:
+  • Throughput: Go 4.0x mais rápido
+  • Latência: Go 2.7x menor
+  • Memória: Go 88% menos
+  • Conclusão: Go MUITO superior
+
+═══════════════════════════════════════════════════════════════════════
+                         RECOMENDAÇÕES
+═══════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ CENÁRIO                              │ BACKEND RECOMENDADO          │
+├─────────────────────────────────────────────────────────────────────┤
+│ Alta performance (>10k req/s)        │ 🐍 Python ou 🔵 Go           │
+│ Latência crítica (<10ms)             │ 🐍 Python                    │
+│ Recursos limitados (memória)         │ 🔵 Go (16 MiB!)              │
+│ Microserviços/Kubernetes             │ 🔵 Go                        │
+│ APIs REST tradicionais               │ 🟢 Node.js                   │
+│ Sistemas enterprise/Java             │ ☕ Java JVM                  │
+│ Serverless/AWS Lambda                │ 🚀 Java Native ou 🔵 Go      │
+└─────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════
+                    ESTRATÉGIA RECOMENDADA
+═══════════════════════════════════════════════════════════════════════
+
+Para o Beauty Salon App, use uma ARQUITETURA HÍBRIDA:
+
+  🐍 PYTHON para:
+     • API de Agendamentos (alto tráfego)
+     • API de Clientes (muitas consultas)
+     • Serviços críticos de performance
+
+  🔵 GO para:
+     • Serviços de Notificação (muitas instâncias)
+     • Workers de Background (eficiência)
+     • Serviços auxiliares (baixo footprint)
+
+  🟢 NODE.JS para:
+     • Backend-for-Frontend (BFF)
+     • Dashboard Administrativo
+     • Serviços de Integração
+
+BENEFÍCIOS:
+  ✅ Máxima performance onde necessário (Python)
+  ✅ Máxima eficiência de recursos (Go)
+  ✅ Flexibilidade e produtividade (Node.js)
+  ✅ Otimização de custos de infraestrutura
+
+═══════════════════════════════════════════════════════════════════════
+                      CONCLUSÃO FINAL
+═══════════════════════════════════════════════════════════════════════
+
+🥇 CAMPEÃO GERAL: PYTHON (FastAPI + Uvicorn)
+   • Melhor throughput: 15,535 req/s
+   • Menor latência: 6.57ms
+   • Melhor consistência: P99 = 10ms
+
+🥈 VICE-CAMPEÃO: GO (Gin Framework)
+   • Performance excelente: 14,138 req/s (91% do Python)
+   • MENOR memória: 16 MiB (5x menos que Python!)
+   • Melhor custo-benefício
+
+🥉 TERCEIRO: NODE.JS (Express)
+   • Boa performance: 3,518 req/s
+   • Menor CPU: 0.05%
+   • Ecossistema maduro
+
+═══════════════════════════════════════════════════════════════════════
+
+ESTATÍSTICAS IMPRESSIONANTES:
+  • Python é 4.4x mais rápido que Node.js
+  • Go usa apenas 16 MiB (menor de todos!)
+  • Python + Go dominam com ~14-15k req/s
+  • Go tem 91% da performance do Python com 1/5 da memória
+  • Java JVM usa 17x mais memória que Go
+
+═══════════════════════════════════════════════════════════════════════
+
+ARQUIVOS GERADOS:
+  📊 Relatório Completo: ./RELATORIO_COMPLETO_FINAL.md
+  📋 Resumo Executivo: ./RESUMO_EXECUTIVO.txt
+  📁 Dados Detalhados: ./20251113_222307/ (4 backends)
+  📁 Dados Go: ./20251113_224507/
+
+═══════════════════════════════════════════════════════════════════════
+
