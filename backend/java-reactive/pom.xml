@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.7</version>
         <relativePath/>
     </parent>
 
@@ -18,11 +18,13 @@
     <description>Reactive Beauty Salon Management System with Spring Boot WebFlux and Undertow</description>
 
     <properties>
+        <!-- Java 25 - Testando nova versão (imagem Docker disponível) -->
+        <!-- Build local usa Java 21, runtime usa Java 25 -->
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot.version>3.5.4</spring-boot.version>
+        <spring-boot.version>3.5.7</spring-boot.version>
         <cassandra-driver.version>4.18.1</cassandra-driver.version>
         <reactor-test.version>3.6.10</reactor-test.version>
         <graalvm.version>23.1.1</graalvm.version>
