@@ -2,6 +2,148 @@
 
 Esta pasta contém todos os scripts automatizados para gerenciamento dos backends do Beauty Salon Management System.
 
+---
+
+## 🤖 **GUIA PARA IA GENERATIVA**
+
+> **IMPORTANTE:** Este documento segue regras estruturadas para facilitar interpretação por IA generativa.
+
+### **📐 REGRAS DE ORGANIZAÇÃO**
+
+#### **R1: Localização de Scripts**
+```
+REGRA: Todos os scripts DEVEM estar em backend/scripts/
+EXCEÇÃO: Nenhuma
+VALIDAÇÃO: ls backend/scripts/*.sh
+```
+
+#### **R2: Nomenclatura Padrão**
+```
+FORMATO: ação-escopo.sh
+PADRÃO: [verbo]-[substantivo]-[modificador?].sh
+EXEMPLOS VÁLIDOS:
+  ✅ build-all.sh
+  ✅ test-backends-quick.sh
+  ✅ stress-test-all-backends.sh
+  ✅ benchmark-native-comparison.sh
+EXEMPLOS INVÁLIDOS:
+  ❌ buildAll.sh (camelCase)
+  ❌ test_backends.sh (underscore)
+  ❌ stress-test.bash (extensão errada)
+```
+
+#### **R3: Permissões**
+```
+REGRA: Todos os scripts DEVEM ter permissão de execução
+COMANDO: chmod +x backend/scripts/*.sh
+VALIDAÇÃO: test -x backend/scripts/nome-script.sh
+```
+
+#### **R4: Documentação**
+```
+REGRA: Todo script DEVE estar documentado neste README
+SEÇÕES OBRIGATÓRIAS:
+  1. Nome do script (### `nome-script.sh`)
+  2. Propósito (uma linha)
+  3. Tempo estimado
+  4. Uso (comando exemplo)
+  5. Funcionalidades (lista)
+LOCALIZAÇÃO: Seção "📖 Descrição Detalhada dos Scripts"
+```
+
+#### **R5: Resultados**
+```
+REGRA: Resultados DEVEM ser salvos em diretórios específicos
+DIRETÓRIOS PERMITIDOS:
+  - ./stress-test-results/YYYYMMDD_HHMMSS/
+  - ./benchmarks/results/YYYYMMDD_HHMMSS/
+  - ./build-logs-YYYYMMDD-HHMMSS/
+REGRA: Todos DEVEM estar no .gitignore
+```
+
+#### **R6: Categorias de Scripts**
+```
+CATEGORIAS VÁLIDAS:
+  1. 🏗️  Build Scripts      - Compilação e construção
+  2. 🧪 Test Scripts        - Testes funcionais
+  3. 💪 Stress Test Scripts - Performance e carga
+  4. 🚀 Deploy Scripts      - Inicialização e deploy
+  5. 🔧 Utility Scripts     - Ferramentas auxiliares
+```
+
+### **🎯 FLUXO DE CRIAÇÃO DE NOVO SCRIPT**
+
+```yaml
+QUANDO: Criar novo script
+ENTÃO:
+  1. CRIAR: backend/scripts/ação-escopo.sh
+  2. PERMISSÃO: chmod +x backend/scripts/ação-escopo.sh
+  3. HEADER: Adicionar comentário no topo do script
+  4. DOCUMENTAR: Adicionar seção neste README
+  5. TESTAR: Executar script em ambiente limpo
+  6. COMMIT: git add + commit com mensagem descritiva
+```
+
+### **📊 TEMPLATE DE DOCUMENTAÇÃO**
+
+```markdown
+### `nome-do-script.sh`
+
+**Propósito**: Descrição clara em uma linha
+**Tempo**: ~X minutos
+**Uso**: `./scripts/nome-do-script.sh [argumentos]`
+
+#### Funcionalidades:
+- Item 1
+- Item 2
+- Item 3
+
+#### Exemplo de uso:
+\```bash
+# Comentário explicativo
+./scripts/nome-do-script.sh argumento1 argumento2
+
+# Resultado esperado
+Saída do comando
+\```
+```
+
+### **🔍 QUERIES COMUNS PARA IA**
+
+```yaml
+PERGUNTA: "Como fazer build de todos os backends?"
+RESPOSTA: ./scripts/build-all-parallel.sh (mais rápido) OU ./scripts/build-all.sh (sequencial)
+
+PERGUNTA: "Como testar performance?"
+RESPOSTA: ./scripts/stress-test-all-backends.sh all
+
+PERGUNTA: "Como comparar JVM vs Native?"
+RESPOSTA: ./scripts/benchmark-native-comparison.sh
+
+PERGUNTA: "Como limpar artefatos?"
+RESPOSTA: ./scripts/clean-all.sh
+
+PERGUNTA: "Como iniciar todos os backends?"
+RESPOSTA: ./scripts/start-all-compose.sh
+```
+
+### **⚠️ VALIDAÇÕES AUTOMÁTICAS**
+
+```bash
+# Verificar nomenclatura
+find backend/scripts -name "*.sh" | grep -v "^[a-z-]*\.sh$" && echo "❌ Nomenclatura inválida"
+
+# Verificar permissões
+find backend/scripts -name "*.sh" ! -perm -u+x && echo "❌ Sem permissão de execução"
+
+# Verificar documentação
+for script in backend/scripts/*.sh; do
+  grep -q "$(basename $script)" backend/scripts/README.md || echo "❌ $script não documentado"
+done
+```
+
+---
+
 ## 📋 **Índice de Scripts**
 
 ### 🏗️ **Scripts de Build**
@@ -21,6 +163,16 @@ Esta pasta contém todos os scripts automatizados para gerenciamento dos backend
 - [`test-all-compose.sh`](#test-all-composesh) - Teste com Docker Compose
 - [`test-compose-with-build.sh`](#test-compose-with-buildsh) - Teste com build Docker
 - [`test-memory-limits.sh`](#test-memory-limitssh) - Teste de limites de memória
+
+### 💪 **Scripts de Stress Test / Performance**
+- [`stress-test-all.sh`](#stress-test-allsh) - Stress test em todos os backends (loadtest.yml)
+- [`stress-test-all-backends.sh`](#stress-test-all-backendssh) - Stress test sequencial com wrk
+- [`stress-test-individual.sh`](#stress-test-individualsh) - Stress test em backend específico
+- [`stress-test-sequential.sh`](#stress-test-sequentialsh) - Stress test sequencial detalhado
+- [`benchmark-all-with-native.sh`](#benchmark-all-with-nativesh) - Benchmark completo incluindo native
+- [`benchmark-native-comparison.sh`](#benchmark-native-comparisonsh) - Comparação JVM vs Native
+- [`load-test.sh`](#load-testsh) - Load test com configurações customizadas
+- [`analyze-results.sh`](#analyze-resultssh) - Análise de resultados de stress test
 
 ### 🚀 **Scripts de Deploy**
 - [`start-all-compose.sh`](#start-all-composesh) - Iniciar todos os backends
@@ -267,6 +419,7 @@ docker system prune -f
 ```
 
 ### `test-memory-limits.sh`
+
 **Propósito**: Teste de limites mínimos de memória para todos os backends  
 **Tempo**: ~15-20 minutos (dependendo da máquina)  
 **Uso**: `./scripts/test-memory-limits.sh`
@@ -295,6 +448,161 @@ docker system prune -f
 - **✅ Build + Container + Health**: Configuração recomendada
 - **✅ Build + Container, ⚠️ Health**: Configuração limítrofe
 - **❌ Container crash**: Memória insuficiente
+
+---
+
+## 💪 **Scripts de Stress Test e Performance**
+
+### `stress-test-all-backends.sh`
+
+**Propósito**: Stress test sequencial em todos os backends usando wrk  
+**Tempo**: ~10-15 minutos (5 backends)  
+**Uso**: `./scripts/stress-test-all-backends.sh all`
+
+#### Funcionalidades:
+- **Teste isolado**: Cada backend é testado individualmente
+- **Configuração padrão**: 30s duração, 100 conexões, 4 threads
+- **Backends testados**:
+  - java-reactive-native (porta 8085)
+  - java-reactive-jvm (porta 8085)
+  - nodejs (porta 3000)
+  - python (porta 8000)
+  - go (porta 8080)
+- **Métricas coletadas**:
+  - Requests/sec
+  - Latency (avg, max, distribution)
+  - Transfer/sec
+  - Docker stats (CPU, memória)
+- **Relatório automático**: SUMMARY.md com comparação
+
+#### Exemplo de uso:
+```bash
+# Testar todos os backends
+./scripts/stress-test-all-backends.sh all
+
+# Resultados salvos em:
+./stress-test-results/YYYYMMDD_HHMMSS/
+```
+
+### `stress-test-all.sh`
+
+**Propósito**: Stress test usando docker-compose.loadtest.yml  
+**Tempo**: Variável  
+**Uso**: `./scripts/stress-test-all.sh`
+
+#### Funcionalidades:
+- Usa configuração loadtest específica
+- Build paralelo de todos os backends
+- Teste sequencial com isolamento
+- Análise automática de resultados
+
+### `stress-test-individual.sh`
+
+**Propósito**: Stress test em backend específico  
+**Uso**: `./scripts/stress-test-individual.sh <backend> <duration> <connections>`
+
+```bash
+# Exemplos:
+./scripts/stress-test-individual.sh java-reactive-native 60s 200
+./scripts/stress-test-individual.sh nodejs 30s 100
+```
+
+### `stress-test-sequential.sh`
+
+**Propósito**: Stress test sequencial detalhado  
+**Tempo**: ~20-30 minutos  
+**Uso**: `./scripts/stress-test-sequential.sh`
+
+#### Funcionalidades:
+- Teste completo de todos os backends
+- Múltiplas configurações de carga
+- Análise de latência P50/P95/P99
+- Gráficos de performance
+
+### `benchmark-all-with-native.sh`
+
+**Propósito**: Benchmark completo incluindo executáveis nativos  
+**Tempo**: ~30-40 minutos  
+**Uso**: `./scripts/benchmark-all-with-native.sh`
+
+#### Funcionalidades:
+- Compara JVM vs Native
+- Métricas de startup time
+- Uso de memória
+- Throughput
+- Latência
+
+### `benchmark-native-comparison.sh`
+
+**Propósito**: Comparação focada JVM vs Native  
+**Tempo**: ~15-20 minutos  
+**Uso**: `./scripts/benchmark-native-comparison.sh`
+
+#### Funcionalidades:
+- Foco em Java e Java Reactive
+- Comparação lado a lado
+- Relatório detalhado de diferenças
+- Recomendações de uso
+
+### `load-test.sh`
+
+**Propósito**: Load test com configurações customizadas  
+**Uso**: `./scripts/load-test.sh [options]`
+
+```bash
+# Exemplos:
+./scripts/load-test.sh --duration 60s --connections 500
+./scripts/load-test.sh --backend nodejs --threads 8
+```
+
+### `analyze-results.sh`
+
+**Propósito**: Análise de resultados de stress test  
+**Uso**: `./scripts/analyze-results.sh <results-dir>`
+
+```bash
+# Analisar resultados
+./scripts/analyze-results.sh ./stress-test-results/20251112_223846/
+
+# Gera:
+# - ANALYSIS.md (relatório comparativo)
+# - Gráficos de performance
+# - Recomendações
+```
+
+---
+
+## 📊 **Fluxo de Trabalho: Stress Test**
+
+### **Teste Rápido de Performance**
+```bash
+# 1. Testar todos os backends (10-15 min)
+./scripts/stress-test-all-backends.sh all
+
+# 2. Ver resultados
+cat ./stress-test-results/*/SUMMARY.md
+```
+
+### **Teste Completo de Performance**
+```bash
+# 1. Benchmark completo com native
+./scripts/benchmark-all-with-native.sh
+
+# 2. Análise detalhada
+./scripts/analyze-results.sh ./benchmarks/results/latest/
+```
+
+### **Comparação JVM vs Native**
+```bash
+# Comparação focada
+./scripts/benchmark-native-comparison.sh
+```
+
+### **Teste Individual Customizado**
+```bash
+# Teste específico com configurações personalizadas
+./scripts/stress-test-individual.sh java-reactive-native 120s 500
+```
 
 ## 📝 **Contribuindo**
 

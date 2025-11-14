@@ -1,0 +1,71 @@
+version: '3.8'
+
+name: beauty-salon-go
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: beauty-salon-cassandra-go
+    ports:
+      - "9047:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=BeautySalonCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    volumes:
+      - cassandra_data_go:/var/lib/cassandra
+    networks:
+      - beauty-salon-go
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  backend-go:
+    build:
+      context: .
+      dockerfile: Dockerfile.build
+    container_name: beauty-salon-backend-go
+    ports:
+      - "8080:10005"
+    environment:
+      - SERVER_PORT=10005
+      - SERVER_HOST=0.0.0.0
+      - CASSANDRA_HOSTS=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=beauty_salon
+      - CASSANDRA_LOCAL_DATACENTER=datacenter1
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    networks:
+      - beauty-salon-go
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:10005/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+          cpus: '1.0'
+        reservations:
+          memory: 384M
+          cpus: '0.5'
+
+volumes:
+  cassandra_data_go:
+    driver: local
+
+networks:
+  beauty-salon-go:
+    driver: bridge
